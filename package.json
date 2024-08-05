@@ -1,0 +1,19 @@
+{
+	"name": "getty-provenance-landing",
+	"version": "0.0.0",
+	"title": "Getty Provenance Index landing page",
+	"description": "This is a self-contained landing page for the Getty Provenance Index.",
+	"author": {
+		"name": "Michael Fehrenbach",
+		"url": "https://github.com/mfehrenbach",
+		"email": "mf@michaelfehrenbach.com"
+	},
+	"scripts": {
+		"build": "npx @11ty/eleventy",
+		"serve": "npx @11ty/eleventy --serve"
+	},
+	"type": "module",
+	"dependencies": {
+		"@11ty/eleventy": "^3.0.0-beta.1"
+	}
+}
