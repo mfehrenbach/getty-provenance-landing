@@ -1,7 +1,8 @@
 export default function () {
 	return {
 		dir: {
-			input: "index.html",
+			input: "page",
+			output: "_site",
 		},
 	};
 }
