@@ -1,6 +1,6 @@
 # Getty Provenance Index landing page
 
-This is a self-contained landing page for the [Getty Provenance Index](https://www.getty.edu/research/tools/provenance/), as part of [its remodel](https://www.getty.edu/research/tools/provenance/provenance_remodel/index.html).
+This is [a self-contained landing page](index.webc) for the [Getty Provenance Index](https://www.getty.edu/research/tools/provenance/), as part of [its remodel](https://www.getty.edu/research/tools/provenance/provenance_remodel/index.html).
 
 ## Build
 
