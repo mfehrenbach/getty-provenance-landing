@@ -10,7 +10,7 @@
 	},
 	"scripts": {
 		"build": "npx @11ty/eleventy",
-		"serve": "npx @11ty/eleventy --serve"
+		"serve": "npx @11ty/eleventy --serve --port=80"
 	},
 	"type": "module",
 	"dependencies": {
