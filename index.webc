@@ -12,6 +12,10 @@ const searchButton = 'Search'
 		<meta charset="utf-8">
 		<meta content="initial-scale=1, width=device-width, viewport-fit=cover" name="viewport" />
 		<title @text=pageTitle></title>
+		<link rel="stylesheet" href="_assets/styles.css">
+		<!--- Assets are bundled inline here from the files. --->
+		<style webc:keep @raw="getBundle('css')"></style>
+		<script webc:keep @raw="getBundle('js')" type="module"></script>
 	</head>
 	<body>
 		<h1 @text=pageTitle></h1>
