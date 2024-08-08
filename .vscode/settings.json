@@ -12,7 +12,6 @@
 		"preserve_newlines": false,
 		"selector_separator_newline": true,
 		"space_around_combinator": true,
-		"wrap-attributes": "force-expand-multiline",
 	},
 	"editor.formatOnSave": true,
 	"editor.insertSpaces": false,
