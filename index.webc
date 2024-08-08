@@ -7,9 +7,9 @@ const title = "Getty Provenance Index"
 	<head>
 		<meta charset="utf-8">
 		<meta content="initial-scale=1, width=device-width, viewport-fit=cover" name="viewport" />
-		<title>{{ title }}</title>
+		<title @text="title"></title>
 	</head>
 	<body>
-		<h1>{{ title }}</h1>
+		<h1 @text="title"></h1>
 	</body>
 </html>
