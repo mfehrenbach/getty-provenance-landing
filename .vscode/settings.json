@@ -1,0 +1,21 @@
+{
+	"[css][scss][html][javascript][json][jsonc]": {
+		"editor.defaultFormatter": "vsce-toolroom.vscode-beautify",
+	},
+	"beautify.config": {
+		"break_chained_methods": true,
+		"extra_liners": [],
+		"good_stuff": false,
+		"indent_empty_lines": false,
+		"indent_inner_html": true,
+		"indent_with_tabs": true,
+		"preserve_newlines": false,
+		"selector_separator_newline": true,
+		"space_around_combinator": true,
+		"wrap-attributes": "force-expand-multiline",
+	},
+	"editor.formatOnSave": true,
+	"editor.insertSpaces": false,
+	"editor.tabSize": 4,
+	"files.insertFinalNewline": true,
+}
