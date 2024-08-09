@@ -1,11 +1,16 @@
 ---
 const pageTitle = 'Getty Provenance Index'
 
-const searchUrl = 'https://provenance.dev.getty.fargeo.com/search'
+const baseUrl = 'https://provenance.dev.getty.fargeo.com'
+const searchUrl = baseUrl + '/search'
 
 const searchLabel = 'Search the GPI:'
 const searchPlaceholder = 'Van Gogh, Vincent'
 const searchButton = 'Search'
+
+const exampleHeading = 'Example record'
+const exampleLabel = 'Van Gogh, Vincent'
+const exampleUrl = baseUrl + '/report/8042aa22-d6ad-310f-9ec6-f1467b24d593'
 ---
 
 <!doctype html>
@@ -44,5 +49,7 @@ const searchButton = 'Search'
 				type="submit"
 				>
 		</form>
+		<h2 @text=exampleHeading></h2>
+		<a :href=exampleUrl @text=exampleLabel></a>
 	</body>
 </html>
