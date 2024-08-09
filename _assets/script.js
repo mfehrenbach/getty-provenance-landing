@@ -14,15 +14,15 @@ const apiUrl = apiHeading.dataset.apiUrl
 delete apiHeading.dataset.apiUrl
 
 const sparqlQuery = `
-	SELECT (COUNT(DISTINCT ?s) AS ?totalRecords) WHERE {
-		?s ?p ?o.
+	SELECT (COUNT(DISTINCT ?obj) AS ?count) WHERE {
+		?sub ?pred ?obj .
 	}
 `
 
 fetch(`${apiUrl}?query=${encodeURIComponent(sparqlQuery)}&format=application/sparql-results+json`)
 	.then(response => response.json())
 	.then(data => {
-		const totalRecords = Number(data.results.bindings[0].totalRecords.value).toLocaleString()
+		const totalRecords = Number(data.results.bindings[0].count.value).toLocaleString()
 		const countElement = `
 			<p>${totalRecords} records</p>
 		`
