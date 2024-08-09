@@ -1,6 +1,8 @@
 ---
 const pageTitle = 'Getty Provenance Index'
 
+const searchUrl = 'https://provenance.dev.getty.fargeo.com/search'
+
 const searchLabel = 'Search the GPI:'
 const searchPlaceholder = 'Van Gogh, Vincent'
 const searchButton = 'Search'
@@ -20,7 +22,7 @@ const searchButton = 'Search'
 	</head>
 	<body>
 		<h1 @text=pageTitle></h1>
-		<form>
+		<form :data-search-url=searchUrl >
 			<label
 				@text=searchLabel
 				for="search"
