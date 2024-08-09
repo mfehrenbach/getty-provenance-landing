@@ -54,5 +54,6 @@ const apiUrl = 'https://data.getty.edu/provenance/sparql'
 		<h2 @text=exampleHeading></h2>
 		<a :href=exampleUrl @text=exampleLabel></a>
 		<h2 :data-api-url=apiUrl @text=apiHeading></h2>
+		<aside><span>.</span><span>.</span><span>.</span></aside>
 	</body>
 </html>

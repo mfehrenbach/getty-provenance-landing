@@ -1,1 +1,17 @@
 * { font-family: sans-serif }
+
+p + aside { display: none }
+
+aside span {
+	visibility: hidden;
+	animation: showSpan 3s infinite;
+}
+
+aside span:nth-child(2) { animation-delay: 1s }
+aside span:nth-child(3) { animation-delay: 2s }
+
+@keyframes showSpan {
+	0%, 33.33% { visibility: hidden; }
+	33.34%, 66.66% { visibility: visible; }
+	66.67%, 100% { visibility: hidden; }
+}
