@@ -1,6 +1,6 @@
 const searchForm = document.getElementById('search').form
-const searchUrl = searchForm.dataset.searchUrl
-delete searchForm.dataset.searchUrl
+const searchUrl = searchForm.dataset.baseUrl + '/search'
+delete searchForm.dataset.baseUrl
 
 searchForm.onsubmit = (event) => {
 	event.preventDefault()
