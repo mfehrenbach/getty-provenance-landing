@@ -21,6 +21,7 @@ const apiUrl = 'https://data.getty.edu/provenance'
 		<meta charset="utf-8">
 		<meta content="initial-scale=1, width=device-width, viewport-fit=cover" name="viewport" />
 		<title @text=pageTitle></title>
+		<link webc:import="_assets/fonts.webc">
 		<link href="_assets/style.css" rel="stylesheet">
 		<script src="_assets/script.js"></script>
 		<!--- Assets are bundled inline here from the files. --->
