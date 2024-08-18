@@ -1,4 +1,5 @@
 import webC from '@11ty/eleventy-plugin-webc'
+import fs from 'fs'
 import jsBeautify from 'js-beautify'
 
 export default function(eleventyConfig) {
@@ -8,6 +9,9 @@ export default function(eleventyConfig) {
 	eleventyConfig.setFrontMatterParsingOptions({ language: 'js' })
 	eleventyConfig.setInputDirectory('index.webc')
 	eleventyConfig.setOutputDirectory('_site')
+
+	// For inlining assets.
+	eleventyConfig.addLiquidShortcode('base64FromFile', async (file) => Buffer.from(await fs.promises.readFile(file)).toString('base64'))
 
 	// Do some post-build formatting.
 	const beautifyOptions = {
