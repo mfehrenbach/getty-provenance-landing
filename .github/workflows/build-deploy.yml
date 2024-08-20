@@ -11,6 +11,8 @@ permissions:
 jobs:
   github-pages:
     name:    GitHub Pages
+    environment:
+      name:  github-pages
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo
