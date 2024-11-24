@@ -19,25 +19,38 @@ const apiUrl = 'https://data.getty.edu/provenance'
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<meta content="initial-scale=1, width=device-width, viewport-fit=cover" name="viewport" />
-		<title @text=pageTitle></title>
+		<meta
+			content="initial-scale=1, width=device-width, viewport-fit=cover"
+			name="viewport"
+		/>
+		<title @text="pageTitle"></title>
 		<link webc:import="_assets/fonts.webc">
-		<link href="_assets/style.css" rel="stylesheet">
+		<link
+			href="_assets/style.css"
+			rel="stylesheet"
+		>
 		<script src="_assets/script.js"></script>
 		<!--- Assets are bundled inline here from the files. --->
-		<style webc:keep @raw="getBundle('css')"></style>
-		<script webc:keep @raw="getBundle('js')" type="module"></script>
+		<style
+			webc:keep
+			@raw="getBundle('css')"
+		></style>
+		<script
+			webc:keep
+			@raw="getBundle('js')"
+			type="module"
+		></script>
 	</head>
 	<body>
-		<h1 @text=pageTitle></h1>
-		<form :data-base-url=baseUrl >
+		<h1 @text="pageTitle"></h1>
+		<form :data-base-url="baseUrl">
 			<label
-				@text=searchLabel
+				@text="searchLabel"
 				for="search"
-				>
+			>
 			</label>
 			<input
-				:placeholder=searchPlaceholder
+				:placeholder="searchPlaceholder"
 				autocapitalize="off"
 				autocomplete="off"
 				autocorrect="off"
@@ -46,15 +59,25 @@ const apiUrl = 'https://data.getty.edu/provenance'
 				required
 				spellcheck="false"
 				type="text"
-				>
+			>
 			<input
-				:value=searchButton
+				:value="searchButton"
 				type="submit"
-				>
+			>
 		</form>
-		<h2 @text=exampleHeading></h2>
-		<a :href=exampleUrl @text=exampleLabel></a>
-		<h2 :data-api-url=apiUrl @text=apiHeading></h2>
-		<aside><span>.</span><span>.</span><span>.</span></aside>
+		<h2 @text="exampleHeading"></h2>
+		<a
+			:href="exampleUrl"
+			@text="exampleLabel"
+		></a>
+		<h2
+			:data-api-url="apiUrl"
+			@text="apiHeading"
+		></h2>
+		<aside>
+			<span>.</span>
+			<span>.</span>
+			<span>.</span>
+		</aside>
 	</body>
 </html>

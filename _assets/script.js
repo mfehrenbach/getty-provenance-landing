@@ -29,4 +29,4 @@ fetch(`${apiUrl}/sparql?query=${encodeURIComponent(sparqlQuery)}&format=applicat
 
 		apiHeading.insertAdjacentHTML('afterend', countElement)
 	})
-	.catch(error => console.error('Error:', error))
+	.catch(error => { throw new Error(error) })

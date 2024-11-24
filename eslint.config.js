@@ -47,6 +47,7 @@ export default [
 					'webc:nokeep',
 					'webc:root',
 					'webc:scoped',
+					'webc:type',
 					'@*',
 					':*',
 				],

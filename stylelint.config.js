@@ -32,6 +32,7 @@ export default {
 		],
 		'declaration-block-no-redundant-longhand-properties': null,
 		'declaration-block-single-line-max-declarations': 1,
+		'font-family-name-quotes': 'always-unless-keyword',
 		'media-feature-range-notation': null,
 		'no-descending-specificity': null,
 		'property-no-unknown': [
