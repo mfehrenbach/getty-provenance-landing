@@ -2,36 +2,48 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<meta content="initial-scale=1, width=device-width, viewport-fit=cover" name="viewport" />
+		<meta
+			content="initial-scale=1, width=device-width, viewport-fit=cover"
+			name="viewport"
+		/>
 		<title @text="title"></title>
 		<link webc:import="assets/fonts.webc">
 		<link webc:import="assets/styles.webc">
 		<script src="assets/script.js"></script>
 		<script
-			webc:keep @raw="getBundle('js')"
+			webc:keep
+			@raw="getBundle('js')"
 			type="module"
 		></script>
 	</head>
 	<body>
 		<h1 @text="title"></h1>
 		<form :data-base-url="baseUrl">
-			<label @text="searchLabel" for="search"> </label>
+			<label
+				@text="searchLabel"
+				for="search"
+			>
+			</label>
 			<input
-				:placeholder="searchPlaceholder" autocapitalize="off"
-				autocomplete="off" autocorrect="off"
-				id="search" name="search"
-				required spellcheck="false"
+				:placeholder="searchPlaceholder"
+				autocapitalize="off"
+				autocomplete="off"
+				autocorrect="off"
+				id="search"
+				name="search"
+				required
+				spellcheck="false"
 				type="text"
 			>
-			<input :value="searchButton" type="submit">
+			<input
+				:value="searchButton"
+				type="submit"
+			>
 		</form>
 		<h2 @text="exampleHeading"></h2>
-		<a :href="baseUrl + exampleUrl" @text="exampleLabel"></a>
-		<h2 :data-api-url="apiUrl" @text="apiHeading"></h2>
-		<aside>
-			<span>.</span>
-			<span>.</span>
-			<span>.</span>
-		</aside>
+		<a
+			:href="baseUrl + exampleUrl"
+			@text="exampleLabel"
+		></a>
 	</body>
 </html>

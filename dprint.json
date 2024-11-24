@@ -10,8 +10,7 @@
 		],
 		"closingTagLineBreakForEmpty": "never",
 		"doctypeKeywordCase": "lower",
-		"maxAttrsPerLine": 2,
-		"printWidth": 256,
+		"maxAttrsPerLine": 1,
 		"scriptIndent": true,
 		"styleIndent": true
 	},
