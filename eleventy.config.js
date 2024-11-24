@@ -10,6 +10,7 @@ export default function(eleventyConfig) {
 		delimiters: ['<!---', '--->'],
 		language: 'js',
 	})
+	eleventyConfig.setDataDirectory('data')
 	eleventyConfig.setInputDirectory('src/index.webc')
 	eleventyConfig.setOutputDirectory('_site')
 
