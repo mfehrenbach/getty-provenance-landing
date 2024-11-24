@@ -11,7 +11,8 @@
 	"scripts": {
 		"build": "npx @11ty/eleventy",
 		"serve": "npx @11ty/eleventy --serve --port=80",
-		"lint": "eslint . --fix && dprint fmt && stylelint '**/*.{css, html, webc}' --fix"},
+		"lint": "eslint . --fix && dprint fmt && stylelint '**/*.{css, html, webc}' --fix"
+	},
 	"type": "module",
 	"dependencies": {
 		"@11ty/eleventy": "^3.0.0",
