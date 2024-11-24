@@ -5,10 +5,8 @@
 		<meta content="initial-scale=1, width=device-width, viewport-fit=cover" name="viewport" />
 		<title @text="title"></title>
 		<link webc:import="assets/fonts.webc">
-		<link href="assets/style.css" rel="stylesheet">
+		<link webc:import="assets/styles.webc">
 		<script src="assets/script.js"></script>
-		<!--- Assets are bundled inline here from the files. --->
-		<style webc:keep @raw="getBundle('css')"></style>
 		<script
 			webc:keep @raw="getBundle('js')"
 			type="module"
