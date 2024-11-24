@@ -10,7 +10,8 @@
 	},
 	"scripts": {
 		"build": "npx @11ty/eleventy",
-		"serve": "npx @11ty/eleventy --serve --port=80"
+		"serve": "npx @11ty/eleventy --serve --port=80",
+		"lint": "eslint . --fix && dprint fmt && stylelint '**/*.{css,html,webc}' --fix"
 	},
 	"type": "module",
 	"dependencies": {
@@ -18,5 +19,19 @@
 		"@11ty/eleventy-plugin-webc": "^0.11.2",
 		"fs": "^0.0.1-security",
 		"js-beautify": "^1.15.1"
+	},
+	"devDependencies": {
+		"@html-eslint/eslint-plugin": "^0.27.0",
+		"@html-eslint/parser": "^0.27.0",
+		"@stylistic/stylelint-config": "^2.0.0",
+		"@stylistic/stylelint-plugin": "^3.1.1",
+		"dprint": "^0.47.5",
+		"eslint": "^9.15.0",
+		"eslint-plugin-vue": "^9.31.0",
+		"postcss-html": "^1.7.0",
+		"stylelint": "^16.10.0",
+		"stylelint-config-standard": "^36.0.1",
+		"stylelint-order": "^6.0.4",
+		"stylelint-plugin-logical-css": "^1.2.1"
 	}
 }
