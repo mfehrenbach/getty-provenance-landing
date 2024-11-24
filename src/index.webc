@@ -24,12 +24,12 @@ const apiUrl = 'https://data.getty.edu/provenance'
 			name="viewport"
 		/>
 		<title @text="pageTitle"></title>
-		<link webc:import="_assets/fonts.webc">
+		<link webc:import="assets/fonts.webc">
 		<link
-			href="_assets/style.css"
+			href="assets/style.css"
 			rel="stylesheet"
 		>
-		<script src="_assets/script.js"></script>
+		<script src="assets/script.js"></script>
 		<!--- Assets are bundled inline here from the files. --->
 		<style
 			webc:keep

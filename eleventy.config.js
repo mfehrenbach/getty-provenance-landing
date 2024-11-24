@@ -10,7 +10,7 @@ export default function(eleventyConfig) {
 		delimiters: ['<!---', '--->'],
 		language: 'js',
 	})
-	eleventyConfig.setInputDirectory('index.webc')
+	eleventyConfig.setInputDirectory('src/index.webc')
 	eleventyConfig.setOutputDirectory('_site')
 
 	// For inlining assets.
