@@ -6,7 +6,10 @@ export default function(eleventyConfig) {
 	// Setup.
 	eleventyConfig.addPlugin(webC)
 	eleventyConfig.ignores.add('readme.md')
-	eleventyConfig.setFrontMatterParsingOptions({ language: 'js' })
+	eleventyConfig.setFrontMatterParsingOptions({
+		delimiters: ['<!---', '--->'],
+		language: 'js',
+	})
 	eleventyConfig.setInputDirectory('index.webc')
 	eleventyConfig.setOutputDirectory('_site')
 
