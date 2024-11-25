@@ -26,5 +26,7 @@ jobs:
         npm run build
     - name: Upload output
       uses: actions/upload-pages-artifact@v3
+	  with:
+          path: public/
     - name: Deploy Pages
       uses: actions/deploy-pages@v4
