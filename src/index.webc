@@ -10,7 +10,23 @@
 		<script webc:keep @raw="getBundle('js')" type="module"></script>
 	</head>
 	<body>
-		<h1 @text="title"></h1>
+		<nav aria-label="Breadcrumb">
+			<ol>
+				<li>
+					<a :aria-label="breadcrumb.title" :href="breadcrumb.url">
+						<p @text="breadcrumb.title"><!--- Replace with SVG! ---></p>
+					</a>
+				</li>
+				<li webc:for="crumb of breadcrumb.crumbs">
+					<a :href="breadcrumb.url + crumb.url">
+						<p @text="crumb.title"></p>
+					</a>
+				</li>
+			</ol>
+		</nav>
+		<header>
+			<h1 @text="title"></h1>
+		</header>
 		<form :data-base-url="baseUrl">
 			<label @text="search.label" for="search"> </label>
 			<input
