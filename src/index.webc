@@ -10,20 +10,12 @@
 		<link webc:import="assets/fonts.webc">
 		<link webc:import="assets/styles.webc">
 		<script src="assets/script.js"></script>
-		<script
-			webc:keep
-			@raw="getBundle('js')"
-			type="module"
-		></script>
+		<script webc:keep @raw="getBundle('js')" type="module"></script>
 	</head>
 	<body>
 		<h1 @text="title"></h1>
 		<form :data-base-url="baseUrl">
-			<label
-				@text="searchLabel"
-				for="search"
-			>
-			</label>
+			<label @text="searchLabel" for="search"> </label>
 			<input
 				:placeholder="searchPlaceholder"
 				autocapitalize="off"
@@ -35,15 +27,9 @@
 				spellcheck="false"
 				type="text"
 			>
-			<input
-				:value="searchButton"
-				type="submit"
-			>
+			<input :value="searchButton" type="submit">
 		</form>
 		<h2 @text="exampleHeading"></h2>
-		<a
-			:href="baseUrl + exampleUrl"
-			@text="exampleLabel"
-		></a>
+		<a :href="baseUrl + exampleUrl" @text="exampleLabel"></a>
 	</body>
 </html>
