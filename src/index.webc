@@ -36,26 +36,41 @@
 				</ul>
 			</nav>
 		</header>
-		<form :data-base-url="baseUrl">
-			<label @text="search.label" for="search"> </label>
-			<input
-				autocapitalize="off"
-				autocomplete="off"
-				autocorrect="off"
-				id="search"
-				name="search"
-				required
-				spellcheck="false"
-				type="text"
-			>
-			<button @text="search.button" type="submit"></button>
-		</form>
-		<ul>
-			<li webc:for="example of record.examples">
-				<a :href="baseUrl + example.url">
-					<p><span @text="record.intro"></span> <em @text="example.title"></em></p>
-				</a>
-			</li>
-		</ul>
+		<main>
+			<form :data-base-url="baseUrl">
+				<label @text="search.label" for="search"> </label>
+				<input
+					autocapitalize="off"
+					autocomplete="off"
+					autocorrect="off"
+					id="search"
+					name="search"
+					required
+					spellcheck="false"
+					type="text"
+				>
+				<button @text="search.button" type="submit"></button>
+			</form>
+			<ul>
+				<li webc:for="example of record.examples">
+					<a :href="baseUrl + example.url">
+						<p><span @text="record.intro"></span> <em @text="example.title"></em></p>
+					</a>
+				</li>
+			</ul>
+		</main>
+		<footer>
+			<h2 @text="footer.title"></h2>
+			<ul>
+				<li>
+					<p @text="footer.copyright"></p>
+				</li>
+				<li webc:for="link of footer.legal">
+					<a :href="breadcrumb.url + link.url">
+						<p @text="link.title"></p>
+					</a>
+				</li>
+			</ul>
+		</footer>
 	</body>
 </html>

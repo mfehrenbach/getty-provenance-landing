@@ -47,4 +47,22 @@ export default {
 			},
 		],
 	},
+	footer: {
+		title:     'Getty Provenance Index®',
+		copyright: '© J. Paul Getty Trust',
+		legal: [
+			{
+				title: 'Privacy Policy',
+				url:   '/legal/privacy',
+			},
+			{
+				title: 'Cookies Notice',
+				url:   '/legal/cookies-notice',
+			},
+			{
+				title: 'Terms of Use',
+				url:   '/legal/terms-of-use',
+			},
+		],
+	},
 }
