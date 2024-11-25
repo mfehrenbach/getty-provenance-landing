@@ -9,24 +9,24 @@ searchForm.onsubmit = (event) => {
 	window.location.href = searchUrl + searchParams
 }
 
-const apiHeading = document.querySelector('h2[data-api-url')
-const apiUrl = apiHeading.dataset.apiUrl
-delete apiHeading.dataset.apiUrl
+// const apiHeading = document.querySelector('h2[data-api-url')
+// const apiUrl = apiHeading.dataset.apiUrl
+// delete apiHeading.dataset.apiUrl
 
-const sparqlQuery = `
-	SELECT (COUNT(DISTINCT ?obj) AS ?count) WHERE {
-		?sub ?pred ?obj .
-	}
-`
+// const sparqlQuery = `
+// 	SELECT (COUNT(DISTINCT ?obj) AS ?count) WHERE {
+// 		?sub ?pred ?obj .
+// 	}
+// `
 
-fetch(`${apiUrl}/sparql?query=${encodeURIComponent(sparqlQuery)}&format=application/sparql-results+json`)
-	.then(response => response.json())
-	.then(data => {
-		const totalRecords = Number(data.results.bindings[0].count.value).toLocaleString()
-		const countElement = `
-			<p>${totalRecords} records</p>
-		`
+// fetch(`${apiUrl}/sparql?query=${encodeURIComponent(sparqlQuery)}&format=application/sparql-results+json`)
+// 	.then(response => response.json())
+// 	.then(data => {
+// 		const totalRecords = Number(data.results.bindings[0].count.value).toLocaleString()
+// 		const countElement = `
+// 			<p>${totalRecords} records</p>
+// 		`
 
-		apiHeading.insertAdjacentHTML('afterend', countElement)
-	})
-	.catch(error => { throw new Error(error) })
+// 		apiHeading.insertAdjacentHTML('afterend', countElement)
+// 	})
+// 	.catch(error => { throw new Error(error) })
