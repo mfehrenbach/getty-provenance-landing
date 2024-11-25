@@ -5,7 +5,10 @@ delete searchForm.dataset.baseUrl
 searchForm.onsubmit = (event) => {
 	event.preventDefault()
 	const searchValue = event.target.search.value
-	const searchParams = `?term-filter=[{"inverted":false,"type":"string","context":"","context_label":"","id":"${searchValue}","text":"${searchValue}","value":"${searchValue}","selected":true}]&language=*`
+	const searchType = event.target.type.value
+		? `&resource-type-filter=[{"graphid":"${event.target.type.value}","name":"${event.target.type.selectedOptions[0].text}","inverted":false}]`
+		: ''
+	const searchParams = `?term-filter=[{"inverted":false,"type":"string","context":"","context_label":"","id":"${searchValue}","text":"${searchValue}","value":"${searchValue}","selected":true}]&language=*${searchType}`
 	window.location.href = searchUrl + searchParams
 }
 
