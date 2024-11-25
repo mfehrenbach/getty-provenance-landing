@@ -38,17 +38,24 @@
 		</header>
 		<main>
 			<form :data-base-url="baseUrl">
-				<label @text="search.label" for="search"> </label>
-				<input
-					autocapitalize="off"
-					autocomplete="off"
-					autocorrect="off"
-					id="search"
-					name="search"
-					required
-					spellcheck="false"
-					type="text"
-				>
+				<fieldset>
+					<label @text="search.label" for="search"></label>
+					<input
+						autocapitalize="off"
+						autocomplete="off"
+						autocorrect="off"
+						id="search"
+						name="search"
+						required
+						spellcheck="false"
+						type="text"
+					>
+				</fieldset>
+				<fieldset>
+					<select name="type" id="type">
+						<option webc:for="type of search.types" @text="type.title" :value="type.value"></option>
+					</select>
+				</fieldset>
 				<button @text="search.button" type="submit"></button>
 			</form>
 			<ul>

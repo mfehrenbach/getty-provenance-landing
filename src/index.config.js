@@ -36,6 +36,24 @@ export default {
 	],
 	search:  {
 		label:  'Search 2.3 million records…:',
+		types: [
+			{
+				title: 'Any type',
+				value: '',
+			},
+			{
+				title: 'First',
+				value: 'first',
+			},
+			{
+				title: 'Second',
+				value: 'second',
+			},
+			{
+				title: 'Third',
+				value: 'third',
+			},
+		],
 		button: 'Search',
 	},
 	record: {
