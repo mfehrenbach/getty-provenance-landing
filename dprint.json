@@ -11,6 +11,7 @@
 		"closingTagLineBreakForEmpty": "never",
 		"doctypeKeywordCase": "lower",
 		"preferAttrsSingleLine": true,
+		"printWidth": 120,
 		"scriptIndent": true,
 		"styleIndent": true
 	},
