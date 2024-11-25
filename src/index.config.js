@@ -35,7 +35,7 @@ export default {
 		},
 	],
 	search:  {
-		label:  'Search 2.3 million records…:',
+		label:  'Search <data></data> records…:',
 		types: [
 			{
 				title: 'Any type',

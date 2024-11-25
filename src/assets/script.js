@@ -16,6 +16,8 @@ const apiUrl = searchForm.dataset.apiUrl
 const apiData = searchForm.querySelector('data')
 delete searchForm.dataset.apiUrl
 
+if (localStorage.getItem('totalRecords')) apiData.textContent = Number(localStorage.getItem('totalRecords')).toLocaleString()
+
 const sparqlQuery = `
 	SELECT (COUNT(DISTINCT ?obj) AS ?count) WHERE {
 		?sub ?pred ?obj .
@@ -25,7 +27,8 @@ const sparqlQuery = `
 fetch(`${apiUrl}/sparql?query=${encodeURIComponent(sparqlQuery)}&format=application/sparql-results+json`)
 	.then(response => response.json())
 	.then(data => {
-		const totalRecords = Number(data.results.bindings[0].count.value).toLocaleString()
-		apiData.textContent = totalRecords
+		const totalRecords = data.results.bindings[0].count.value
+		localStorage.setItem('totalRecords', totalRecords)
+		apiData.textContent = Number(totalRecords).toLocaleString()
 	})
 	.catch(error => { throw new Error(error) })
