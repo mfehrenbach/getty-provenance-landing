@@ -37,9 +37,9 @@
 			</nav>
 		</header>
 		<main>
-			<form :data-base-url="baseUrl">
+			<form :data-base-url="baseUrl" :data-api-url="apiUrl">
 				<fieldset>
-					<label @text="search.label" for="search"></label>
+					<label @html="search.label" for="search"></label>
 					<input
 						autocapitalize="off"
 						autocomplete="off"
