@@ -26,6 +26,15 @@
 		</nav>
 		<header>
 			<h1 @text="title"></h1>
+			<nav aria-label="Navigation">
+				<ul>
+					<li webc:for="link of navigation">
+						<a :href="breadcrumb.url + link.url">
+							<p @text="link.title"></p>
+						</a>
+					</li>
+				</ul>
+			</nav>
 		</header>
 		<form :data-base-url="baseUrl">
 			<label @text="search.label" for="search"> </label>
