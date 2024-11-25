@@ -8,7 +8,7 @@
 		/>
 		<title @text="title"></title>
 		<link webc:import="assets/fonts.webc">
-		<link webc:import="assets/styles.webc">
+		<!--- <link webc:import="assets/styles.webc"> --->
 		<script src="assets/script.js"></script>
 		<script webc:keep @raw="getBundle('js')" type="module"></script>
 	</head>
