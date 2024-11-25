@@ -15,9 +15,8 @@
 	<body>
 		<h1 @text="title"></h1>
 		<form :data-base-url="baseUrl">
-			<label @text="searchLabel" for="search"> </label>
+			<label @text="search.label" for="search"> </label>
 			<input
-				:placeholder="searchPlaceholder"
 				autocapitalize="off"
 				autocomplete="off"
 				autocorrect="off"
@@ -27,9 +26,9 @@
 				spellcheck="false"
 				type="text"
 			>
-			<input :value="searchButton" type="submit">
+			<button @text="search.button" type="submit"></button>
 		</form>
-		<h2 @text="exampleHeading"></h2>
-		<a :href="baseUrl + exampleUrl" @text="exampleLabel"></a>
+		<h2 @text="recordIntro"></h2>
+		<a :href="baseUrl + records[0].url" @text="records[0].title"></a>
 	</body>
 </html>
