@@ -12,7 +12,7 @@ export default function(eleventyConfig) {
 	})
 	eleventyConfig.setDataFileSuffixes(['.config'])
 	eleventyConfig.setInputDirectory('src/index.webc')
-	eleventyConfig.setOutputDirectory('_site')
+	eleventyConfig.setOutputDirectory('public')
 
 	// For inlining assets.
 	eleventyConfig.addLiquidShortcode('base64FromFile', async (file) => Buffer.from(await fs.promises.readFile(file)).toString('base64'))

@@ -1,6 +1,6 @@
 export default {
 	ignoreFiles: [
-		'_site/**',
+		'public/**',
 	],
 	'overrides': [
 		{

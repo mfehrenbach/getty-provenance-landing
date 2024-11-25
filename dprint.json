@@ -1,7 +1,7 @@
 {
 	"useTabs": true,
 	"excludes": [
-		"_site",
+		"public",
 		"node_modules"
 	],
 	"markup": {

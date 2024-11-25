@@ -8,7 +8,7 @@ It is built using [Eleventy](https://www.11ty.dev) for some “light templating�
 
 To run it locally, you’ll need [Node](https://nodejs.org/en). The easiest way to get this (if you have [Homebrew](https://brew.sh) installed) is `brew install node`. Node will do everything else for us, as is custom.
 
-Run `npm install` to pull the dependencies, and `npm run serve` to work locally. The page is output to the `_site` directory (which is not in version control)—with all of its assets bundled into the HTML for ease of implementation.
+Run `npm install` to pull the dependencies, and `npm run serve` to work locally. The page is output to the `public` directory (which is not in version control)—with all of its assets bundled into the HTML for ease of implementation.
 
 For sharing, the site is also [built and served](https://mfehrenbach.github.io/getty-provenance-landing/) on GitHub Pages, via [a workflow](.github/workflows/build-deploy.yml).
 
