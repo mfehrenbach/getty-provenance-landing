@@ -16,7 +16,10 @@ const apiUrl = searchForm.dataset.apiUrl
 const apiData = searchForm.querySelector('data')
 delete searchForm.dataset.apiUrl
 
-if (localStorage.getItem('totalRecords')) apiData.textContent = Number(localStorage.getItem('totalRecords')).toLocaleString()
+if (localStorage.getItem('totalRecords')) {
+	apiData.textContent = Number(localStorage.getItem('totalRecords')).toLocaleString()
+	apiData.value = localStorage.getItem('totalRecords')
+}
 
 const sparqlQuery = `
 	SELECT (COUNT(DISTINCT ?obj) AS ?count) WHERE {
@@ -30,5 +33,6 @@ fetch(`${apiUrl}/sparql?query=${encodeURIComponent(sparqlQuery)}&format=applicat
 		const totalRecords = data.results.bindings[0].count.value
 		localStorage.setItem('totalRecords', totalRecords)
 		apiData.textContent = Number(totalRecords).toLocaleString()
+		apiData.value = totalRecords
 	})
 	.catch(error => { throw new Error(error) })
