@@ -102,10 +102,13 @@ export default {
 	},
 	record: {
 		intro: 'Record for',
+		imgPrefix: 'https://media.getty.edu/iiif/image/',
+		imgSuffix: '/full/full/0/default.jpg',
 		examples: [
 			{
 				title: 'Vincent van Gogh',
 				id:    '8042aa22-d6ad-310f-9ec6-f1467b24d593',
+				src:   'fbd08f99-6fd3-4671-80be-0d095cb30ad7',
 			},
 		],
 	},

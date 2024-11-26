@@ -66,6 +66,7 @@
 							<em @text="example.title"></em>
 						</p>
 					</a>
+					<img alt="" :src="record.imgPrefix + example.src + record.imgSuffix">
 				</li>
 			</ul>
 		</main>

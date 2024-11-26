@@ -1,4 +1,5 @@
 import webC from '@11ty/eleventy-plugin-webc'
+import { eleventyImageTransformPlugin } from '@11ty/eleventy-img'
 import fs from 'fs'
 import jsBeautify from 'js-beautify'
 
@@ -16,6 +17,12 @@ export default function(eleventyConfig) {
 
 	// For inlining assets.
 	eleventyConfig.addLiquidShortcode('base64FromFile', async (file) => Buffer.from(await fs.promises.readFile(file)).toString('base64'))
+
+	eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
+		extensions: 'html',
+		formats: ['webp'],
+		widths: [3000],
+	})
 
 	// Do some post-build formatting.
 	const beautifyOptions = {
