@@ -41,19 +41,4 @@
 		font-weight: 600;
 		src: url(data:font/woff2;base64,{%- base64FromFile 'src/assets/fonts/graphik--600--italic.woff2' -%}) format('woff2')
 	}
-
-	@font-face {
-		font-family: Sabon;
-		font-style: normal;
-		font-weight: 400;
-		src: url(data:font/woff2;base64,{%- base64FromFile 'src/assets/fonts/sabon--400.woff2' -%}) format('woff2')
-	}
-
-	@font-face {
-		font-family: Sabon;
-		font-style: italic;
-		font-weight: 400;
-		src: url(data:font/woff2;base64,{%- base64FromFile 'src/assets/fonts/sabon--400--italic.woff2' -%}) format('woff2')
-
-	}
 </style>
