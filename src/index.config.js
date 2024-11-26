@@ -105,7 +105,7 @@ export default {
 		examples: [
 			{
 				title: 'Vincent van Gogh',
-				url:   '/report/8042aa22-d6ad-310f-9ec6-f1467b24d593',
+				id:    '8042aa22-d6ad-310f-9ec6-f1467b24d593',
 			},
 		],
 	},
