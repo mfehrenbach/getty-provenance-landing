@@ -5,11 +5,6 @@ import jsBeautify from 'js-beautify'
 export default function(eleventyConfig) {
 	// Setup.
 	eleventyConfig.addPlugin(webC)
-	eleventyConfig.ignores.add('readme.md')
-	eleventyConfig.setFrontMatterParsingOptions({
-		delimiters: ['<!---', '--->'],
-		language: 'js',
-	})
 	eleventyConfig.setDataFileSuffixes(['.config'])
 	eleventyConfig.setInputDirectory('src/index.webc')
 	eleventyConfig.setOutputDirectory('public')
