@@ -6,6 +6,8 @@ on:
   workflow_dispatch:
 env:
   destination: public
+permissions:
+  contents: write
 jobs:
   github-pages:
     name: GitHub Pages
