@@ -9,11 +9,12 @@
 		<script webc:keep @raw="getBundle('js')" type="module"></script>
 	</head>
 	<body>
+		<!-- TODO Skip link! -->
 		<nav aria-label="Breadcrumb">
 			<ol>
 				<li>
 					<a :aria-label="breadcrumb.title" :href="breadcrumb.url">
-						<p @text="breadcrumb.title"><!--- Replace with SVG! ---></p>
+						<p @text="breadcrumb.title"><!--- TODO Replace with SVG! ---></p>
 					</a>
 				</li>
 				<li webc:for="crumb of breadcrumb.crumbs">
