@@ -101,7 +101,7 @@ export default {
 		button: 'Search',
 	},
 	record: {
-		intro: 'Record for',
+		intro:     'Record for',
 		imgPrefix: 'https://media.getty.edu/iiif/image/',
 		imgSuffix: '/full/3000,/0/default.jpg',
 		examples: [
