@@ -103,7 +103,7 @@ export default {
 	record: {
 		intro: 'Record for',
 		imgPrefix: 'https://media.getty.edu/iiif/image/',
-		imgSuffix: '/full/full/0/default.jpg',
+		imgSuffix: '/full/3000,/0/default.jpg',
 		examples: [
 			{
 				title: 'Vincent van Gogh',
