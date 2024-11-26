@@ -1,5 +1,5 @@
-<!--- Using Liquid for the `base64FromFile` filter. --->
-<style webc:type="11ty" 11ty:type="liquid">
+<!--- Using Liquid parsing for the `base64FromFile` filter. --->
+<style webc:nokeep webc:bucket="base" webc:type="11ty" 11ty:type="liquid">
 	@font-face {
 		font-family: Graphik;
 		font-style: normal;
