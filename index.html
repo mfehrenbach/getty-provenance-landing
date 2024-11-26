@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta content="initial-scale=1, width=device-width, viewport-fit=cover" name="viewport">
+		<title>Getty Provenance Index</title>
+		<script type="module">
+			const searchForm = document.getElementById('search')
+				.form
+			const searchUrl = searchForm.dataset.baseUrl + '/search'
+			delete searchForm.dataset.baseUrl
+			searchForm.onsubmit = (event) => {
+				event.preventDefault()
+				const searchValue = event.target.search.value
+				const searchType = event.target.type.value ? `&resource-type-filter=[{"graphid":"${event.target.type.value}","name":"${event.target.type.selectedOptions[0].text}","inverted":false}]` : ''
+				const searchParams = `?term-filter=[{"inverted":false,"type":"string","context":"","context_label":"","id":"${searchValue}","text":"${searchValue}","value":"${searchValue}","selected":true}]&language=*${searchType}`
+				window.location.href = searchUrl + searchParams
+			}
+			const apiUrl = searchForm.dataset.apiUrl
+			const apiData = searchForm.querySelector('data')
+			delete searchForm.dataset.apiUrl
+			if (localStorage.getItem('totalRecords')) {
+				apiData.textContent = Number(localStorage.getItem('totalRecords'))
+					.toLocaleString()
+				apiData.value = localStorage.getItem('totalRecords')
+			}
+			const sparqlQuery = `
+	SELECT (COUNT(DISTINCT ?obj) AS ?count) WHERE {
+		?sub ?pred ?obj .
+	}
+`
+			fetch(`${apiUrl}/sparql?query=${encodeURIComponent(sparqlQuery)}&format=application/sparql-results+json`)
+				.then(response => response.json())
+				.then(data => {
+					const totalRecords = data.results.bindings[0].count.value
+					localStorage.setItem('totalRecords', totalRecords)
+					apiData.textContent = Number(totalRecords)
+						.toLocaleString()
+					apiData.value = totalRecords
+				})
+				.catch(error => {
+					throw new Error(error)
+				})
+		</script>
+	</head>
+	<body>
+		<nav aria-label="Breadcrumb">
+			<ol>
+				<li>
+					<a aria-label="Getty Homepage" href="https://www.getty.edu">
+						<p>Getty Homepage</p>
+					</a>
+				</li>
+				<li>
+					<a href="https://www.getty.edu/research-conservation">
+						<p>Research &amp; Conservation</p>
+					</a>
+				</li>
+				<li>
+					<a href="https://www.getty.edu/research/tools">
+						<p>Databases, Tools &amp; Technologies</p>
+					</a>
+				</li>
+			</ol>
+		</nav>
+		<header>
+			<h1>Getty Provenance Index</h1>
+			<nav aria-label="Navigation">
+				<ul>
+					<li>
+						<a href="https://www.getty.edu/research/tools/provenance/">
+							<p>About the Index</p>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.getty.edu/research/tools/provenance/charts.html">
+							<p>What’s Covered?</p>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.getty.edu/research/tools/provenance/provenance_remodel">
+							<p>Remodel Project</p>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.getty.edu/research/tools/provenance/faq.html#faq">
+							<p>FAQ</p>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<main>
+			<form data-base-url="https://provenance.dev.getty.fargeo.com" data-api-url="https://data.getty.edu/provenance">
+				<fieldset>
+					<label for="search">Search <data></data> records…:</label>
+					<input autocapitalize="off" autocomplete="off" autocorrect="off" id="search" name="search" required spellcheck="false" type="text">
+				</fieldset>
+				<fieldset>
+					<select name="type" id="type">
+						<option value>Any type</option>
+						<option value="734d1558-bfad-11ea-a62b-3af9d3b32b71">Activity</option>
+						<option value="21d83275-e88f-11ea-9fb6-0a1706e75f30">Bidding</option>
+						<option value="0044f7da-b4b6-11ea-84f7-3af9d3b32b71">Digital Object</option>
+						<option value="7c2205b2-baee-11ea-81b2-3af9d3b32b71">Event</option>
+						<option value="2a7fb09a-bfa5-11ea-a62b-3af9d3b32b71">Exhibition Concept</option>
+						<option value="d6774bfc-b4b4-11ea-84f7-3af9d3b32b71">Group</option>
+						<option value="9ffb6fcc-b4b4-11ea-84f7-3af9d3b32b71">Person</option>
+						<option value="9ce6d277-2f6f-11ed-b195-0a9473e82189">Personage</option>
+						<option value="1810d182-b4b5-11ea-84f7-3af9d3b32b71">Physical Object</option>
+						<option value="f6e89030-b4b4-11ea-84f7-3af9d3b32b71">Place</option>
+						<option value="3d461890-b4b5-11ea-84f7-3af9d3b32b71">Provenance Activity</option>
+						<option value="bdba56bc-b4b5-11ea-84f7-3af9d3b32b71">Set</option>
+						<option value="6dad61aa-b4b5-11ea-84f7-3af9d3b32b71">Textual Work</option>
+						<option value="933ee880-b4b5-11ea-84f7-3af9d3b32b71">Visual Work</option>
+					</select>
+				</fieldset>
+				<button type="submit">Search</button>
+			</form>
+			<ul>
+				<li>
+					<a href="https://provenance.dev.getty.fargeo.com/report/8042aa22-d6ad-310f-9ec6-f1467b24d593">
+						<p>
+							<span>Record for</span>
+							<em>Vincent van Gogh</em>
+						</p>
+					</a>
+					<img src="https://media.getty.edu/iiif/image/fbd08f99-6fd3-4671-80be-0d095cb30ad7/full/3000,/0/default.jpg">
+				</li>
+			</ul>
+		</main>
+		<footer>
+			<h2>Getty Provenance Index®</h2>
+			<ul>
+				<li>
+					<p>© J. Paul Getty Trust</p>
+				</li>
+				<li>
+					<a href="https://www.getty.edu/legal/privacy">
+						<p>Privacy Policy</p>
+					</a>
+				</li>
+				<li>
+					<a href="https://www.getty.edu/legal/cookies-notice">
+						<p>Cookies Notice</p>
+					</a>
+				</li>
+				<li>
+					<a href="https://www.getty.edu/legal/terms-of-use">
+						<p>Terms of Use</p>
+					</a>
+				</li>
+			</ul>
+		</footer>
+	</body>
+</html>
