@@ -2,7 +2,7 @@ import webC from '@11ty/eleventy-plugin-webc'
 import Fetch from '@11ty/eleventy-fetch'
 import jsBeautify from 'js-beautify'
 import fs from 'fs'
-import { getCarriedOutBy } from '@thegetty/linkedart.js'
+import { getCarriedOutBy, getPrimaryName } from '@thegetty/linkedart.js'
 
 export default function(eleventyConfig) {
 	// Setup.
@@ -15,7 +15,7 @@ export default function(eleventyConfig) {
 	eleventyConfig.addFilter('gettyUrl', (path) => `https://www.getty.edu${path}`)
 	eleventyConfig.addFilter('exampleSrc', (image) => `https://media.getty.edu/iiif/image/${image}/full/3000,/0/default.jpg`)
 
-	// Use `eleventy-fetch` for per-build cached responses.
+	// Use `eleventy-fetch` for per-build cached Collection API responses.
 	const getObjectData = async (object) =>
 		await Fetch(`https://data.getty.edu/museum/collection/object/${object}`, {
 			duration: '*',
@@ -24,6 +24,14 @@ export default function(eleventyConfig) {
 
 	eleventyConfig.addFilter('exampleName', async (example) => getCarriedOutBy(await getObjectData(example.object)).shift()._label)
 	eleventyConfig.addFilter('exampleUrl', async (example) => `${(await getObjectData(example.object)).subject_of.shift().id}?canvas=${example.image}`)
+	eleventyConfig.addFilter('exampleCaption', async (example) => {
+		const objectData = await getObjectData(example.object)
+		const title = getPrimaryName(objectData)
+		const date = objectData.produced_by.timespan.identified_by.shift().content
+		const name = await eleventyConfig.getFilter('exampleName')(example)
+
+		return `<em>${title}</em>, ${date}, ${name}. The J. Paul Getty Museum.`
+	})
 
 	// Filters don’t have data context, so pass it from page: https://github.com/11ty/eleventy/issues/2844
 	eleventyConfig.addFilter('reportUrl', (data, report) => `${data.archesUrl}/report/${report}`)

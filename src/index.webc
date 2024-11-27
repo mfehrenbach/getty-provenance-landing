@@ -69,7 +69,7 @@
 					<figure>
 						<img :src="exampleSrc(example.image)">
 						<figcaption>
-							<a :href="exampleUrl(example)">Object Page!</a>
+							<a :href="exampleUrl(example)" @html="exampleCaption(example)"></a>
 						</figcaption>
 					</figure>
 				</li>
