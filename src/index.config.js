@@ -2,36 +2,35 @@ export default {
 	title:      'Getty Provenance Index',
 	archesUrl:  'https://provenance.dev.getty.fargeo.com',
 	apiUrl:     'https://data.getty.edu/provenance',
-	gettyUrl:   'https://www.getty.edu',
 	breadcrumb: {
 		title: 'Getty Homepage',
 		crumbs: [
 			{
 				title: 'Research & Conservation',
-				url:   '/research-conservation',
+				url:   'research-conservation',
 			},
 			{
 				title: 'Databases, Tools & Technologies',
-				url:   '/research/tools',
+				url:   'research/tools',
 			},
 		],
 	},
 	navigation: [
 		{
 			title: 'About the Index',
-			url:   '/research/tools/provenance/',
+			url:   'research/tools/provenance',
 		},
 		{
 			title: 'What’s Covered?',
-			url:   '/research/tools/provenance/charts.html',
+			url:   'research/tools/provenance/charts.html',
 		},
 		{
 			title: 'Remodel Project',
-			url:   '/research/tools/provenance/provenance_remodel',
+			url:   'research/tools/provenance/provenance_remodel',
 		},
 		{
 			title: 'FAQ',
-			url:   '/research/tools/provenance/faq.html#faq',
+			url:   'research/tools/provenance/faq.html#faq',
 		},
 	],
 	search:  {
@@ -183,15 +182,15 @@ export default {
 		legal: [
 			{
 				title: 'Privacy Policy',
-				url:   '/legal/privacy',
+				url:   'legal/privacy',
 			},
 			{
 				title: 'Cookies Notice',
-				url:   '/legal/cookies-notice',
+				url:   'legal/cookies-notice',
 			},
 			{
 				title: 'Terms of Use',
-				url:   '/legal/terms-of-use',
+				url:   'legal/terms-of-use',
 			},
 		],
 	},
