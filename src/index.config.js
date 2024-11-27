@@ -106,9 +106,9 @@ export default {
 		examples: [
 			{
 				// Van Gogh’s “Irises.”
-				object: 'c88b3df0-de91-4f5b-a9ef-7b2b9a6d8abb', // Collection.
-				image:  'fbd08f99-6fd3-4671-80be-0d095cb30ad7', // Verso.
-				report: '8042aa22-d6ad-310f-9ec6-f1467b24d593', // Arches.
+				object: 'c88b3df0-de91-4f5b-a9ef-7b2b9a6d8abb', // In the Collection.
+				image:  'fbd08f99-6fd3-4671-80be-0d095cb30ad7', // Verso image.
+				report: '8042aa22-d6ad-310f-9ec6-f1467b24d593', // Arches record.
 			},
 			{
 				// Cézanne’s “Still Life with Apples.”
