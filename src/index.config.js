@@ -1,10 +1,10 @@
 export default {
-	title:   'Getty Provenance Index',
-	baseUrl: 'https://provenance.dev.getty.fargeo.com',
-	apiUrl:  'https://data.getty.edu/provenance',
+	title:      'Getty Provenance Index',
+	archesUrl:  'https://provenance.dev.getty.fargeo.com',
+	apiUrl:     'https://data.getty.edu/provenance',
+	gettyUrl:   'https://www.getty.edu',
 	breadcrumb: {
 		title: 'Getty Homepage',
-		url:   'https://www.getty.edu',
 		crumbs: [
 			{
 				title: 'Research & Conservation',
