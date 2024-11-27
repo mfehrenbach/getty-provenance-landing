@@ -104,12 +104,57 @@ export default {
 		intro:     'Record for',
 		imgPrefix: 'https://media.getty.edu/iiif/image/',
 		imgSuffix: '/full/3000,/0/default.jpg',
+		// TODO Data-URI for these, via 11ty-image?
 		examples: [
 			{
 				title: 'Vincent van Gogh',
 				id:    '8042aa22-d6ad-310f-9ec6-f1467b24d593',
 				src:   'fbd08f99-6fd3-4671-80be-0d095cb30ad7',
-				// TODO Data-URI for these, via 11ty-image?
+			},
+			{
+				title: 'Paul Cézanne',
+				id:    '287a1ff4-9b52-322f-a75c-303cddbceeb1',
+				src:   'a11666c0-a68e-4a10-942a-e938ee68bdf9',
+			},
+			{
+				title: 'Édouard Manet',
+				id:    '8daf18af-f59c-313c-ae9f-80d4e01fbc81',
+				src:   '8ea48dc4-ddd1-47ae-b9fb-21c3ea0337da',
+			},
+			{
+				title: 'Rembrandt',
+				id:    'dde29a68-fea4-3f3d-89b2-dbc0688a48ae',
+				src:   '13e02252-fb7f-4bd5-a8e8-ce4ca096beda',
+			},
+			{
+				title: 'Edgar Degas',
+				id:    'f0a82d9c-6338-34e3-a28e-603b7d6f1581',
+				src:   '01be71c3-28c4-4479-9137-aa31861fe917',
+			},
+			{
+				title: 'Claude Monet',
+				id:    '1d44a590-d899-34fe-b866-b2b303d34706',
+				src:   'ae926817-92dc-4108-b827-329be50bb758',
+			},
+			{
+				title: 'Théodore Géricault',
+				id:    '0f97dcdc-020e-345d-9c14-4ec4d4ad913e',
+				src:   '10be3af9-92f1-41a2-9cfb-6ccc30378119',
+			},
+			{
+				title: 'Nicolas Poussin',
+				id:    '79a305f5-38b3-341b-8c7e-a12e5edcb437',
+				src:   '769f2327-0618-4c6c-ad32-7035dd763f26',
+			},
+			{
+				title: 'J. M. W. Turner',
+				id:    '52a1349e-3451-36fa-8bc7-b0b7db839973',
+				src:   'ab4b4415-7ea2-407f-9a44-31624bb467ac',
+			},
+			{
+				title: 'Claude-Joseph Vernet',
+				id:    '17f5e2b9-0cd8-39ee-b996-8f43f0317432',
+				src:   '93ea9e51-4b0a-42a2-b1f6-475a2e911b5d',
 			},
 		],
 	},
