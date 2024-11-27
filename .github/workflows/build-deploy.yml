@@ -26,3 +26,4 @@ jobs:
         publish_dir:    ./${{ env.destination }}
         publish_branch: ${{ env.destination }}
         commit_message: ${{ github.event.head_commit.message }}
+        enable_jekyll: true
