@@ -101,10 +101,11 @@ export default {
 		button: 'Search',
 	},
 	record: {
-		intro:     'Record for',
+		intro:     'See record for',
 		imgPrefix: 'https://media.getty.edu/iiif/image/',
 		imgSuffix: '/full/3000,/0/default.jpg',
 		// TODO Data-URI for these, via 11ty-image?
+		// TODO Add image caption field.
 		examples: [
 			{
 				title: 'Vincent van Gogh',
