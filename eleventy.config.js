@@ -31,4 +31,6 @@ export default function(eleventyConfig) {
 		}
 		return content
 	})
+
+	// TODO Remove CSS comments from compiled output!
 }
