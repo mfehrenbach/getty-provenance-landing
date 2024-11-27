@@ -11,6 +11,10 @@ export default function(eleventyConfig) {
 
 	// URL constructors.
 	eleventyConfig.addFilter('gettyUrl', (path) => 'https://www.getty.edu' + path)
+
+	// Filters don’t have data context, so pass it from page: https://github.com/11ty/eleventy/issues/2844
+	eleventyConfig.addFilter('reportUrl', (data, report) => data.archesUrl + '/report/' + report)
+
 	// Do some post-build formatting.
 	const beautifyOptions = {
 		break_chained_methods:      true,
