@@ -27,9 +27,8 @@ export default function(eleventyConfig) {
 	// And inline the font files.
 	eleventyConfig.addTransform('base64FontFile', async (content) => {
 		for (const match of content.matchAll(/base64,([^)]+)\)/g)) {
-			content = content.replace(match[0], `base64,${(await fs.promises.readFile(match[1])).toString('base64')}`)
+			content = content.replace(match[0], `base64,${(await fs.promises.readFile(match[1])).toString('base64')})`)
 		}
-
 		return content
 	})
 }
