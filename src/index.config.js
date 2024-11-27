@@ -122,7 +122,7 @@ export default {
 				src:   '8ea48dc4-ddd1-47ae-b9fb-21c3ea0337da',
 			},
 			{
-				title: 'Rembrandt',
+				title: 'Rembrandt Harmensz. van Rijn',
 				id:    'dde29a68-fea4-3f3d-89b2-dbc0688a48ae',
 				src:   '13e02252-fb7f-4bd5-a8e8-ce4ca096beda',
 			},
@@ -147,7 +147,7 @@ export default {
 				src:   '769f2327-0618-4c6c-ad32-7035dd763f26',
 			},
 			{
-				title: 'J. M. W. Turner',
+				title: 'Joseph Mallord William Turner',
 				id:    '52a1349e-3451-36fa-8bc7-b0b7db839973',
 				src:   'ab4b4415-7ea2-407f-9a44-31624bb467ac',
 			},
@@ -155,6 +155,16 @@ export default {
 				title: 'Claude-Joseph Vernet',
 				id:    '17f5e2b9-0cd8-39ee-b996-8f43f0317432',
 				src:   '93ea9e51-4b0a-42a2-b1f6-475a2e911b5d',
+			},
+			{
+				title: 'Jan Brueghel the Elder',
+				id:    '6c3aa6be-8515-3971-8fa5-b90c80751309',
+				src:   '73ba9096-47d8-4095-84d3-1b22e4b98270',
+			},
+			{
+				title: 'Jean-François Millet',
+				id:    '47a6a315-0cf1-35c1-97ee-e7081703eef9',
+				src:   'd80d5a81-edda-4650-9c5b-c3449513552c',
 			},
 		],
 	},
