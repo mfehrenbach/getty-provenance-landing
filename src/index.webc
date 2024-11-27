@@ -63,11 +63,11 @@
 					<a :href="baseUrl + '/report/' + example.report">
 						<p>
 							<span @text="record.intro"></span>
-							<em @text="example.title"></em>
+							<em @text="example.name"></em>
 						</p>
 					</a>
 					<figure>
-						<img :src="record.mediaPrefix + example.media + record.mediaSuffix">
+						<img :src="record.imagePrefix + example.image + record.imageSuffix">
 						<figcaption>
 							<a :href="record.objectPrefix + example.object + '?canvas=' + example.media" @html="example.credit"></a>
 						</figcaption>
