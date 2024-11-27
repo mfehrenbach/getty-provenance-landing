@@ -69,7 +69,7 @@
 					<figure>
 						<img :src="exampleSrc(example.image)">
 						<figcaption>
-							<a :href="record.objectPrefix + example.object + '?canvas=' + example.media" @html="example.credit"></a>
+							<a :href="exampleUrl(example)">Object Page!</a>
 						</figcaption>
 					</figure>
 				</li>

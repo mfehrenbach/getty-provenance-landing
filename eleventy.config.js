@@ -1,6 +1,7 @@
 import webC from '@11ty/eleventy-plugin-webc'
-import fs from 'fs'
+import Fetch from '@11ty/eleventy-fetch'
 import jsBeautify from 'js-beautify'
+import fs from 'fs'
 
 export default function(eleventyConfig) {
 	// Setup.
@@ -9,9 +10,17 @@ export default function(eleventyConfig) {
 	eleventyConfig.setInputDirectory('src/index.webc')
 	eleventyConfig.setOutputDirectory('public')
 
-	// URL constructors.
+	// Helpers.
 	eleventyConfig.addFilter('gettyUrl', (path) => 'https://www.getty.edu' + path)
 	eleventyConfig.addFilter('exampleSrc', (image) => 'https://media.getty.edu/iiif/image/' + image + '/full/3000,/0/default.jpg')
+	eleventyConfig.addFilter('exampleUrl', async (example) => {
+		const object = await Fetch('https://data.getty.edu/museum/collection/object/' + example.object, {
+			duration: '1d',
+			type:     'json',
+		})
+		const url = object.subject_of.shift().id
+		return url
+	})
 
 	// Filters don’t have data context, so pass it from page: https://github.com/11ty/eleventy/issues/2844
 	eleventyConfig.addFilter('reportUrl', (data, report) => data.archesUrl + '/report/' + report)
