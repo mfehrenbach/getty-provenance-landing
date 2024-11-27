@@ -9,6 +9,8 @@ export default function(eleventyConfig) {
 	eleventyConfig.setInputDirectory('src/index.webc')
 	eleventyConfig.setOutputDirectory('public')
 
+	// URL constructors.
+	eleventyConfig.addFilter('gettyUrl', (path) => 'https://www.getty.edu' + path)
 	// Do some post-build formatting.
 	const beautifyOptions = {
 		break_chained_methods:      true,
