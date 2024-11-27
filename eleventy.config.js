@@ -12,8 +12,8 @@ export default function(eleventyConfig) {
 	eleventyConfig.setOutputDirectory('public')
 
 	// Helpers.
-	eleventyConfig.addFilter('gettyUrl', (path) => 'https://www.getty.edu' + path)
-	eleventyConfig.addFilter('exampleSrc', (image) => 'https://media.getty.edu/iiif/image/' + image + '/full/3000,/0/default.jpg')
+	eleventyConfig.addFilter('gettyUrl', (path) => `https://www.getty.edu${path}`)
+	eleventyConfig.addFilter('exampleSrc', (image) => `https://media.getty.edu/iiif/image/${image}/full/3000,/0/default.jpg`)
 
 	// Use `eleventy-fetch` for per-build cached responses.
 	const getObjectData = async (object) =>
@@ -22,15 +22,11 @@ export default function(eleventyConfig) {
 			type: 'json',
 		})
 
-	eleventyConfig.addFilter('exampleName', async (example) =>
-		getCarriedOutBy(await getObjectData(example.object)).shift()._label,
-	)
-	eleventyConfig.addFilter('exampleUrl', async (example) =>
-		`${(await getObjectData(example.object)).subject_of.shift().id}?canvas=${example.image}`,
-	)
+	eleventyConfig.addFilter('exampleName', async (example) => getCarriedOutBy(await getObjectData(example.object)).shift()._label)
+	eleventyConfig.addFilter('exampleUrl', async (example) => `${(await getObjectData(example.object)).subject_of.shift().id}?canvas=${example.image}`)
 
 	// Filters don’t have data context, so pass it from page: https://github.com/11ty/eleventy/issues/2844
-	eleventyConfig.addFilter('reportUrl', (data, report) => data.archesUrl + '/report/' + report)
+	eleventyConfig.addFilter('reportUrl', (data, report) => `${data.archesUrl}/report/${report}`)
 
 	// Do some post-build formatting.
 	const beautifyOptions = {
