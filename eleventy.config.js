@@ -2,6 +2,7 @@ import webC from '@11ty/eleventy-plugin-webc'
 import Fetch from '@11ty/eleventy-fetch'
 import jsBeautify from 'js-beautify'
 import fs from 'fs'
+import { getCarriedOutBy } from '@thegetty/linkedart.js'
 
 export default function(eleventyConfig) {
 	// Setup.
@@ -14,12 +15,16 @@ export default function(eleventyConfig) {
 	eleventyConfig.addFilter('gettyUrl', (path) => 'https://www.getty.edu' + path)
 	eleventyConfig.addFilter('exampleSrc', (image) => 'https://media.getty.edu/iiif/image/' + image + '/full/3000,/0/default.jpg')
 
+	// Use `eleventy-fetch` for per-build cached responses.
 	const getObjectData = async (object) =>
 		await Fetch(`https://data.getty.edu/museum/collection/object/${object}`, {
 			duration: '*',
 			type: 'json',
 		})
 
+	eleventyConfig.addFilter('exampleName', async (example) =>
+		getCarriedOutBy(await getObjectData(example.object)).shift()._label,
+	)
 	eleventyConfig.addFilter('exampleUrl', async (example) =>
 		`${(await getObjectData(example.object)).subject_of.shift().id}?canvas=${example.image}`,
 	)

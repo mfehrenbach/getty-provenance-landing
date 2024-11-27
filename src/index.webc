@@ -63,7 +63,7 @@
 					<a :href="reportUrl($data, example.report)">
 						<p>
 							<span @text="record.intro"></span>
-							<em @text="example.name"></em>
+							<em @text="exampleName(example)"></em>
 						</p>
 					</a>
 					<figure>

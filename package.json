@@ -18,6 +18,7 @@
 		"@11ty/eleventy": "^3.0.0",
 		"@11ty/eleventy-fetch": "^5.0.1",
 		"@11ty/eleventy-plugin-webc": "^0.11.2",
+		"@thegetty/linkedart.js": "^0.20.0",
 		"fs": "^0.0.1-security",
 		"js-beautify": "^1.15.1"
 	},
