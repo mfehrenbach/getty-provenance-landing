@@ -13,14 +13,16 @@ export default function(eleventyConfig) {
 	// Helpers.
 	eleventyConfig.addFilter('gettyUrl', (path) => 'https://www.getty.edu' + path)
 	eleventyConfig.addFilter('exampleSrc', (image) => 'https://media.getty.edu/iiif/image/' + image + '/full/3000,/0/default.jpg')
-	eleventyConfig.addFilter('exampleUrl', async (example) => {
-		const object = await Fetch('https://data.getty.edu/museum/collection/object/' + example.object, {
-			duration: '1d',
-			type:     'json',
+
+	const getObjectData = async (object) =>
+		await Fetch(`https://data.getty.edu/museum/collection/object/${object}`, {
+			duration: '*',
+			type: 'json',
 		})
-		const url = object.subject_of.shift().id
-		return url
-	})
+
+	eleventyConfig.addFilter('exampleUrl', async (example) =>
+		`${(await getObjectData(example.object)).subject_of.shift().id}?canvas=${example.image}`,
+	)
 
 	// Filters don’t have data context, so pass it from page: https://github.com/11ty/eleventy/issues/2844
 	eleventyConfig.addFilter('reportUrl', (data, report) => data.archesUrl + '/report/' + report)
