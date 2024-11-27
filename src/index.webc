@@ -67,7 +67,7 @@
 						</p>
 					</a>
 					<figure>
-						<img :src="record.imagePrefix + example.image + record.imageSuffix">
+						<img :src="exampleSrc(example.image)">
 						<figcaption>
 							<a :href="record.objectPrefix + example.object + '?canvas=' + example.media" @html="example.credit"></a>
 						</figcaption>

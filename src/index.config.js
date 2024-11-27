@@ -103,8 +103,6 @@ export default {
 	record: {
 		intro:        'See record for',
 		objectPrefix: 'https://www.getty.edu/art/collection/object/',
-		imagePrefix:  'https://media.getty.edu/iiif/image/',
-		imageSuffix:  '/full/3000,/0/default.jpg',
 		// TODO Data-URI for these, via 11ty-image?
 		examples: [
 			{

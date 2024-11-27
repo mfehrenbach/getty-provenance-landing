@@ -11,6 +11,7 @@ export default function(eleventyConfig) {
 
 	// URL constructors.
 	eleventyConfig.addFilter('gettyUrl', (path) => 'https://www.getty.edu' + path)
+	eleventyConfig.addFilter('exampleSrc', (image) => 'https://media.getty.edu/iiif/image/' + image + '/full/3000,/0/default.jpg')
 
 	// Filters don’t have data context, so pass it from page: https://github.com/11ty/eleventy/issues/2844
 	eleventyConfig.addFilter('reportUrl', (data, report) => data.archesUrl + '/report/' + report)
