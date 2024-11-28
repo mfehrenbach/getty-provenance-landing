@@ -1,5 +1,4 @@
 import webC from '@11ty/eleventy-plugin-webc'
-import Image from '@11ty/eleventy-img'
 import Fetch from '@11ty/eleventy-fetch'
 import jsBeautify from 'js-beautify'
 import fs from 'fs'
@@ -14,15 +13,7 @@ export default function(eleventyConfig) {
 
 	// Helpers.
 	eleventyConfig.addFilter('gettyUrl', (path) => `https://www.getty.edu/${path}`)
-	eleventyConfig.addFilter('exampleSrc', async (image) => {
-		const src = `https://media.getty.edu/iiif/image/${image}/full/3000,/0/default.jpg`
-		const imageContents = await Image(src, {
-			formats: ['webp'],
-			widths: [3000],
-			dryRun: true,
-		})
-		return `data:image/webp;base64,${imageContents.webp.shift().buffer.toString('base64')}`
-	})
+	eleventyConfig.addFilter('exampleSrc', (image) => `https://media.getty.edu/iiif/image/${image}/full/3000,/0/default.jpg`)
 
 	// Use `eleventy-fetch` for per-build cached Collection API responses.
 	const getObjectData = async (object) =>
