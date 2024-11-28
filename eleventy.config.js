@@ -1,5 +1,6 @@
 import webC from '@11ty/eleventy-plugin-webc'
 import Fetch from '@11ty/eleventy-fetch'
+import Image from '@11ty/eleventy-img'
 import jsBeautify from 'js-beautify'
 import fs from 'fs'
 import { getCarriedOutBy, getPrimaryName } from '@thegetty/linkedart.js'
@@ -37,6 +38,14 @@ export default function(eleventyConfig) {
 
 	// Filters don’t have data context, so pass it from page: https://github.com/11ty/eleventy/issues/2844
 	eleventyConfig.addFilter('reportUrl', (data, report) => `${data.archesUrl}/report/${report}`)
+
+	eleventyConfig.addFilter('inlineSvg', async (svg) => {
+		const image = await Image(`src/${svg}`, {
+			formats: ['svg'],
+			dryRun: true, // Don’t save to file.
+		})
+		return image.svg.shift().buffer.toString()
+	})
 
 	// Do some post-build formatting.
 	const beautifyOptions = {

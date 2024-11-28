@@ -14,7 +14,7 @@
 			<ol>
 				<li>
 					<a :aria-label="breadcrumb.title" :href="gettyUrl()">
-						<p @text="breadcrumb.title"><!--- TODO Replace with SVG! ---></p>
+						<svg webc:nokeep @html="inlineSvg('assets/icons/logo.svg')"></svg>
 					</a>
 				</li>
 				<li webc:for="crumb of breadcrumb.crumbs">
