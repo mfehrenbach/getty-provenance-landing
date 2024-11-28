@@ -37,7 +37,7 @@
 	@media (width >= 48em) {
 		--type--size--small:  1.4rem;
 		--type--size--medium: 1.6rem;
-		--type--size--large:  4.8rem;
+		--type--size--large:  4.2rem;
 
 		--layout--gutter--base: 2.4rem;
 	}
@@ -46,7 +46,7 @@
 	@media (width >= 64em) {
 		--type--size--small:  1.5rem;
 		--type--size--medium: 1.8rem;
-		--type--size--large:  6.3rem;
+		--type--size--large:  5.5rem;
 
 		--layout--gutter--base: 3.6rem;
 		--layout--alley:  2.4rem;
