@@ -29,9 +29,16 @@
 	--layout--page: calc(100vw - var(--layout--gutter) * 2);
 
 	--color--foreground: white;
-	--color--secondary:  rgb(255 255 255 / 30%);
+	--color--highlight:  rgb(255 255 255 / 5%);
+	--color--secondary:  rgb(255 255 255 / 25%);
 	--color--tint:       rgb(34 34 34 / 75%);
 	--color--background: black;
+
+	--link--enlargement:          0.8rem;
+	--link--enlargement--minimum: 2.8rem;
+	--link--hover:                80%;
+	--link--outline:              0.2rem;
+	--link--transition:           100ms;
 
 	/* Medium. */
 	@media (width >= 48em) {

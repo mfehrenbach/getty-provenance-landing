@@ -1,6 +1,56 @@
 :is(a, area):where([href]),
 :is(button, input, select):where(:not([disabled])) {
+	border-radius:  0.01rem; /* Force rounded corners with the offset. */
+	outline-offset: var(--link--enlargement);
+
+	/* Disable default iOS highlight; we add our own, below. */
+	-webkit-tap-highlight-color: transparent;
+
+	&:focus {
+		outline: none;
+		z-index: 1;
+
+		&:focus-visible {
+			outline-color: var(--color--foreground);
+			outline-style: solid;
+			outline-width: var(--link--outline);
+		}
+	}
+
+	/* Safari minimum for corners—it rounds down `0.01rem`. Nearly visible for dark backgrounds, hence the scope. */
+	@supports (font: -apple-system-body) { border-radius: 0.1rem }
+
+	@media (any-hover: hover) {
+		transition-duration:        var(--link--transition);
+		transition-property:        opacity;
+		transition-timing-function: linear;
+
+		&:hover { opacity: var(--link--hover) }
+	}
+}
+
+:is(a, area):where([href]),
+:is(button):where(:not([disabled])) {
 	cursor:   pointer;
 	display:  flow-root;
 	position: relative;
+
+	&::after {
+		/* Intrinsic size plus enlargement. */
+		--link--enlargement--element: calc(100% + var(--link--enlargement) * 2);
+
+		background-color:    transparent;
+		block-size:          max(var(--link--enlargement--minimum), 100%);
+		border-radius:       var(--link--enlargement);
+		content:             '';
+		cursor:              pointer;
+		inline-size:         max(var(--link--enlargement--minimum), var(--link--enlargement--element));
+		inset-block-start:   50%;
+		inset-inline-start:  50%;
+		pointer-events:      auto;
+		position:            absolute;
+		transform:           translate(-50%, -50%);
+	}
+
+	&:active::after { background-color: var(--color--highlight) }
 }
