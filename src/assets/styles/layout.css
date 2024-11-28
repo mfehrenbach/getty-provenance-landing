@@ -1,0 +1,29 @@
+:root {
+	font-family: 'Graphik', sans-serif;
+	font-size:   62.5%; /* For even maths. */
+
+	* {
+		font-kerning:             normal;
+		font-smooth:              always;
+		-moz-osx-font-smoothing:  grayscale;
+		-webkit-font-smoothing:   antialiased;
+		text-rendering:           optimizeLegibility;
+		-webkit-text-size-adjust: none;
+	}
+}
+
+body {
+	font-size:      var(--type--size--small);
+	font-weight:    var(--type--weight--regular);
+	letter-spacing: var(--type--letter-spacing--small);
+	line-height:    var(--type--line-height--heading);
+
+	header {
+		h1 {
+			font-size:      var(--type--size--large);
+			font-weight:    var(--type--weight--semibold);
+			letter-spacing: var(--type--letter-spacing--large);
+			line-height:    var(--type--line-height--display);
+		}
+	}
+}

@@ -1,7 +1,31 @@
 :root {
-	font-family: 'Graphik', sans-serif;
+	--type--size--small:  1.3rem;
+	--type--size--medium: 1.5rem;
+	--type--size--large:  3.6rem;
 
-	em { font-style: italic }
+	--type--letter-spacing--small:  -0.01em;
+	--type--letter-spacing--medium: -0.0175em;
+	--type--letter-spacing--large:  -0.0225em;
 
-	img { max-inline-size: 600px }
+	--type--line-height--body:    1.35;
+	--type--line-height--heading: 1.2;
+	--type--line-height--display: 1.15;
+
+	--type--weight--regular:  400;
+	--type--weight--medium:   500;
+	--type--weight--semibold: 600;
+
+	/* Medium. */
+	@media (width >= 48em) {
+		--type--size--small:  1.4rem;
+		--type--size--medium: 1.6rem;
+		--type--size--large:  4.8rem;
+	}
+
+	/* Large */
+	@media (width >= 64em) {
+		--type--size--small:  1.5rem;
+		--type--size--medium: 1.8rem;
+		--type--size--large:  6.3rem;
+	}
 }
