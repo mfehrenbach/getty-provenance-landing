@@ -18,10 +18,14 @@
 		font-weight:      var(--type--weight--regular);
 		letter-spacing:   var(--type--letter-spacing--small);
 		line-height:      var(--type--line-height--heading);
+		position:         relative;
 
 		/* Main header. */
 		> header {
 			background-color: var(--color--tint);
+			inset-block-start: 0;
+			inset-inline: 0;
+			position: absolute;
 
 			/* Breadcrumbs. */
 			nav:first-child {
@@ -83,6 +87,10 @@
 
 		/* Main search area/background. */
 		> main {
+			background-color: tan;
+			block-size:       calc(100svh + var(--layout--footer) - 1em);
+
+			> * { display: none } /* Temp. */
 		}
 	}
 }
