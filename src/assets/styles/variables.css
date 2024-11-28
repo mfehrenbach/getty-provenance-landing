@@ -26,7 +26,8 @@
 
 	--layout--alley: 1.6rem;
 
-	--layout--page: calc(100vw - var(--layout--gutter) * 2);
+	--layout--page:   calc(100vw - var(--layout--gutter) * 2);
+	--layout--footer: calc(4 * var(--type--size--large));
 
 	--color--foreground: white;
 	--color--highlight:  rgb(255 255 255 / 5%);

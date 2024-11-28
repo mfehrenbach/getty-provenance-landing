@@ -92,5 +92,23 @@
 
 			> * { display: none } /* Temp. */
 		}
+
+		> footer {
+			background-color:   var(--color--tint);
+			block-size:         var(--layout--footer);
+			color:              var(--color--secondary);
+			column-gap:         var(--layout--alley);
+			display:            flex;
+			justify-content:    space-between;
+			margin-block-start: calc(-1 * var(--layout--footer));
+			padding-block:      1em;
+			padding-inline:     var(--layout--gutter);
+
+			ul {
+				display:        flex;
+				flex-direction: column;
+				row-gap:        0.5em;
+			}
+		}
 	}
 }
