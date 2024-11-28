@@ -23,12 +23,16 @@ body {
 	/* Breadcrumbs. */
 	> nav {
 		> ol {
-			column-gap: var(--layout--alley);
-			display: flex;
-			overflow: auto;
-			padding-block: 1em;
-			padding-inline: var(--layout--gutter);
-			text-wrap: nowrap;
+			column-gap:         var(--layout--alley);
+			display:            flex;
+			overflow:           auto;
+			-ms-overflow-style: none; /* Edge. */
+			padding-block:      1em;
+			padding-inline:     var(--layout--gutter);
+			scrollbar-width:    none; /* Firefox. */
+			text-wrap:          nowrap;
+
+			&::-webkit-scrollbar { display: none } /* Chrome, Safari. */
 		}
 	}
 
