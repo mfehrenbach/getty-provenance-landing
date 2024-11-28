@@ -2,4 +2,6 @@
 	font-family: 'Graphik', sans-serif;
 
 	em { font-style: italic }
+
+	img { max-inline-size: 600px }
 }
