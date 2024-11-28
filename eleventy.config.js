@@ -7,6 +7,8 @@ import { getCarriedOutBy, getPrimaryName } from '@thegetty/linkedart.js'
 export default function(eleventyConfig) {
 	// Setup.
 	eleventyConfig.addPlugin(webC)
+	eleventyConfig.addWatchTarget('**/*.css')
+	eleventyConfig.addWatchTarget('**/*.js')
 	eleventyConfig.setDataFileSuffixes(['.config'])
 	eleventyConfig.setInputDirectory('src/index.webc')
 	eleventyConfig.setOutputDirectory('public')
