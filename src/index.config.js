@@ -115,65 +115,66 @@ export default {
 				image:  'a11666c0-a68e-4a10-942a-e938ee68bdf9',
 				report: '287a1ff4-9b52-322f-a75c-303cddbceeb1',
 			},
-			// {
-			// 	name:   'Édouard Manet',
-			// 	report: '8daf18af-f59c-313c-ae9f-80d4e01fbc81',
-			// 	object: '',
-			// 	image:  '8ea48dc4-ddd1-47ae-b9fb-21c3ea0337da',
-			// },
-			// {
-			// 	name:   'Rembrandt Harmensz. van Rijn',
-			// 	report: 'dde29a68-fea4-3f3d-89b2-dbc0688a48ae',
-			// 	object: '',
-			// 	image:  '13e02252-fb7f-4bd5-a8e8-ce4ca096beda',
-			// },
-			// {
-			// 	name:   'Edgar Degas',
-			// 	report: 'f0a82d9c-6338-34e3-a28e-603b7d6f1581',
-			// 	object: '',
-			// 	image:  '01be71c3-28c4-4479-9137-aa31861fe917',
-			// },
-			// {
-			// 	name:   'Claude Monet',
-			// 	report: '1d44a590-d899-34fe-b866-b2b303d34706',
-			// 	object: '',
-			// 	image:  'ae926817-92dc-4108-b827-329be50bb758',
-			// },
-			// {
-			// 	name:   'Théodore Géricault',
-			// 	report: '0f97dcdc-020e-345d-9c14-4ec4d4ad913e',
-			// 	object: '',
-			// 	image:  '10be3af9-92f1-41a2-9cfb-6ccc30378119',
-			// },
-			// {
-			// 	name:   'Nicolas Poussin',
-			// 	report: '79a305f5-38b3-341b-8c7e-a12e5edcb437',
-			// 	object: '',
-			// 	image:  '769f2327-0618-4c6c-ad32-7035dd763f26',
-			// },
-			// {
-			// 	name:   'Joseph Mallord William Turner',
-			// 	report: '52a1349e-3451-36fa-8bc7-b0b7db839973',
-			// 	object: '',
-			// 	image:  'ab4b4415-7ea2-407f-9a44-31624bb467ac',
-			// },
-			// {
-			// 	name:   'Claude-Joseph Vernet',
-			// 	report: '17f5e2b9-0cd8-39ee-b996-8f43f0317432',
-			// 	object: '',
-			// },
-			// {
-			// 	name:   'Jan Brueghel the Elder',
-			// 	report: '6c3aa6be-8515-3971-8fa5-b90c80751309',
-			// 	object: '',
-			// 	image:  '73ba9096-47d8-4095-84d3-1b22e4b98270',
-			// },
-			// {
-			// 	name:   'Jean-François Millet',
-			// 	report: '47a6a315-0cf1-35c1-97ee-e7081703eef9',
-			// 	object: '',
-			// 	image:  'd80d5a81-edda-4650-9c5b-c3449513552c',
-			// },
+			{
+				// Manet’s “Rue Mosnier with Flags.”
+				object: 'c0e83617-05f7-4e05-9d2d-7c235e678622',
+				image:  '8ea48dc4-ddd1-47ae-b9fb-21c3ea0337da',
+				report: '8daf18af-f59c-313c-ae9f-80d4e01fbc81',
+			},
+			{
+				// Rembrandt’s “Abduction of Europa.”
+				object: 'd91348af-37bf-49cd-8322-f7d4f0751cd9',
+				image:  '13e02252-fb7f-4bd5-a8e8-ce4ca096beda',
+				report: 'dde29a68-fea4-3f3d-89b2-dbc0688a48ae',
+			},
+			{
+				// Degas’ “After the Bath.”
+				object: '52021978-3913-4af4-96b6-6ece69ed1d92',
+				image:  '01be71c3-28c4-4479-9137-aa31861fe917',
+				report: 'f0a82d9c-6338-34e3-a28e-603b7d6f1581',
+			},
+			{
+				// Monet’s “Wheatstacks.”
+				object: '9a9cebf1-6d57-4153-aeac-3d5aa0ad9b2c',
+				image:  'ae926817-92dc-4108-b827-329be50bb758',
+				report: '1d44a590-d899-34fe-b866-b2b303d34706',
+			},
+			{
+				// Géricault’s “Three Lovers.”
+				object: '8452de2e-33d4-4ddd-937a-004d8f56c7ff',
+				image:  '10be3af9-92f1-41a2-9cfb-6ccc30378119',
+				report: '0f97dcdc-020e-345d-9c14-4ec4d4ad913e',
+			},
+			{
+				// Poussin’s “Landscape with a Calm.”
+				object: '9f3d6258-9711-41a8-8d1c-640c39289691',
+				image:  '769f2327-0618-4c6c-ad32-7035dd763f26',
+				report: '79a305f5-38b3-341b-8c7e-a12e5edcb437',
+			},
+			{
+				// Turner’s “Modern Rome.”
+				object: '04dd6563-416d-4f17-ad35-4049dbf36563',
+				image:  'ab4b4415-7ea2-407f-9a44-31624bb467ac',
+				report: '52a1349e-3451-36fa-8bc7-b0b7db839973',
+			},
+			{
+				// Vernet’s “Calm at a Mediterranean Port.”
+				object: '2c187bde-a1c0-4c9f-835f-005d336a8139',
+				report: '17f5e2b9-0cd8-39ee-b996-8f43f0317432',
+				image:  '93ea9e51-4b0a-42a2-b1f6-475a2e911b5d',
+			},
+			{
+				// Brueghel’s “Entry of the Animals into Noah's Ark.”
+				object: 'd144e5f6-1f2b-4739-908f-bd661f85f817',
+				image:  '73ba9096-47d8-4095-84d3-1b22e4b98270',
+				report: '6c3aa6be-8515-3971-8fa5-b90c80751309',
+			},
+			{
+				// Millet’s “Man with a Hoe.”
+				object: '9e4be67e-e28d-4bd3-a026-3ad52411f61a',
+				image:  'd80d5a81-edda-4650-9c5b-c3449513552c',
+				report: '47a6a315-0cf1-35c1-97ee-e7081703eef9',
+			},
 		],
 	},
 	footer: {
