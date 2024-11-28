@@ -15,6 +15,19 @@
 	--type--weight--medium:   500;
 	--type--weight--semibold: 600;
 
+	--layout--safe-area: calc(env(safe-area-inset-left) * 0.815); /* Insets on iPhones (same left/right). */
+
+	--layout--max:  192rem;
+
+	--layout--gutter--base: 1.6rem;
+	--layout--gutter--safe: calc(var(--layout--gutter--base) + var(--layout--safe-area));
+	--layout--gutter--max:  calc((100vw - (var(--layout--max) - 2 * var(--layout--gutter--base))) / 2);
+	--layout--gutter:       max(var(--layout--gutter--base), var(--layout--gutter--safe), var(--layout--gutter--max));
+
+	--layout--alley: 1.6rem;
+
+	--layout--page: calc(100vw - var(--layout--gutter) * 2);
+
 	--color--foreground: white;
 	--color--background: black;
 
@@ -23,6 +36,8 @@
 		--type--size--small:  1.4rem;
 		--type--size--medium: 1.6rem;
 		--type--size--large:  4.8rem;
+
+		--layout--gutter--base: 2.4rem;
 	}
 
 	/* Large */
@@ -30,5 +45,13 @@
 		--type--size--small:  1.5rem;
 		--type--size--medium: 1.8rem;
 		--type--size--large:  6.3rem;
+
+		--layout--gutter--base: 3.6rem;
+		--layout--alley:  2.4rem;
+	}
+
+	/* Max. */
+	@media (width >= 90em) {
+		--layout--gutter--base: 6rem;
 	}
 }
