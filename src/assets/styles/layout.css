@@ -20,7 +20,20 @@ body {
 	letter-spacing:   var(--type--letter-spacing--small);
 	line-height:      var(--type--line-height--heading);
 
-	header {
+	/* Breadcrumbs. */
+	> nav {
+		> ol {
+			column-gap: var(--layout--alley);
+			display: flex;
+			overflow: auto;
+			padding-block: 1em;
+			padding-inline: var(--layout--gutter);
+			text-wrap: nowrap;
+		}
+	}
+
+	/* Main header. */
+	> header {
 		h1 {
 			font-size:      var(--type--size--large);
 			font-weight:    var(--type--weight--semibold);
