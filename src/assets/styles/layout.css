@@ -33,6 +33,9 @@ body {
 			text-wrap:          nowrap;
 
 			&::-webkit-scrollbar { display: none } /* Chrome, Safari. */
+
+			/* Logo. */
+			svg { block-size: 0.7em } /* Roughly cap-height. */
 		}
 	}
 
