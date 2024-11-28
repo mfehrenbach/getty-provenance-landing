@@ -10,21 +10,21 @@
 	</head>
 	<body>
 		<!-- TODO Skip link! -->
-		<nav aria-label="Breadcrumb">
-			<ol>
-				<li>
-					<a :aria-label="breadcrumb.title" :href="gettyUrl()">
-						<svg webc:nokeep @html="inlineSvg('assets/icons/logo.svg')"></svg>
-					</a>
-				</li>
-				<li webc:for="crumb of breadcrumb.crumbs">
-					<a :href="gettyUrl(crumb.url)">
-						<p @text="crumb.title"></p>
-					</a>
-				</li>
-			</ol>
-		</nav>
 		<header>
+			<nav aria-label="Breadcrumb">
+				<ol>
+					<li>
+						<a :aria-label="breadcrumb.title" :href="gettyUrl()">
+							<svg webc:nokeep @html="inlineSvg('assets/icons/logo.svg')"></svg>
+						</a>
+					</li>
+					<li webc:for="crumb of breadcrumb.crumbs">
+						<a :href="gettyUrl(crumb.url)">
+							<p @text="crumb.title"></p>
+						</a>
+					</li>
+				</ol>
+			</nav>
 			<h1 @text="title"></h1>
 			<nav aria-label="Navigation">
 				<ul>

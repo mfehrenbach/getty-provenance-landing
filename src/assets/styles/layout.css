@@ -19,45 +19,34 @@
 		letter-spacing:   var(--type--letter-spacing--small);
 		line-height:      var(--type--line-height--heading);
 
-		/* Breadcrumbs. */
-		> nav ol {
-			/* Logo. */
-			svg {
-				block-size:        0.7em; /* Roughly cap-height. */
-				inset-block-start: 0.05em;
-				position:          relative;
-			}
-
-			li:not(:first-child) {
-				color:      var(--color--secondary);
-				column-gap: calc(var(--layout--alley));
-				display:    flex;
-
-				&:not(:last-child)::after {
-					content:       '/';
-					margin-inline: -0.1em;
-				}
-			}
-		}
-
-		/* Might need to scroll on mobile. */
-		> nav ol,
-		> header nav ul {
-			column-gap:         var(--layout--alley);
-			display:            flex;
-			overflow:           auto;
-			-ms-overflow-style: none; /* Edge. */
-			padding-block:      1em;
-			padding-inline:     var(--layout--gutter);
-			scrollbar-width:    none; /* Firefox. */
-			text-wrap:          nowrap;
-
-			&::-webkit-scrollbar { display: none } /* Chrome, Safari. */
-		}
-
 		/* Main header. */
 		> header {
 			background-color: var(--color--tint);
+
+			/* Breadcrumbs. */
+			nav:first-child {
+				background-color: var(--color--shade);
+
+				ol {
+					/* Logo. */
+					svg {
+						block-size:        0.7em; /* Roughly cap-height. */
+						inset-block-start: 0.05em;
+						position:          relative;
+					}
+
+					li:not(:first-child) {
+						color:      var(--color--secondary);
+						column-gap: calc(var(--layout--alley));
+						display:    flex;
+
+						&:not(:last-child)::after {
+							content:       '/';
+							margin-inline: -0.1em;
+						}
+					}
+				}
+			}
 
 			h1 {
 				font-size:           var(--type--size--large);
@@ -70,10 +59,25 @@
 				padding-inline:      var(--layout--gutter);
 			}
 
-			ul {
+			/* Main nav. */
+			nav:last-child ul {
 				font-size:      var(--type--size--medium);
 				font-weight:    var(--type--weight--medium);
 				letter-spacing: var(--type--letter-spacing--medium);
+			}
+
+			/* Might need to scroll on mobile. */
+			nav :where(ol, ul) {
+				column-gap:         var(--layout--alley);
+				display:            flex;
+				overflow:           auto;
+				-ms-overflow-style: none; /* Edge. */
+				padding-block:      1em;
+				padding-inline:     var(--layout--gutter);
+				scrollbar-width:    none; /* Firefox. */
+				text-wrap:          nowrap;
+
+				&::-webkit-scrollbar { display: none } /* Chrome, Safari. */
 			}
 		}
 
