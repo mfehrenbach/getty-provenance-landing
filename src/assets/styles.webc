@@ -7,9 +7,10 @@
 <style
 	webc:keep
 	@raw="`
-		@layer reset      { ${getBundle('css', 'reset')} }
-		@layer variables  { ${getBundle('css', 'variables')} }
-		@layer layout     { ${getBundle('css', 'layout')} }
+		@layer reset     { ${getBundle('css', 'reset')} }
+		@layer variables { ${getBundle('css', 'variables')} }
+		@layer links     { ${getBundle('css', 'links')} }
+		@layer layout    { ${getBundle('css', 'layout')} }
 	`"
 >
 </style>

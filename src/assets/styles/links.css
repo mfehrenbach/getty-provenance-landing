@@ -1,0 +1,6 @@
+:is(a, area):where([href]),
+:is(button, input, select):where(:not([disabled])) {
+	cursor:   pointer;
+	display:  flow-root;
+	position: relative;
+}
