@@ -123,6 +123,7 @@
 					--layout--alley: 1.6rem;
 					--layout--page: calc(100vw - var(--layout--gutter) * 2);
 					--color--foreground: white;
+					--color--secondary: rgb(255 255 255 / 30%);
 					--color--background: black;
 
 					/* Medium. */
@@ -194,12 +195,24 @@
 							}
 
 							/* Chrome, Safari. */
-							/* Logo. */
-							svg {
-								block-size: 0.7em
+							> li:not(:first-child) {
+								color: var(--color--secondary);
+								column-gap: calc(var(--layout--alley));
+								display: flex;
+
+								&:not(:last-child)::after {
+									content: '/';
+									margin-inline: -0.1em;
+								}
 							}
 
-							/* Roughly cap-height. */
+							/* Logo. */
+							svg {
+								block-size: 0.7em;
+								/* Roughly cap-height. */
+								inset-block-start: 0.05em;
+								position: relative;
+							}
 						}
 					}
 
