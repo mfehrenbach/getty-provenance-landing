@@ -30,6 +30,7 @@
 
 	--color--foreground: white;
 	--color--secondary:  rgb(255 255 255 / 30%);
+	--color--tint:       rgb(34 34 34 / 75%);
 	--color--background: black;
 
 	/* Medium. */
