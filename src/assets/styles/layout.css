@@ -13,10 +13,12 @@
 }
 
 body {
-	font-size:      var(--type--size--small);
-	font-weight:    var(--type--weight--regular);
-	letter-spacing: var(--type--letter-spacing--small);
-	line-height:    var(--type--line-height--heading);
+	background-color: var(--color--background);
+	color:            var(--color--foreground);
+	font-size:        var(--type--size--small);
+	font-weight:      var(--type--weight--regular);
+	letter-spacing:   var(--type--letter-spacing--small);
+	line-height:      var(--type--line-height--heading);
 
 	header {
 		h1 {

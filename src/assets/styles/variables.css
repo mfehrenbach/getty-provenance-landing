@@ -15,6 +15,9 @@
 	--type--weight--medium:   500;
 	--type--weight--semibold: 600;
 
+	--color--foreground: white;
+	--color--background: black;
+
 	/* Medium. */
 	@media (width >= 48em) {
 		--type--size--small:  1.4rem;
