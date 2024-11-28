@@ -34,8 +34,23 @@ body {
 
 			&::-webkit-scrollbar { display: none } /* Chrome, Safari. */
 
+			> li:not(:first-child) {
+				color:      var(--color--secondary);
+				column-gap: calc(var(--layout--alley));
+				display:    flex;
+
+				&:not(:last-child)::after {
+					content:       '/';
+					margin-inline: -0.1em;
+				}
+			}
+
 			/* Logo. */
-			svg { block-size: 0.7em } /* Roughly cap-height. */
+			svg {
+				block-size:        0.7em; /* Roughly cap-height. */
+				inset-block-start: 0.05em;
+				position:          relative;
+			}
 		}
 	}
 

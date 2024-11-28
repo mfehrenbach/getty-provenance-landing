@@ -29,6 +29,7 @@
 	--layout--page: calc(100vw - var(--layout--gutter) * 2);
 
 	--color--foreground: white;
+	--color--secondary:  rgb(255 255 255 / 30%);
 	--color--background: black;
 
 	/* Medium. */
