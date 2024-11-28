@@ -14,7 +14,7 @@ export default function(eleventyConfig) {
 	eleventyConfig.setOutputDirectory('public')
 
 	// Helpers.
-	eleventyConfig.addFilter('gettyUrl', (path) => `https://www.getty.edu/${path}`)
+	eleventyConfig.addFilter('gettyUrl', (path) => `https://www.getty.edu/${path ? path : ''}`)
 	eleventyConfig.addFilter('exampleSrc', (image) => `https://media.getty.edu/iiif/image/${image}/full/3000,/0/default.jpg`)
 
 	// Use `eleventy-fetch` for per-build cached Collection API responses.
