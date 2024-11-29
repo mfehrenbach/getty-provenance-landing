@@ -324,10 +324,20 @@
 
 						/* Main search area/background. */
 						> main {
+							align-items: center;
 							background-color: tan;
 							block-size: calc(100svh + var(--layout--footer) - 1em);
+							display: flex;
+							justify-content: center;
 
-							> * {
+							form {
+								background-color: var(--color--foreground);
+								color: var(--color--background);
+								display: flex;
+								margin-inline: var(--layout--gutter);
+							}
+
+							> ul {
 								display: none
 							}
 
