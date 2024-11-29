@@ -334,7 +334,24 @@
 								background-color: var(--color--foreground);
 								color: var(--color--background);
 								display: flex;
+								font-size: var(--type--size--medium);
+								letter-spacing: var(--type--letter-spacing--medium);
 								margin-inline: var(--layout--gutter);
+
+								fieldset:last-of-type {
+									display: none
+								}
+
+								/* Temp. */
+								/* Submit/search glass. */
+								button {
+									aspect-ratio: 1;
+									background-color: var(--color--background);
+									block-size: 3em;
+									color: var(--color--foreground);
+									display: grid;
+									place-items: center;
+								}
 							}
 
 							> ul {
@@ -364,19 +381,17 @@
 
 							/* Legal links. */
 							section {
-								display: flex;
-								flex-direction: column;
+								align-content: space-between;
+								display: grid;
 								flex-shrink: 0;
-								justify-content: space-between;
 								row-gap: 1em;
 
 								ul {
-									align-items: start;
 									color: var(--color--foreground);
-									display: flex;
-									flex-direction: column;
+									display: grid;
 									font-size: var(--type--size--medium);
 									font-weight: var(--type--weight--medium);
+									justify-items: start;
 									letter-spacing: var(--type--letter-spacing--medium);
 									row-gap: 1em;
 								}
@@ -478,7 +493,7 @@
 		<main>
 			<form data-arches-url="https://provenance.dev.getty.fargeo.com" data-api-url="https://data.getty.edu/provenance">
 				<fieldset>
-					<label for="search">Search <data></data> records…:</label>
+					<label for="search">Search <data></data> records…</label>
 					<input autocapitalize="off" autocomplete="off" autocorrect="off" id="search" name="search" required spellcheck="false" type="text">
 				</fieldset>
 				<fieldset>
@@ -500,7 +515,11 @@
 						<option value="933ee880-b4b5-11ea-84f7-3af9d3b32b71">Visual Work</option>
 					</select>
 				</fieldset>
-				<button type="submit">Search</button>
+				<button aria-label="Search" type="submit">
+					<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19">
+						<path d="M14.707 13.293L14.7071 13.2929L13.8535 13.1464L13.14 12.4329C14.2948 11.1137 15 9.39105 15 7.5C15 3.35785 11.6422 0 7.5 0C3.35785 0 0 3.35785 0 7.5C0 11.6422 3.35785 15 7.5 15C9.39105 15 11.1137 14.2948 12.4329 13.14L13.1464 13.8535L13.2929 14.7071L13.293 14.707L17.293 18.707L18.707 17.293L14.707 13.293ZM7.5 13C4.46729 13 2 10.5327 2 7.5C2 4.46729 4.46729 2 7.5 2C10.5327 2 13 4.46729 13 7.5C13 10.5327 10.5327 13 7.5 13Z" fill="currentColor"></path>
+					</svg>
+				</button>
 			</form>
 			<ul>
 				<li>
