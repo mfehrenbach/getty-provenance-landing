@@ -102,8 +102,12 @@
 				font-size:        var(--type--size--medium);
 				letter-spacing:   var(--type--letter-spacing--medium);
 				margin-inline:    var(--layout--gutter);
+				outline-color:    var(--color--edge);
+				outline-offset:   -0.1rem;
+				outline-style:    solid;
+				outline-width:    0.1rem;
 
-				fieldset:last-of-type { display: none } /* Temp. */
+				*:focus { outline-color: var(--color--background) }
 
 				/* Submit/search glass. */
 				button {

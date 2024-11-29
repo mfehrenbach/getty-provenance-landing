@@ -36,6 +36,7 @@
 	--color--secondary:  rgb(255 255 255 / 33%);
 	--color--tint:       rgb(17 17 17 / 75%);
 	--color--shade:      rgb(0 0 0 / 33%);
+	--color--edge:       rgb(0 0 0 / 13.333%);
 	--color--background: black;
 
 	--link--enlargement:          0.8rem;
