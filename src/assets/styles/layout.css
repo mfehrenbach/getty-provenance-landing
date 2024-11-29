@@ -123,19 +123,17 @@
 
 			/* Legal links. */
 			section {
-				display:         flex;
-				flex-direction:  column;
-				flex-shrink:     0;
-				justify-content: space-between;
-				row-gap:         1em;
+				align-content: space-between;
+				display:       grid;
+				flex-shrink:   0;
+				row-gap:       1em;
 
 				ul {
-					align-items:    start;
 					color:          var(--color--foreground);
-					display:        flex;
-					flex-direction: column;
+					display:        grid;
 					font-size:      var(--type--size--medium);
 					font-weight:    var(--type--weight--medium);
+					justify-items:  start;
 					letter-spacing: var(--type--letter-spacing--medium);
 					row-gap:        1em;
 				}
