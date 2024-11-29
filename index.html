@@ -123,10 +123,11 @@
 					--layout--alley: 1.6rem;
 					--layout--page: calc(100vw - var(--layout--gutter) * 2);
 					--layout--footer: calc(5 * var(--type--size--large));
+					--layout--backdrop: blur(1.2rem);
 					--color--foreground: white;
 					--color--highlight: rgb(255 255 255 / 5%);
 					--color--secondary: rgb(255 255 255 / 33%);
-					--color--tint: rgb(34 34 34 / 90%);
+					--color--tint: rgb(17 17 17 / 75%);
 					--color--shade: rgb(0 0 0 / 33%);
 					--color--background: black;
 					--link--enlargement: 0.8rem;
@@ -251,10 +252,12 @@
 
 						/* Main header. */
 						> header {
+							backdrop-filter: var(--layout--backdrop);
 							background-color: var(--color--tint);
 							inset-block-start: 0;
 							inset-inline: 0;
 							position: absolute;
+							z-index: 1;
 
 							/* Breadcrumbs. */
 							nav:first-child {
@@ -361,16 +364,21 @@
 							/* Temp. */
 						}
 
+						/* Footer for legalese. */
 						> footer {
+							backdrop-filter: var(--layout--backdrop);
 							background-color: var(--color--tint);
 							block-size: var(--layout--footer);
 							color: var(--color--secondary);
 							column-gap: var(--layout--alley);
 							display: flex;
+							inset-block-end: 0;
+							inset-inline: 0;
 							justify-content: space-between;
-							margin-block-start: calc(-1 * var(--layout--footer));
 							padding-block: var(--layout--alley);
 							padding-inline: var(--layout--gutter);
+							position: absolute;
+							z-index: 1;
 
 							/* Notice text. */
 							> p {
