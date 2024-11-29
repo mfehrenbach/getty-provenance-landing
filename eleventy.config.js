@@ -71,4 +71,5 @@ export default function(eleventyConfig) {
 	})
 
 	// TODO Remove CSS comments from compiled output!
+	// TODO local compile-to-public script
 }
