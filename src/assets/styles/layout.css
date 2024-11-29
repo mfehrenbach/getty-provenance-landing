@@ -22,10 +22,12 @@
 
 		/* Main header. */
 		> header {
-			background-color: var(--color--tint);
+			backdrop-filter:   var(--layout--backdrop);
+			background-color:  var(--color--tint);
 			inset-block-start: 0;
-			inset-inline: 0;
-			position: absolute;
+			inset-inline:      0;
+			position:          absolute;
+			z-index:           1;
 
 			/* Breadcrumbs. */
 			nav:first-child {
@@ -117,16 +119,21 @@
 			> ul { display: none } /* Temp. */
 		}
 
+		/* Footer for legalese. */
 		> footer {
-			background-color:   var(--color--tint);
-			block-size:         var(--layout--footer);
-			color:              var(--color--secondary);
-			column-gap:         var(--layout--alley);
-			display:            flex;
-			justify-content:    space-between;
-			margin-block-start: calc(-1 * var(--layout--footer));
-			padding-block:      var(--layout--alley);
-			padding-inline:     var(--layout--gutter);
+			backdrop-filter:  var(--layout--backdrop);
+			background-color: var(--color--tint);
+			block-size:       var(--layout--footer);
+			color:            var(--color--secondary);
+			column-gap:       var(--layout--alley);
+			display:          flex;
+			inset-block-end:  0;
+			inset-inline:     0;
+			justify-content:  space-between;
+			padding-block:    var(--layout--alley);
+			padding-inline:   var(--layout--gutter);
+			position:         absolute;
+			z-index:          1;
 
 			/* Notice text. */
 			> p {

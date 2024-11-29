@@ -29,10 +29,12 @@
 	--layout--page:   calc(100vw - var(--layout--gutter) * 2);
 	--layout--footer: calc(5 * var(--type--size--large));
 
+	--layout--backdrop: blur(1.2rem);
+
 	--color--foreground: white;
 	--color--highlight:  rgb(255 255 255 / 5%);
 	--color--secondary:  rgb(255 255 255 / 33%);
-	--color--tint:       rgb(34 34 34 / 90%);
+	--color--tint:       rgb(17 17 17 / 75%);
 	--color--shade:      rgb(0 0 0 / 33%);
 	--color--background: black;
 
