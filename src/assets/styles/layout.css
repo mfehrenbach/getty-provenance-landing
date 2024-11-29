@@ -97,7 +97,21 @@
 				background-color: var(--color--foreground);
 				color:            var(--color--background);
 				display:          flex;
+				font-size:        var(--type--size--medium);
+				letter-spacing:   var(--type--letter-spacing--medium);
 				margin-inline:    var(--layout--gutter);
+
+				fieldset:last-of-type { display: none } /* Temp. */
+
+				/* Submit/search glass. */
+				button {
+					aspect-ratio:     1;
+					background-color: var(--color--background);
+					block-size:       3em;
+					color:            var(--color--foreground);
+					display:          grid;
+					place-items:      center;
+				}
 			}
 
 			> ul { display: none } /* Temp. */

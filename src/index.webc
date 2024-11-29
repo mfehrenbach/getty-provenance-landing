@@ -56,7 +56,9 @@
 						<option webc:for="type of search.types" @text="type.title" :value="type.value"></option>
 					</select>
 				</fieldset>
-				<button @text="search.button" type="submit"></button>
+				<button :aria-label="search.button" type="submit">
+					<svg webc:nokeep @html="inlineSvg('assets/icons/glass.svg')"></svg>
+				</button>
 			</form>
 			<ul>
 				<li webc:for="example of record.examples">
