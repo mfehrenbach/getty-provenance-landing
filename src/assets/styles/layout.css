@@ -104,10 +104,19 @@
 			padding-block:      1em;
 			padding-inline:     var(--layout--gutter);
 
-			ul {
-				display:        flex;
-				flex-direction: column;
-				row-gap:        0.5em;
+			h2 { align-self: end }
+
+			section {
+				display:         flex;
+				flex-direction:  column;
+				justify-content: space-between;
+				row-gap:         1em;
+
+				ul {
+					display:        flex;
+					flex-direction: column;
+					row-gap:        0.5em;
+				}
 			}
 		}
 	}
