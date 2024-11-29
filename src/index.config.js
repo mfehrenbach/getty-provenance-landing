@@ -34,7 +34,7 @@ export default {
 		},
 	],
 	search:  {
-		label:  'Search <data></data> records…:',
+		label:  'Search <data></data> records…',
 		types: [
 			{
 				title: 'Any type',
