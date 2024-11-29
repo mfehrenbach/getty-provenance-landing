@@ -89,11 +89,10 @@
 
 		/* Main search area/background. */
 		> main {
-			align-items:      center;
-			background-color: tan;
-			block-size:       calc(100svh + var(--layout--footer) - 1em);
-			display:          flex;
-			justify-content:  center;
+			align-items:     center;
+			block-size:      calc(100svh + var(--layout--footer) - 1em);
+			display:         flex;
+			justify-content: center;
 
 			form {
 				background-color: var(--color--foreground);
@@ -106,6 +105,7 @@
 				outline-offset:   -0.1rem;
 				outline-style:    solid;
 				outline-width:    0.1rem;
+				z-index:          1;
 
 				*:focus { outline-color: var(--color--background) }
 
@@ -120,7 +120,20 @@
 				}
 			}
 
-			> ul { display: none } /* Temp. */
+			/* Example records. */
+			ul {
+				display:  grid;
+				inset:    0;
+				position: fixed;
+
+				li {
+					background-image:    var(--background-image);
+					background-position: center;
+					background-size:     200rem; /* Temp. */
+				}
+
+				li:not(:first-child) { display: none } /* Temp. */
+			}
 		}
 
 		/* Footer for legalese. */
