@@ -27,7 +27,7 @@
 	--layout--alley: 1.6rem;
 
 	--layout--page:   calc(100vw - var(--layout--gutter) * 2);
-	--layout--footer: calc(4 * var(--type--size--large));
+	--layout--footer: calc(5 * var(--type--size--large));
 
 	--color--foreground: white;
 	--color--highlight:  rgb(255 255 255 / 5%);
@@ -59,6 +59,8 @@
 
 		--layout--gutter--base: 3.6rem;
 		--layout--alley:  2.4rem;
+
+		--layout--footer: calc(4 * var(--type--size--large));
 	}
 
 	/* Max. */

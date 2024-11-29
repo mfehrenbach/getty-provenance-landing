@@ -76,7 +76,7 @@
 			</ul>
 		</main>
 		<footer>
-			<h2 @text="footer.title"></h2>
+			<p @text="footer.notice"></p>
 			<section>
 				<ul>
 					<li webc:for="link of footer.legal">

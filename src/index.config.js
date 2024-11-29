@@ -178,7 +178,7 @@ export default {
 		],
 	},
 	footer: {
-		title:     'Getty Provenance Index®',
+		notice:    'The Getty Provenance Index® is a registered trademark of the J. Paul Getty Trust.',
 		copyright: '© J. Paul Getty Trust',
 		legal: [
 			{
