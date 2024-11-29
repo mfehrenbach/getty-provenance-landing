@@ -31,9 +31,9 @@
 
 	--color--foreground: white;
 	--color--highlight:  rgb(255 255 255 / 5%);
-	--color--secondary:  rgb(255 255 255 / 25%);
-	--color--tint:       rgb(34 34 34 / 75%);
-	--color--shade:      rgb(0 0 0 / 50%);
+	--color--secondary:  rgb(255 255 255 / 33%);
+	--color--tint:       rgb(34 34 34 / 90%);
+	--color--shade:      rgb(0 0 0 / 33%);
 	--color--background: black;
 
 	--link--enlargement:          0.8rem;
