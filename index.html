@@ -122,12 +122,12 @@
 					--layout--gutter: max(var(--layout--gutter--base), var(--layout--gutter--safe), var(--layout--gutter--max));
 					--layout--alley: 1.6rem;
 					--layout--page: calc(100vw - var(--layout--gutter) * 2);
-					--layout--footer: calc(4 * var(--type--size--large));
+					--layout--footer: calc(5 * var(--type--size--large));
 					--color--foreground: white;
 					--color--highlight: rgb(255 255 255 / 5%);
-					--color--secondary: rgb(255 255 255 / 25%);
-					--color--tint: rgb(34 34 34 / 75%);
-					--color--shade: rgb(0 0 0 / 50%);
+					--color--secondary: rgb(255 255 255 / 33%);
+					--color--tint: rgb(34 34 34 / 90%);
+					--color--shade: rgb(0 0 0 / 33%);
 					--color--background: black;
 					--link--enlargement: 0.8rem;
 					--link--enlargement--minimum: 2.8rem;
@@ -150,6 +150,7 @@
 						--type--size--large: 5.5rem;
 						--layout--gutter--base: 3.6rem;
 						--layout--alley: 2.4rem;
+						--layout--footer: calc(4 * var(--type--size--large));
 					}
 
 					/* Max. */
@@ -341,13 +342,34 @@
 							display: flex;
 							justify-content: space-between;
 							margin-block-start: calc(-1 * var(--layout--footer));
-							padding-block: 1em;
+							padding-block: var(--layout--alley);
 							padding-inline: var(--layout--gutter);
 
-							ul {
+							/* Notice text. */
+							> p {
+								align-self: end;
+								margin-inline-end: var(--layout--alley);
+								text-wrap: balance;
+							}
+
+							/* Legal links. */
+							section {
 								display: flex;
 								flex-direction: column;
-								row-gap: 0.5em;
+								flex-shrink: 0;
+								justify-content: space-between;
+								row-gap: 1em;
+
+								ul {
+									align-items: start;
+									color: var(--color--foreground);
+									display: flex;
+									flex-direction: column;
+									font-size: var(--type--size--medium);
+									font-weight: var(--type--weight--medium);
+									letter-spacing: var(--type--letter-spacing--medium);
+									row-gap: 1em;
+								}
 							}
 						}
 					}
@@ -642,27 +664,27 @@
 			</ul>
 		</main>
 		<footer>
-			<h2>Getty Provenance Index®</h2>
-			<ul>
-				<li>
-					<p>© J. Paul Getty Trust</p>
-				</li>
-				<li>
-					<a href="https://www.getty.edu/legal/privacy">
-						<p>Privacy Policy</p>
-					</a>
-				</li>
-				<li>
-					<a href="https://www.getty.edu/legal/cookies-notice">
-						<p>Cookies Notice</p>
-					</a>
-				</li>
-				<li>
-					<a href="https://www.getty.edu/legal/terms-of-use">
-						<p>Terms of Use</p>
-					</a>
-				</li>
-			</ul>
+			<p>The Getty Provenance Index® is a&nbsp;registered trademark of&nbsp;the J.&nbsp;Paul Getty Trust.</p>
+			<section>
+				<ul>
+					<li>
+						<a href="https://www.getty.edu/legal/privacy">
+							<p>Privacy Policy</p>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.getty.edu/legal/cookies-notice">
+							<p>Cookies Notice</p>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.getty.edu/legal/terms-of-use">
+							<p>Terms of Use</p>
+						</a>
+					</li>
+				</ul>
+				<p>© J. Paul Getty Trust</p>
+			</section>
 		</footer>
 	</body>
 </html>
