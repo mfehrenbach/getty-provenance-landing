@@ -170,9 +170,9 @@
 
 				/* Type filter. */
 				fieldset:last-of-type {
-					inline-size:        28%; /* Fits “Any type” at 375. */
-					padding-inline-end: 1em;
-					position:           relative;
+					inline-size:       24%; /* Fits “Any type” at 375. */
+					margin-inline-end: 0.75em;
+					position:          relative;
 
 					select {
 						font-weight:        var(--type--weight--medium);
@@ -186,8 +186,10 @@
 
 					/* Caret icon. */
 					svg {
-						inset-inline-end: 1em;
+						inset-inline-end: 0;
 						position:         absolute;
+						stroke:           currentcolor;
+						stroke-width:     0.02em;
 						transform:        rotate(180deg);
 					}
 				}
