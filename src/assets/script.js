@@ -36,3 +36,8 @@ fetch(`${apiUrl}/sparql?query=${encodeURIComponent(sparqlQuery)}&format=applicat
 		apiData.value = totalRecords
 	})
 	.catch(error => { throw new Error(error) })
+
+
+const examples = document.querySelectorAll('#examples li')
+
+examples[Math.floor(Math.random() * examples.length)].classList.add('active')

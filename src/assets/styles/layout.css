@@ -212,7 +212,8 @@
 				display: contents;
 
 				li {
-					display: contents;
+					display:    contents;
+					visibility: hidden;
 
 					/* Record link. */
 					aside {
@@ -256,7 +257,6 @@
 
 					/* Image backgrounds. */
 					&::before {
-						background-image:    var(--background-image);
 						background-position: center;
 						background-repeat:   no-repeat;
 						background-size:     cover;
@@ -265,7 +265,13 @@
 						grid-row:            header-start / footer-end;
 					}
 
-					&:not(:first-child) { visibility: hidden; } /* Temp. */
+					/* Set by JavaScript. */
+					&.active {
+						visibility: visible;
+
+						/* Only loads `active` one. */
+						&::before { background-image: var(--background-image) }
+					}
 				}
 			}
 		}
