@@ -405,6 +405,8 @@
 								color: var(--color--background);
 								display: flex;
 								font-size: var(--type--size--medium);
+								grid-column: 1;
+								/* Allow overlapping with background. */
 								grid-row: search;
 								inline-size: var(--layout--page);
 								justify-self: center;
@@ -530,7 +532,7 @@
 									}
 
 									/* Credit/citation link. */
-									> cite {
+									cite {
 										align-self: start;
 										color: var(--color--secondary);
 										grid-column: 1;
@@ -540,6 +542,16 @@
 										margin-inline-start: var(--layout--gutter);
 										max-inline-size: calc(100% - 15em);
 										z-index: 1;
+									}
+
+									/* Image backgrounds. */
+									> div {
+										background-image: var(--background-image);
+										background-position: center;
+										background-repeat: no-repeat;
+										background-size: cover;
+										grid-column: 1;
+										grid-row: header-start / footer-end;
 									}
 
 									&:not(:first-child) {
@@ -736,6 +748,8 @@
 							</p>
 						</a>
 					</cite>
+					<div style="--background-image: url(https://media.getty.edu/iiif/image/fbd08f99-6fd3-4671-80be-0d095cb30ad7/full/3000,/0/default.jpg)">
+					</div>
 				</li>
 				<li>
 					<aside>
@@ -758,6 +772,8 @@
 							</p>
 						</a>
 					</cite>
+					<div style="--background-image: url(https://media.getty.edu/iiif/image/a11666c0-a68e-4a10-942a-e938ee68bdf9/full/3000,/0/default.jpg)">
+					</div>
 				</li>
 				<li>
 					<aside>
@@ -780,6 +796,8 @@
 							</p>
 						</a>
 					</cite>
+					<div style="--background-image: url(https://media.getty.edu/iiif/image/8ea48dc4-ddd1-47ae-b9fb-21c3ea0337da/full/3000,/0/default.jpg)">
+					</div>
 				</li>
 				<li>
 					<aside>
@@ -802,6 +820,8 @@
 							</p>
 						</a>
 					</cite>
+					<div style="--background-image: url(https://media.getty.edu/iiif/image/13e02252-fb7f-4bd5-a8e8-ce4ca096beda/full/3000,/0/default.jpg)">
+					</div>
 				</li>
 				<li>
 					<aside>
@@ -824,6 +844,8 @@
 							</p>
 						</a>
 					</cite>
+					<div style="--background-image: url(https://media.getty.edu/iiif/image/01be71c3-28c4-4479-9137-aa31861fe917/full/3000,/0/default.jpg)">
+					</div>
 				</li>
 				<li>
 					<aside>
@@ -846,6 +868,8 @@
 							</p>
 						</a>
 					</cite>
+					<div style="--background-image: url(https://media.getty.edu/iiif/image/ae926817-92dc-4108-b827-329be50bb758/full/3000,/0/default.jpg)">
+					</div>
 				</li>
 				<li>
 					<aside>
@@ -868,6 +892,8 @@
 							</p>
 						</a>
 					</cite>
+					<div style="--background-image: url(https://media.getty.edu/iiif/image/10be3af9-92f1-41a2-9cfb-6ccc30378119/full/3000,/0/default.jpg)">
+					</div>
 				</li>
 				<li>
 					<aside>
@@ -890,6 +916,8 @@
 							</p>
 						</a>
 					</cite>
+					<div style="--background-image: url(https://media.getty.edu/iiif/image/769f2327-0618-4c6c-ad32-7035dd763f26/full/3000,/0/default.jpg)">
+					</div>
 				</li>
 				<li>
 					<aside>
@@ -912,6 +940,8 @@
 							</p>
 						</a>
 					</cite>
+					<div style="--background-image: url(https://media.getty.edu/iiif/image/ab4b4415-7ea2-407f-9a44-31624bb467ac/full/3000,/0/default.jpg)">
+					</div>
 				</li>
 				<li>
 					<aside>
@@ -934,6 +964,8 @@
 							</p>
 						</a>
 					</cite>
+					<div style="--background-image: url(https://media.getty.edu/iiif/image/93ea9e51-4b0a-42a2-b1f6-475a2e911b5d/full/3000,/0/default.jpg)">
+					</div>
 				</li>
 				<li>
 					<aside>
@@ -956,6 +988,8 @@
 							</p>
 						</a>
 					</cite>
+					<div style="--background-image: url(https://media.getty.edu/iiif/image/73ba9096-47d8-4095-84d3-1b22e4b98270/full/3000,/0/default.jpg)">
+					</div>
 				</li>
 				<li>
 					<aside>
@@ -978,6 +1012,8 @@
 							</p>
 						</a>
 					</cite>
+					<div style="--background-image: url(https://media.getty.edu/iiif/image/d80d5a81-edda-4650-9c5b-c3449513552c/full/3000,/0/default.jpg)">
+					</div>
 				</li>
 			</ul>
 		</main>
