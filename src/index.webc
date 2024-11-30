@@ -72,11 +72,13 @@
 							</p>
 						</a>
 					</aside>
-					<a :href="exampleUrl(example)">
-						<p>
-							<span webc:nokeep @html="exampleCaption(example)"></span><nobr><svg webc:nokeep @html="inlineSvg('assets/icons/arrow.svg')"></svg></nobr>
-						</p>
-					</a>
+					<cite>
+						<a :href="exampleUrl(example)">
+							<p>
+								<span webc:nokeep @html="exampleCaption(example)"></span><nobr><svg webc:nokeep @html="inlineSvg('assets/icons/arrow.svg')"></svg></nobr>
+							</p>
+						</a>
+					</cite>
 					<!---
 					<div :style="`--background-image: url(${exampleSrc(example.image)})`">
 					--->

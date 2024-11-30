@@ -241,7 +241,7 @@
 					}
 
 					/* Credit/citation link. */
-					> a {
+					> cite {
 						align-self:          start;
 						color:               var(--color--secondary);
 						grid-column:         1; /* Overlap with footer. */
@@ -252,7 +252,7 @@
 						z-index:             1;
 					}
 
-					&:not(:first-child) { display: none } /* Temp. */
+					&:not(:first-child) { visibility: hidden; } /* Temp. */
 				}
 			}
 		}
