@@ -79,9 +79,7 @@
 							</p>
 						</a>
 					</cite>
-					<!---
 					<div :style="`--background-image: url(${exampleSrc(example.image)})`">
-					--->
 				</li>
 			</ul>
 		</main>

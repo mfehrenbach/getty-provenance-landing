@@ -126,6 +126,7 @@
 				color:            var(--color--background);
 				display:          flex;
 				font-size:        var(--type--size--medium);
+				grid-column:      1; /* Allow overlapping with background. */
 				grid-row:         search;
 				inline-size:      var(--layout--page);
 				justify-self:     center;
@@ -242,7 +243,7 @@
 					}
 
 					/* Credit/citation link. */
-					> cite {
+					cite {
 						align-self:          start;
 						color:               var(--color--secondary);
 						grid-column:         1; /* Overlap with footer. */
@@ -251,6 +252,16 @@
 						margin-inline-start: var(--layout--gutter);
 						max-inline-size:     calc(100% - 15em);
 						z-index:             1;
+					}
+
+					/* Image backgrounds. */
+					> div {
+						background-image:    var(--background-image);
+						background-position: center;
+						background-repeat:   no-repeat;
+						background-size:     cover;
+						grid-column:         1;
+						grid-row:            header-start / footer-end;
 					}
 
 					&:not(:first-child) { visibility: hidden; } /* Temp. */
