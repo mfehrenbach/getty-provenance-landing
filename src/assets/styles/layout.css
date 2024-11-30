@@ -22,13 +22,13 @@
 			[header-start]
 			min-content
 			[header-end]
-			1fr
+			minmax(12rem, 1fr)
 			[search-start]
 			min-content
 			[search-end example-start]
 			min-content
 			[example-end]
-			1fr
+			minmax(12rem, 1fr)
 			[footer-start]
 			min-content
 			[footer-end];
