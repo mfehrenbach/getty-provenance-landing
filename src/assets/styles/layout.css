@@ -161,7 +161,7 @@
 					input, label {
 						inline-size:   -webkit-fill-available;
 						margin-inline: 1em;
-						transform:     translateY(-0.05em); /* Optical shift up. */
+						transform:     translateY(-0.025em); /* Optical shift up. */
 					}
 
 					/* Hide label with entry. */
@@ -181,7 +181,7 @@
 						overflow:           hidden;
 						padding-inline-end: 1.25em;
 						text-overflow:      ellipsis;
-						transform:          translateY(-0.05em); /* Optical shift. */
+						transform:          translateY(-0.025em); /* Optical shift. */
 					}
 
 					/* Caret icon. */
