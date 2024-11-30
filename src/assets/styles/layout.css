@@ -49,6 +49,7 @@
 			backdrop-filter:  var(--layout--backdrop);
 			background-color: var(--color--tint);
 			grid-row:         header;
+			z-index:          1;
 
 			/* Breadcrumbs. */
 			nav:first-child {
@@ -81,7 +82,6 @@
 				letter-spacing:      var(--type--letter-spacing--large);
 				line-height:         var(--type--line-height--display);
 				margin-inline-start: -0.075em;
-				padding-block-end:   0.125em;
 				padding-block-start: 1em;
 				padding-inline:      var(--layout--gutter);
 			}
