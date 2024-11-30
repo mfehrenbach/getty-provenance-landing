@@ -44,7 +44,7 @@ export default function(eleventyConfig) {
 			formats: ['svg'],
 			dryRun: true, // Don’t save to file.
 		})
-		return image.svg.shift().buffer.toString()
+		return image.svg[0].buffer.toString()
 	})
 
 	// Do some post-build formatting.
