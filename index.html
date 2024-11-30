@@ -127,7 +127,7 @@
 					--color--foreground: white;
 					--color--highlight: rgb(255 255 255 / 5%);
 					--color--secondary: rgb(255 255 255 / 33%);
-					--color--tint: rgb(17 17 17 / 75%);
+					--color--tint: rgb(17 17 17 / 85%);
 					--color--shade: rgb(0 0 0 / 33%);
 					--color--edge: rgb(0 0 0 / 13.333%);
 					--color--background: black;
@@ -243,6 +243,15 @@
 
 					em {
 						font-style: italic
+					}
+
+					nobr {
+						white-space: nowrap;
+
+						/* `&ZeroWidthSpace;` to trigger the `white-space` property (keeps wrapped SVGs with previous word). */
+						&::before {
+							content: '\200B'
+						}
 					}
 
 					body {
@@ -364,13 +373,13 @@
 								text-wrap: nowrap;
 								z-index: 1;
 
-								*:focus {
-									outline-color: var(--color--background)
-								}
-
 								fieldset {
 									align-items: center;
 									display: flex;
+
+									*:focus {
+										outline-color: var(--color--background)
+									}
 								}
 
 								/* Input. */
@@ -432,7 +441,7 @@
 									display: contents;
 
 									/* Record link. */
-									div:first-child {
+									aside {
 										font-size: var(--type--size--medium);
 										font-weight: var(--type--weight--medium);
 										grid-row: example;
@@ -442,18 +451,33 @@
 										margin-block-start: 1em;
 										margin-inline: var(--layout--gutter);
 										max-inline-size: var(--layout--search);
+									}
 
-										a {
-											inline-size: fit-content;
+									a {
+										inline-size: fit-content;
+										text-wrap: balance;
 
-											svg {
-												block-size: 0.75em;
-												inset-block-start: 0.1em;
-												margin-inline-start: 0.5em;
-												position: relative;
-												stroke-width: 0.1333em;
-											}
+										/* Arrows. */
+										svg {
+											block-size: 0.75em;
+											inset-block-start: 0.1em;
+											margin-inline-start: 0.5em;
+											position: relative;
+											stroke-width: 0.1333em;
 										}
+									}
+
+									/* Credit/citation link. */
+									> a {
+										align-self: start;
+										color: var(--color--secondary);
+										grid-column: 1;
+										/* Overlap with footer. */
+										grid-row: footer;
+										margin-block-start: var(--layout--alley);
+										margin-inline-start: var(--layout--gutter);
+										max-inline-size: calc(100% - 15em);
+										z-index: 1;
 									}
 
 									&:not(:first-child) {
@@ -627,7 +651,7 @@
 			</form>
 			<ul>
 				<li>
-					<div>
+					<aside>
 						<a href="https://provenance.dev.getty.fargeo.com/report/8042aa22-d6ad-310f-9ec6-f1467b24d593">
 							<p>
 								<span>See record for</span>
@@ -636,10 +660,18 @@
 								</svg>
 							</p>
 						</a>
-					</div>
+					</aside>
+					<a href="https://www.getty.edu/art/collection/object/103JNH?canvas=fbd08f99-6fd3-4671-80be-0d095cb30ad7">
+						<p>
+							<em>Irises</em>&nbsp;(verso), 1889, <nobr>Vincent van Gogh</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
+									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+								</svg>
+							</nobr>
+						</p>
+					</a>
 				</li>
 				<li>
-					<div>
+					<aside>
 						<a href="https://provenance.dev.getty.fargeo.com/report/287a1ff4-9b52-322f-a75c-303cddbceeb1">
 							<p>
 								<span>See record for</span>
@@ -648,10 +680,18 @@
 								</svg>
 							</p>
 						</a>
-					</div>
+					</aside>
+					<a href="https://www.getty.edu/art/collection/object/103QT5?canvas=a11666c0-a68e-4a10-942a-e938ee68bdf9">
+						<p>
+							<em>Still Life with Apples</em>&nbsp;(verso), 1893–1894, <nobr>Paul Cézanne</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
+									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+								</svg>
+							</nobr>
+						</p>
+					</a>
 				</li>
 				<li>
-					<div>
+					<aside>
 						<a href="https://provenance.dev.getty.fargeo.com/report/8daf18af-f59c-313c-ae9f-80d4e01fbc81">
 							<p>
 								<span>See record for</span>
@@ -660,10 +700,18 @@
 								</svg>
 							</p>
 						</a>
-					</div>
+					</aside>
+					<a href="https://www.getty.edu/art/collection/object/103RJM?canvas=8ea48dc4-ddd1-47ae-b9fb-21c3ea0337da">
+						<p>
+							<em>The Rue Mosnier with Flags</em>&nbsp;(verso), 1878, <nobr>Édouard Manet</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
+									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+								</svg>
+							</nobr>
+						</p>
+					</a>
 				</li>
 				<li>
-					<div>
+					<aside>
 						<a href="https://provenance.dev.getty.fargeo.com/report/dde29a68-fea4-3f3d-89b2-dbc0688a48ae">
 							<p>
 								<span>See record for</span>
@@ -672,10 +720,18 @@
 								</svg>
 							</p>
 						</a>
-					</div>
+					</aside>
+					<a href="https://www.getty.edu/art/collection/object/103QS8?canvas=13e02252-fb7f-4bd5-a8e8-ce4ca096beda">
+						<p>
+							<em>The Abduction of Europa</em>&nbsp;(verso), 1632, <nobr>Rembrandt Harmensz. van Rijn</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
+									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+								</svg>
+							</nobr>
+						</p>
+					</a>
 				</li>
 				<li>
-					<div>
+					<aside>
 						<a href="https://provenance.dev.getty.fargeo.com/report/f0a82d9c-6338-34e3-a28e-603b7d6f1581">
 							<p>
 								<span>See record for</span>
@@ -684,10 +740,18 @@
 								</svg>
 							</p>
 						</a>
-					</div>
+					</aside>
+					<a href="https://www.getty.edu/art/collection/object/108H4X?canvas=01be71c3-28c4-4479-9137-aa31861fe917">
+						<p>
+							<em>After the Bath</em>&nbsp;(verso), about 1895, <nobr>Edgar Degas</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
+									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+								</svg>
+							</nobr>
+						</p>
+					</a>
 				</li>
 				<li>
-					<div>
+					<aside>
 						<a href="https://provenance.dev.getty.fargeo.com/report/1d44a590-d899-34fe-b866-b2b303d34706">
 							<p>
 								<span>See record for</span>
@@ -696,10 +760,18 @@
 								</svg>
 							</p>
 						</a>
-					</div>
+					</aside>
+					<a href="https://www.getty.edu/art/collection/object/103RK8?canvas=ae926817-92dc-4108-b827-329be50bb758">
+						<p>
+							<em>Wheatstacks, Snow Effect, Morning (Meules, Effet de Neige, Le Matin)</em>&nbsp;(verso), 1891, <nobr>Claude Monet</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
+									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+								</svg>
+							</nobr>
+						</p>
+					</a>
 				</li>
 				<li>
-					<div>
+					<aside>
 						<a href="https://provenance.dev.getty.fargeo.com/report/0f97dcdc-020e-345d-9c14-4ec4d4ad913e">
 							<p>
 								<span>See record for</span>
@@ -708,10 +780,18 @@
 								</svg>
 							</p>
 						</a>
-					</div>
+					</aside>
+					<a href="https://www.getty.edu/art/collection/object/103RK9?canvas=10be3af9-92f1-41a2-9cfb-6ccc30378119">
+						<p>
+							<em>Three Lovers</em>&nbsp;(verso), about 1817–1820, <nobr>Théodore Géricault</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
+									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+								</svg>
+							</nobr>
+						</p>
+					</a>
 				</li>
 				<li>
-					<div>
+					<aside>
 						<a href="https://provenance.dev.getty.fargeo.com/report/79a305f5-38b3-341b-8c7e-a12e5edcb437">
 							<p>
 								<span>See record for</span>
@@ -720,10 +800,18 @@
 								</svg>
 							</p>
 						</a>
-					</div>
+					</aside>
+					<a href="https://www.getty.edu/art/collection/object/107VSC?canvas=769f2327-0618-4c6c-ad32-7035dd763f26">
+						<p>
+							<em>Landscape with a Calm (Un Tem[p]s calme et serein)</em>&nbsp;(verso), 1650–1651, <nobr>Nicolas Poussin</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
+									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+								</svg>
+							</nobr>
+						</p>
+					</a>
 				</li>
 				<li>
-					<div>
+					<aside>
 						<a href="https://provenance.dev.getty.fargeo.com/report/52a1349e-3451-36fa-8bc7-b0b7db839973">
 							<p>
 								<span>See record for</span>
@@ -732,10 +820,18 @@
 								</svg>
 							</p>
 						</a>
-					</div>
+					</aside>
+					<a href="https://www.getty.edu/art/collection/object/103QTP?canvas=ab4b4415-7ea2-407f-9a44-31624bb467ac">
+						<p>
+							<em>Modern Rome - Campo Vaccino</em>&nbsp;(verso), 1839, <nobr>Joseph Mallord William Turner</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
+									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+								</svg>
+							</nobr>
+						</p>
+					</a>
 				</li>
 				<li>
-					<div>
+					<aside>
 						<a href="https://provenance.dev.getty.fargeo.com/report/17f5e2b9-0cd8-39ee-b996-8f43f0317432">
 							<p>
 								<span>See record for</span>
@@ -744,10 +840,18 @@
 								</svg>
 							</p>
 						</a>
-					</div>
+					</aside>
+					<a href="https://www.getty.edu/art/collection/object/108J7V?canvas=93ea9e51-4b0a-42a2-b1f6-475a2e911b5d">
+						<p>
+							<em>A Calm at a Mediterranean Port</em>&nbsp;(verso), 1770, <nobr>Claude-Joseph Vernet</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
+									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+								</svg>
+							</nobr>
+						</p>
+					</a>
 				</li>
 				<li>
-					<div>
+					<aside>
 						<a href="https://provenance.dev.getty.fargeo.com/report/6c3aa6be-8515-3971-8fa5-b90c80751309">
 							<p>
 								<span>See record for</span>
@@ -756,10 +860,18 @@
 								</svg>
 							</p>
 						</a>
-					</div>
+					</aside>
+					<a href="https://www.getty.edu/art/collection/object/103RJT?canvas=73ba9096-47d8-4095-84d3-1b22e4b98270">
+						<p>
+							<em>The Entry of the Animals into Noah's Ark</em>&nbsp;(verso), 1613, <nobr>Jan Brueghel the Elder</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
+									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+								</svg>
+							</nobr>
+						</p>
+					</a>
 				</li>
 				<li>
-					<div>
+					<aside>
 						<a href="https://provenance.dev.getty.fargeo.com/report/47a6a315-0cf1-35c1-97ee-e7081703eef9">
 							<p>
 								<span>See record for</span>
@@ -768,7 +880,15 @@
 								</svg>
 							</p>
 						</a>
-					</div>
+					</aside>
+					<a href="https://www.getty.edu/art/collection/object/103RGZ?canvas=d80d5a81-edda-4650-9c5b-c3449513552c">
+						<p>
+							<em>Man with a Hoe</em>&nbsp;(verso), 1860–1862, <nobr>Jean-François Millet</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
+									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+								</svg>
+							</nobr>
+						</p>
+					</a>
 				</li>
 			</ul>
 		</main>
