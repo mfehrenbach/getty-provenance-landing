@@ -61,16 +61,19 @@
 				</button>
 			</form>
 			<ul>
-				<li webc:for="example of record.examples" :style="`--background-image: url(${exampleSrc(example.image)})`">
-					<!--- <a :href="reportUrl($data, example.report)">
+				<li webc:for="example of record.examples">
+					<a :href="reportUrl($data, example.report)">
 						<p>
 							<span @text="record.intro"></span>
 							<em @text="exampleName(example)"></em>
 						</p>
-					</a> --->
-					<!--- <a :href="exampleUrl(example)">
+					</a>
+					<!---
+					<div :style="`--background-image: url(${exampleSrc(example.image)})`">
+					<a :href="exampleUrl(example)">
 						<p @html="exampleCaption(example)"></p>
-					</a> --->
+					</a>
+					--->
 				</li>
 			</ul>
 		</main>

@@ -11,6 +11,8 @@
 		-webkit-text-size-adjust: none;
 	}
 
+	em { font-style: italic }
+
 	body {
 		background-color:      var(--color--background);
 		color:                 var(--color--foreground);
@@ -118,9 +120,11 @@
 				display:          flex;
 				font-size:        var(--type--size--medium);
 				grid-row:         search;
+				inline-size:      var(--layout--page);
 				justify-self:     center;
 				letter-spacing:   var(--type--letter-spacing--medium);
 				margin-inline:    var(--layout--gutter);
+				max-inline-size:  var(--layout--search);
 				outline-color:    var(--color--edge);
 				outline-offset:   -0.1rem;
 				outline-style:    solid;
@@ -142,17 +146,26 @@
 
 			/* Example records. */
 			ul {
-				display:  grid;
-				inset:    0;
-				position: fixed;
+				display: contents;
 
 				li {
-					background-image:    var(--background-image);
-					background-position: center;
-					background-size:     200rem; /* Temp. */
-				}
+					display: contents;
 
-				li:not(:first-child) { display: none } /* Temp. */
+					/* Record link. */
+					a:first-child {
+						font-size:          var(--type--size--medium);
+						font-weight:        var(--type--weight--medium);
+						grid-row:           example;
+						inline-size:        var(--layout--page);
+						justify-self:       center;
+						letter-spacing:     var(--type--letter-spacing--medium);
+						margin-block-start: 1em;
+						margin-inline:      var(--layout--gutter);
+						max-inline-size:    var(--layout--search);
+					}
+
+					&:not(:first-child) { display: none } /* Temp. */
+				}
 			}
 		}
 

@@ -22,9 +22,10 @@
 	--layout--gutter--max:  calc((100vw - (var(--layout--max) - 2 * var(--layout--gutter--base))) / 2);
 	--layout--gutter:       max(var(--layout--gutter--base), var(--layout--gutter--safe), var(--layout--gutter--max));
 
-	--layout--alley: 1.6rem;
-	--layout--page:  calc(100vw - var(--layout--gutter) * 2);
-	--layout--max:   192rem;
+	--layout--alley:  1.6rem;
+	--layout--search: 64rem;
+	--layout--page:   calc(100vw - var(--layout--gutter) * 2);
+	--layout--max:    192rem;
 
 	--layout--backdrop: blur(1.2rem);
 
