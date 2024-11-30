@@ -15,6 +15,9 @@
 
 	nobr {
 		white-space: nowrap;
+
+		/* `&ZeroWidthSpace;` to trigger the `white-space` property (keeps wrapped SVGs with previous word). */
+		&::before { content: '\200B' }
 	}
 
 	body {
@@ -198,7 +201,7 @@
 					display: contents;
 
 					/* Record link. */
-					div:first-child {
+					aside {
 						font-size:          var(--type--size--medium);
 						font-weight:        var(--type--weight--medium);
 						grid-row:           example;
@@ -208,18 +211,32 @@
 						margin-block-start: 1em;
 						margin-inline:      var(--layout--gutter);
 						max-inline-size:    var(--layout--search);
+					}
 
-						a {
-							inline-size: fit-content;
+					a {
+						inline-size: fit-content;
+						text-wrap:   balance;
 
-							svg {
-								block-size:          0.75em;
-								inset-block-start:   0.1em;
-								margin-inline-start: 0.5em;
-								position:            relative;
-								stroke-width:        0.1333em;
-							}
+						/* Arrows. */
+						svg {
+							block-size:          0.75em;
+							inset-block-start:   0.1em;
+							margin-inline-start: 0.5em;
+							position:            relative;
+							stroke-width:        0.1333em;
 						}
+					}
+
+					/* Credit/citation link. */
+					> a {
+						align-self:          start;
+						color:               var(--color--secondary);
+						grid-column:         1; /* Overlap with footer. */
+						grid-row:            footer;
+						margin-block-start:  var(--layout--alley);
+						margin-inline-start: var(--layout--gutter);
+						max-inline-size:     calc(100% - 15em);
+						z-index:             1;
 					}
 
 					&:not(:first-child) { display: none } /* Temp. */

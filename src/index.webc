@@ -63,19 +63,21 @@
 			</form>
 			<ul>
 				<li webc:for="example of record.examples">
-					<div>
+					<aside>
 						<a :href="reportUrl($data, example.report)">
 							<p>
 								<span @text="record.intro"></span>
 								<em @text="exampleName(example)"></em><svg webc:nokeep @html="inlineSvg('assets/icons/arrow.svg')"></svg>
 							</p>
 						</a>
-					</div>
+					</aside>
+					<a :href="exampleUrl(example)">
+						<p>
+							<span webc:nokeep @html="exampleCaption(example)"></span><nobr><svg webc:nokeep @html="inlineSvg('assets/icons/arrow.svg')"></svg></nobr>
+						</p>
+					</a>
 					<!---
 					<div :style="`--background-image: url(${exampleSrc(example.image)})`">
-					<a :href="exampleUrl(example)">
-						<p @html="exampleCaption(example)"></p>
-					</a>
 					--->
 				</li>
 			</ul>
