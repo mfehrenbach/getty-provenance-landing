@@ -67,7 +67,7 @@
 						<a :href="reportUrl($data, example.report)">
 							<p>
 								<span @text="record.intro"></span>
-								<em @text="exampleName(example)"></em>
+								<em @text="exampleName(example)"></em><svg webc:nokeep @html="inlineSvg('assets/icons/arrow.svg')"></svg>
 							</p>
 						</a>
 					</div>

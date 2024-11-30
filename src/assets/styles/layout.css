@@ -205,7 +205,17 @@
 						margin-inline:      var(--layout--gutter);
 						max-inline-size:    var(--layout--search);
 
-						a { inline-size: fit-content }
+						a {
+							inline-size: fit-content;
+
+							svg {
+								block-size:          0.75em;
+								inset-block-start:   0.1em;
+								margin-inline-start: 0.5em;
+								position:            relative;
+								stroke-width:        0.1333em;
+							}
+						}
 					}
 
 					&:not(:first-child) { display: none } /* Temp. */
