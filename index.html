@@ -368,14 +368,17 @@
 									outline-color: var(--color--background)
 								}
 
+								fieldset {
+									align-items: center;
+									display: flex;
+								}
+
 								/* Input. */
 								fieldset:first-of-type {
-									display: flex;
 									flex-grow: 1;
 									position: relative;
 
 									label {
-										align-self: center;
 										color: var(--color--shade);
 										overflow: hidden;
 										position: absolute;
@@ -385,7 +388,7 @@
 									input,
 									label {
 										inline-size: -webkit-fill-available;
-										padding-inline: 1em;
+										margin-inline: 1em;
 									}
 
 									/* Hide label with entry. */
@@ -396,8 +399,18 @@
 
 								/* Type filter. */
 								fieldset:last-of-type {
-									display: none;
-									/* Temp. */
+									inline-size: 28%;
+
+									/* Fits “Any type” at 375. */
+									select {
+										font-weight: var(--type--weight--medium);
+										inline-size: -webkit-fill-available;
+										letter-spacing: var(--type--letter-spacing--medium);
+										margin-inline-end: 1em;
+										overflow: hidden;
+										padding-inline-end: 1.5em;
+										text-overflow: ellipsis;
+									}
 								}
 
 								/* Submit/search glass. */
