@@ -17,17 +17,14 @@
 
 	--layout--safe-area: calc(env(safe-area-inset-left) * 0.815); /* Insets on iPhones (same left/right). */
 
-	--layout--max:  192rem;
-
 	--layout--gutter--base: 1.6rem;
 	--layout--gutter--safe: calc(var(--layout--gutter--base) + var(--layout--safe-area));
 	--layout--gutter--max:  calc((100vw - (var(--layout--max) - 2 * var(--layout--gutter--base))) / 2);
 	--layout--gutter:       max(var(--layout--gutter--base), var(--layout--gutter--safe), var(--layout--gutter--max));
 
 	--layout--alley: 1.6rem;
-
-	--layout--page:   calc(100vw - var(--layout--gutter) * 2);
-	--layout--footer: calc(5 * var(--type--size--large));
+	--layout--page:  calc(100vw - var(--layout--gutter) * 2);
+	--layout--max:   192rem;
 
 	--layout--backdrop: blur(1.2rem);
 
@@ -62,8 +59,6 @@
 
 		--layout--gutter--base: 3.6rem;
 		--layout--alley:  2.4rem;
-
-		--layout--footer: calc(4 * var(--type--size--large));
 	}
 
 	/* Max. */

@@ -12,22 +12,43 @@
 	}
 
 	body {
-		background-color: var(--color--background);
-		color:            var(--color--foreground);
-		font-size:        var(--type--size--small);
-		font-weight:      var(--type--weight--regular);
-		letter-spacing:   var(--type--letter-spacing--small);
-		line-height:      var(--type--line-height--heading);
-		position:         relative;
+		background-color:      var(--color--background);
+		color:                 var(--color--foreground);
+		display:               grid;
+		font-size:             var(--type--size--small);
+		font-weight:           var(--type--weight--regular);
+		grid-template-columns: 100%;
+		grid-template-rows:
+			[header-start]
+			min-content
+			[header-end]
+			1fr
+			[search-start]
+			min-content
+			[search-end example-start]
+			min-content
+			[example-end]
+			1fr
+			[footer-start]
+			min-content
+			[footer-end];
+		letter-spacing: var(--type--letter-spacing--small);
+		line-height:    var(--type--line-height--heading);
+
+		/* Spacer to set the upper track heights. */
+		&::before {
+			block-size: calc(100svh - var(--layout--alley) - 0.66em); /* Peek text. */
+			content:    '';
+			grid-row:   header-start / footer-start;
+		}
+
+		> * { grid-column: 1 } /* Allow overlapping. */
 
 		/* Main header. */
 		> header {
-			backdrop-filter:   var(--layout--backdrop);
-			background-color:  var(--color--tint);
-			inset-block-start: 0;
-			inset-inline:      0;
-			position:          absolute;
-			z-index:           1;
+			backdrop-filter:  var(--layout--backdrop);
+			background-color: var(--color--tint);
+			grid-row:         header;
 
 			/* Breadcrumbs. */
 			nav:first-child {
@@ -89,10 +110,7 @@
 
 		/* Main search area/background. */
 		> main {
-			align-items:     center;
-			block-size:      calc(100svh + var(--layout--footer) - 1em);
-			display:         flex;
-			justify-content: center;
+			display: none; /* Temp. */
 
 			form {
 				background-color: var(--color--foreground);
@@ -140,17 +158,13 @@
 		> footer {
 			backdrop-filter:  var(--layout--backdrop);
 			background-color: var(--color--tint);
-			block-size:       var(--layout--footer);
 			color:            var(--color--secondary);
 			column-gap:       var(--layout--alley);
 			display:          flex;
-			inset-block-end:  0;
-			inset-inline:     0;
+			grid-row:         footer;
 			justify-content:  space-between;
 			padding-block:    var(--layout--alley);
 			padding-inline:   var(--layout--gutter);
-			position:         absolute;
-			z-index:          1;
 
 			/* Notice text. */
 			> p {
@@ -161,10 +175,9 @@
 
 			/* Legal links. */
 			section {
-				align-content: space-between;
-				display:       grid;
-				flex-shrink:   0;
-				row-gap:       1em;
+				display:     grid;
+				flex-shrink: 0;
+				row-gap:     5em;
 
 				ul {
 					color:          var(--color--foreground);
