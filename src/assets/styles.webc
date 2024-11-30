@@ -1,7 +1,7 @@
 <!--- Add the CSS files to WebC buckets. --->
 <link href="styles/reset.css" rel="stylesheet" webc:bucket="reset">
-<link webc:import="fonts.webc">
 <link href="styles/variables.css" rel="stylesheet" webc:bucket="variables">
+<link href="styles/fonts.css" rel="stylesheet" webc:bucket="fonts">
 <link href="styles/links.css" rel="stylesheet" webc:bucket="links">
 <link href="styles/layout.css" rel="stylesheet" webc:bucket="layout">
 <!--- Render/concatenate these inline, wrapped in layers. --->
@@ -10,6 +10,7 @@
 	@raw="`
 		@layer reset     { ${getBundle('css', 'reset')} }
 		@layer variables { ${getBundle('css', 'variables')} }
+		@layer fonts     { ${getBundle('css', 'fonts')} }
 		@layer links     { ${getBundle('css', 'links')} }
 		@layer layout    { ${getBundle('css', 'layout')} }
 	`"
