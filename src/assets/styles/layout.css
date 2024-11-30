@@ -129,9 +129,38 @@
 				outline-offset:   -0.1rem;
 				outline-style:    solid;
 				outline-width:    0.1rem;
+				text-wrap:        nowrap;
 				z-index:          1;
 
 				*:focus { outline-color: var(--color--background) }
+
+				/* Input. */
+				fieldset:first-of-type {
+					display:        flex;
+					flex-grow:      1;
+					position:       relative;
+
+					label {
+						align-self:    center;
+						color:         var(--color--shade);
+						overflow:      hidden;
+						position:      absolute;
+						text-overflow: ellipsis;
+					}
+
+					input, label {
+						inline-size:    -webkit-fill-available;
+						padding-inline: 1em;
+					}
+
+					/* Hide label with entry. */
+					&:has(input:valid) label { display: none }
+				}
+
+				/* Type filter. */
+				fieldset:last-of-type {
+					display: none; /* Temp. */
+				}
 
 				/* Submit/search glass. */
 				button {
