@@ -443,6 +443,8 @@
 									label {
 										inline-size: -webkit-fill-available;
 										margin-inline: 1em;
+										transform: translateY(-0.05em);
+										/* Optical shift up. */
 									}
 
 									/* Hide label with entry. */
@@ -453,17 +455,29 @@
 
 								/* Type filter. */
 								fieldset:last-of-type {
-									inline-size: 28%;
-
+									inline-size: 24%;
 									/* Fits “Any type” at 375. */
+									margin-inline-end: 0.75em;
+									position: relative;
+
 									select {
 										font-weight: var(--type--weight--medium);
 										inline-size: -webkit-fill-available;
 										letter-spacing: var(--type--letter-spacing--medium);
-										margin-inline-end: 1em;
 										overflow: hidden;
-										padding-inline-end: 1.5em;
+										padding-inline-end: 1.25em;
 										text-overflow: ellipsis;
+										transform: translateY(-0.05em);
+										/* Optical shift. */
+									}
+
+									/* Caret icon. */
+									svg {
+										inset-inline-end: 0;
+										position: absolute;
+										stroke: currentcolor;
+										stroke-width: 0.02em;
+										transform: rotate(180deg);
 									}
 								}
 
@@ -687,6 +701,9 @@
 						<option value="6dad61aa-b4b5-11ea-84f7-3af9d3b32b71">Textual Work</option>
 						<option value="933ee880-b4b5-11ea-84f7-3af9d3b32b71">Visual Work</option>
 					</select>
+					<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+						<path d="M4 10H12L8 6L4 10Z" fill="currentColor"></path>
+					</svg>
 				</fieldset>
 				<button aria-label="Search" type="submit">
 					<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19">
