@@ -255,11 +255,12 @@
 					}
 
 					/* Image backgrounds. */
-					> div {
+					&::before {
 						background-image:    var(--background-image);
 						background-position: center;
 						background-repeat:   no-repeat;
 						background-size:     cover;
+						content:             '';
 						grid-column:         1;
 						grid-row:            header-start / footer-end;
 					}

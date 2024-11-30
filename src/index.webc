@@ -63,7 +63,7 @@
 				</button>
 			</form>
 			<ul>
-				<li webc:for="example of record.examples">
+				<li webc:for="example of record.examples" :style="`--background-image: url(${exampleSrc(example.image)})`">
 					<aside>
 						<a :href="reportUrl($data, example.report)">
 							<p>
@@ -79,7 +79,6 @@
 							</p>
 						</a>
 					</cite>
-					<div :style="`--background-image: url(${exampleSrc(example.image)})`">
 				</li>
 			</ul>
 		</main>
