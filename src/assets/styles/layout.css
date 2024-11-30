@@ -110,13 +110,15 @@
 
 		/* Main search area/background. */
 		> main {
-			display: none; /* Temp. */
+			display: contents;
 
 			form {
 				background-color: var(--color--foreground);
 				color:            var(--color--background);
 				display:          flex;
 				font-size:        var(--type--size--medium);
+				grid-row:         search;
+				justify-self:     center;
 				letter-spacing:   var(--type--letter-spacing--medium);
 				margin-inline:    var(--layout--gutter);
 				outline-color:    var(--color--edge);
