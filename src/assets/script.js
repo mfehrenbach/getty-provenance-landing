@@ -39,5 +39,14 @@ fetch(`${apiUrl}/sparql?query=${encodeURIComponent(sparqlQuery)}&format=applicat
 
 
 const examples = document.querySelectorAll('#examples li')
+const randomExample = examples[Math.floor(Math.random() * examples.length)]
 
-examples[Math.floor(Math.random() * examples.length)].classList.add('active')
+randomExample.classList.add('active', 'loading')
+
+const backgroundImageLoaded = () => {
+	const img = new Image()
+	img.onload = () => randomExample.classList.remove('loading')
+	img.src = window.getComputedStyle(randomExample).getPropertyValue('--background-image').match(/'([^']+)'/)[1]
+}
+
+backgroundImageLoaded()

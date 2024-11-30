@@ -259,7 +259,7 @@
 					&::before {
 						background-position: center;
 						background-repeat:   no-repeat;
-						background-size:     cover;
+						background-size:     auto 150%; /* Temp. */
 						content:             '';
 						grid-column:         1;
 						grid-row:            header-start / footer-end;
@@ -267,11 +267,18 @@
 
 					/* Set by JavaScript. */
 					&.active {
+						opacity:    100%;
 						visibility: visible;
 
 						/* Only loads `active` one. */
-						&::before { background-image: var(--background-image) }
+						&::before {
+							background-image: var(--background-image);
+							opacity:          100%;
+							transition:       opacity 1s linear;
+						}
 					}
+
+					&.loading::before { opacity: 0% }
 				}
 			}
 		}
