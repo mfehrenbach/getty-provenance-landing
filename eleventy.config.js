@@ -25,12 +25,12 @@ export default function(eleventyConfig) {
 			type: 'json',
 		})
 
-	eleventyConfig.addFilter('exampleName', async (example) => getCarriedOutBy(await getObjectData(example.object)).shift()._label)
-	eleventyConfig.addFilter('exampleUrl', async (example) => `${(await getObjectData(example.object)).subject_of.shift().id}?canvas=${example.image}`)
+	eleventyConfig.addFilter('exampleName', async (example) => getCarriedOutBy(await getObjectData(example.object))[0]._label)
+	eleventyConfig.addFilter('exampleUrl', async (example) => `${(await getObjectData(example.object)).subject_of[0].id}?canvas=${example.image}`)
 	eleventyConfig.addFilter('exampleCaption', async (example) => {
 		const objectData = await getObjectData(example.object)
 		const title = getPrimaryName(objectData)
-		const date = objectData.produced_by.timespan.identified_by.shift().content
+		const date = objectData.produced_by.timespan.identified_by[0].content
 		const name = await eleventyConfig.getFilter('exampleName')(example)
 
 		return `<em>${title}</em> (verso), ${date}, ${name}. The J. Paul Getty Museum.`
