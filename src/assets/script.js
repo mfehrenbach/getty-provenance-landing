@@ -45,8 +45,8 @@ randomExample.classList.add('active', 'loading')
 
 const backgroundImageLoaded = () => {
 	const img = new Image()
+	img.src = window.getComputedStyle(randomExample).getPropertyValue('--background-image').replace(/url\(["']?([^"']+)["']?\)/, '$1')
 	img.onload = () => randomExample.classList.remove('loading')
-	img.src = window.getComputedStyle(randomExample).getPropertyValue('--background-image').match(/'([^']+)'/)[1]
 }
 
 backgroundImageLoaded()
