@@ -7,6 +7,7 @@
 		<link webc:import="assets/styles.webc">
 		<script src="assets/script.js"></script>
 		<script webc:keep @raw="getBundle('js')" type="module"></script>
+		<!--- TODO Favicon/touch! --->
 	</head>
 	<body>
 		<!-- TODO Skip link! -->
