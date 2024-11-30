@@ -161,6 +161,7 @@
 					input, label {
 						inline-size:   -webkit-fill-available;
 						margin-inline: 1em;
+						transform:     translateY(-0.05em); /* Optical shift up. */
 					}
 
 					/* Hide label with entry. */
@@ -169,16 +170,25 @@
 
 				/* Type filter. */
 				fieldset:last-of-type {
-					inline-size: 28%; /* Fits “Any type” at 375. */
+					inline-size:        28%; /* Fits “Any type” at 375. */
+					padding-inline-end: 1em;
+					position:           relative;
 
 					select {
 						font-weight:        var(--type--weight--medium);
 						inline-size:        -webkit-fill-available;
 						letter-spacing:     var(--type--letter-spacing--medium);
-						margin-inline-end:  1em;
 						overflow:           hidden;
-						padding-inline-end: 1.5em;
+						padding-inline-end: 1.25em;
 						text-overflow:      ellipsis;
+						transform:          translateY(-0.05em); /* Optical shift. */
+					}
+
+					/* Caret icon. */
+					svg {
+						inset-inline-end: 1em;
+						position:         absolute;
+						transform:        rotate(180deg);
 					}
 				}
 

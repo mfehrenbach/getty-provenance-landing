@@ -56,6 +56,7 @@
 					<select name="type" id="type">
 						<option webc:for="type of search.types" @text="type.title" :value="type.value"></option>
 					</select>
+					<svg webc:nokeep @html="inlineSvg('assets/icons/caret.svg')"></svg>
 				</fieldset>
 				<button :aria-label="search.button" type="submit">
 					<svg webc:nokeep @html="inlineSvg('assets/icons/glass.svg')"></svg>
