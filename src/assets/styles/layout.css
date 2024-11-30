@@ -139,11 +139,11 @@
 				text-wrap:        nowrap;
 				z-index:          1;
 
-				*:focus { outline-color: var(--color--background) }
-
 				fieldset {
 					align-items: center;
 					display:     flex;
+
+					*:focus { outline-color: var(--color--background) }
 				}
 
 				/* Input. */
