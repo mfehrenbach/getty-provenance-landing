@@ -313,7 +313,7 @@
 
 						/* Spacer to set the upper track heights. */
 						&::before {
-							block-size: calc(100svh - var(--layout--alley) - 0.66em);
+							block-size: calc(100svh - var(--layout--alley) - 0.75em);
 							/* Peek text. */
 							content: '';
 							grid-row: header-start / footer-start;
@@ -443,7 +443,7 @@
 									label {
 										inline-size: -webkit-fill-available;
 										margin-inline: 1em;
-										transform: translateY(-0.05em);
+										transform: translateY(-0.025em);
 										/* Optical shift up. */
 									}
 
@@ -461,13 +461,14 @@
 									position: relative;
 
 									select {
+										cursor: pointer;
 										font-weight: var(--type--weight--medium);
 										inline-size: -webkit-fill-available;
 										letter-spacing: var(--type--letter-spacing--medium);
 										overflow: hidden;
 										padding-inline-end: 1.25em;
 										text-overflow: ellipsis;
-										transform: translateY(-0.05em);
+										transform: translateY(-0.025em);
 										/* Optical shift. */
 									}
 
