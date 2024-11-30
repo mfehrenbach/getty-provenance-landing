@@ -115,14 +115,13 @@
 					--type--weight--semibold: 600;
 					--layout--safe-area: calc(env(safe-area-inset-left) * 0.815);
 					/* Insets on iPhones (same left/right). */
-					--layout--max: 192rem;
 					--layout--gutter--base: 1.6rem;
 					--layout--gutter--safe: calc(var(--layout--gutter--base) + var(--layout--safe-area));
 					--layout--gutter--max: calc((100vw - (var(--layout--max) - 2 * var(--layout--gutter--base))) / 2);
 					--layout--gutter: max(var(--layout--gutter--base), var(--layout--gutter--safe), var(--layout--gutter--max));
 					--layout--alley: 1.6rem;
 					--layout--page: calc(100vw - var(--layout--gutter) * 2);
-					--layout--footer: calc(5 * var(--type--size--large));
+					--layout--max: 192rem;
 					--layout--backdrop: blur(1.2rem);
 					--color--foreground: white;
 					--color--highlight: rgb(255 255 255 / 5%);
@@ -152,7 +151,6 @@
 						--type--size--large: 5.5rem;
 						--layout--gutter--base: 3.6rem;
 						--layout--alley: 2.4rem;
-						--layout--footer: calc(4 * var(--type--size--large));
 					}
 
 					/* Max. */
@@ -245,19 +243,33 @@
 					body {
 						background-color: var(--color--background);
 						color: var(--color--foreground);
+						display: grid;
 						font-size: var(--type--size--small);
 						font-weight: var(--type--weight--regular);
+						grid-template-columns: 100%;
+						grid-template-rows:
+							[header-start] min-content [header-end] minmax(12rem, 1fr) [search-start] min-content [search-end example-start] min-content [example-end] minmax(12rem, 1fr) [footer-start] min-content [footer-end];
 						letter-spacing: var(--type--letter-spacing--small);
 						line-height: var(--type--line-height--heading);
-						position: relative;
 
+						/* Spacer to set the upper track heights. */
+						&::before {
+							block-size: calc(100svh - var(--layout--alley) - 0.66em);
+							/* Peek text. */
+							content: '';
+							grid-row: header-start / footer-start;
+						}
+
+						> * {
+							grid-column: 1
+						}
+
+						/* Allow overlapping. */
 						/* Main header. */
 						> header {
 							backdrop-filter: var(--layout--backdrop);
 							background-color: var(--color--tint);
-							inset-block-start: 0;
-							inset-inline: 0;
-							position: absolute;
+							grid-row: header;
 							z-index: 1;
 
 							/* Breadcrumbs. */
@@ -293,7 +305,6 @@
 								letter-spacing: var(--type--letter-spacing--large);
 								line-height: var(--type--line-height--display);
 								margin-inline-start: -0.075em;
-								padding-block-end: 0.125em;
 								padding-block-start: 1em;
 								padding-inline: var(--layout--gutter);
 							}
@@ -328,16 +339,15 @@
 
 						/* Main search area/background. */
 						> main {
-							align-items: center;
-							block-size: calc(100svh + var(--layout--footer) - 1em);
-							display: flex;
-							justify-content: center;
+							display: contents;
 
 							form {
 								background-color: var(--color--foreground);
 								color: var(--color--background);
 								display: flex;
 								font-size: var(--type--size--medium);
+								grid-row: search;
+								justify-self: center;
 								letter-spacing: var(--type--letter-spacing--medium);
 								margin-inline: var(--layout--gutter);
 								outline-color: var(--color--edge);
@@ -386,17 +396,13 @@
 						> footer {
 							backdrop-filter: var(--layout--backdrop);
 							background-color: var(--color--tint);
-							block-size: var(--layout--footer);
 							color: var(--color--secondary);
 							column-gap: var(--layout--alley);
 							display: flex;
-							inset-block-end: 0;
-							inset-inline: 0;
+							grid-row: footer;
 							justify-content: space-between;
 							padding-block: var(--layout--alley);
 							padding-inline: var(--layout--gutter);
-							position: absolute;
-							z-index: 1;
 
 							/* Notice text. */
 							> p {
@@ -407,10 +413,9 @@
 
 							/* Legal links. */
 							section {
-								align-content: space-between;
 								display: grid;
 								flex-shrink: 0;
-								row-gap: 1em;
+								row-gap: 5em;
 
 								ul {
 									color: var(--color--foreground);
