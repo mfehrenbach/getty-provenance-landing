@@ -46,7 +46,7 @@
 
 		/* Spacer to set the upper track heights. */
 		&::before {
-			block-size: calc(100svh - var(--layout--alley) - 0.66em); /* Peek text. */
+			block-size: calc(100svh - var(--layout--alley) - 0.75em); /* Peek text. */
 			content:    '';
 			grid-row:   header-start / footer-start;
 		}
