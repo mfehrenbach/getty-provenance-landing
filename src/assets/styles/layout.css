@@ -175,6 +175,7 @@
 					position:          relative;
 
 					select {
+						cursor:             pointer;
 						font-weight:        var(--type--weight--medium);
 						inline-size:        -webkit-fill-available;
 						letter-spacing:     var(--type--letter-spacing--medium);
