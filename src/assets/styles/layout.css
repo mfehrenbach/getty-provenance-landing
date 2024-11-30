@@ -152,7 +152,7 @@
 					display: contents;
 
 					/* Record link. */
-					a:first-child {
+					div:first-child {
 						font-size:          var(--type--size--medium);
 						font-weight:        var(--type--weight--medium);
 						grid-row:           example;
@@ -162,6 +162,8 @@
 						margin-block-start: 1em;
 						margin-inline:      var(--layout--gutter);
 						max-inline-size:    var(--layout--search);
+
+						a { inline-size: fit-content }
 					}
 
 					&:not(:first-child) { display: none } /* Temp. */
