@@ -46,7 +46,10 @@ randomExample.classList.add('active', 'loading')
 const backgroundImageLoaded = () => {
 	const img = new Image()
 	img.src = window.getComputedStyle(randomExample).getPropertyValue('--background-image').slice(5, -2)
-	img.onload = () => randomExample.classList.remove('loading')
+	img.onload = () => {
+		if (img.height > img.width) randomExample.classList.add('portrait')
+		randomExample.classList.remove('loading')
+	}
 }
 
 backgroundImageLoaded()
