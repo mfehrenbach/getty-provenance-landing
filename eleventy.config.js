@@ -15,6 +15,8 @@ export default function(eleventyConfig) {
 	eleventyConfig.setOutputDirectory('public')
 
 	// Helpers.
+	eleventyConfig.addFilter('base64', (file) => fs.readFileSync(`src/${file}`).toString('base64'))
+
 	eleventyConfig.addFilter('gettyUrl', (path) => `https://www.getty.edu/${path ? path : ''}`)
 	eleventyConfig.addFilter('exampleSrc', (image) => `https://media.getty.edu/iiif/image/${image}/full/4500,/0/default.jpg`)
 
@@ -65,7 +67,7 @@ export default function(eleventyConfig) {
 	// And inline the font files.
 	eleventyConfig.addTransform('base64FontFile', async (content) => {
 		for (const match of content.matchAll(/woff2;base64,([^)]+)'\)/g)) {
-			content = content.replace(match[0], `woff2;base64,${(await fs.promises.readFile(match[1])).toString('base64')}')`)
+			content = content.replace(match[0], `woff2;base64,${eleventyConfig.getFilter('base64')(match[1])}')`)
 		}
 		return content
 	})
