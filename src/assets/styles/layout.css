@@ -260,17 +260,26 @@
 
 					/* Image backgrounds. */
 					&::before {
-						background-position: 20% 20%;
+						background-position: 15% 15%;
 						background-repeat:   no-repeat;
-						background-size:     auto 140%;
+						background-size:     auto 200vh; /* Default/assume landscape image, portrait (mobile) viewport. */
 						content:             '';
 						inset:               0;
 						position:            fixed;
 
-						@media (orientation: landscape) { background-size: 140% auto }
+						@media (orientation: landscape) {
+							background-position: 20% 20%;
+							background-size:     200vw auto;
+						}
 					}
 
 					/* Set by JavaScript. */
+					&.portrait::before {
+						background-size: 200vw auto; /* Portrait image, portrait viewport */
+
+						@media (orientation: landscape) { background-size: 150vw auto }
+					}
+
 					&.active {
 						opacity:    100%;
 						visibility: visible;
