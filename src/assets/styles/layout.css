@@ -60,7 +60,7 @@
 			grid-row:         header;
 			z-index:          1;
 
-			/* Rubber-band scroll cover. */
+			/* Rubber-band/inertial scroll cover. */
 			&::before {
 				background-color: var(--color--background);
 				block-size:       100%;
@@ -312,6 +312,7 @@
 		> footer {
 			backdrop-filter:  var(--layout--backdrop);
 			background-color: var(--color--tint);
+			box-shadow:       0 25vh var(--color--background); /* Rubber-band/inertial scroll cover. */
 			color:            var(--color--secondary);
 			column-gap:       var(--layout--alley);
 			display:          flex;
@@ -319,6 +320,8 @@
 			justify-content:  space-between;
 			padding-block:    var(--layout--alley);
 			padding-inline:   var(--layout--gutter);
+
+			/* TODO Fix Mobile Safari bottom inertia scroll! */
 
 			/* Notice text. */
 			> p {
