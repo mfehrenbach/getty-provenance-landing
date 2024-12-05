@@ -16,7 +16,7 @@ export default function(eleventyConfig) {
 
 	// Helpers.
 	eleventyConfig.addFilter('gettyUrl', (path) => `https://www.getty.edu/${path ? path : ''}`)
-	eleventyConfig.addFilter('exampleSrc', (image) => `https://media.getty.edu/iiif/image/${image}/full/3000,/0/default.jpg`)
+	eleventyConfig.addFilter('exampleSrc', (image) => `https://media.getty.edu/iiif/image/${image}/full/6000,/0/default.jpg`)
 
 	// Use `eleventy-fetch` for per-build cached Collection API responses.
 	const getObjectData = async (object) =>
