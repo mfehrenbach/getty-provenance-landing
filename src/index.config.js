@@ -116,9 +116,27 @@ export default {
 				report: '287a1ff4-9b52-322f-a75c-303cddbceeb1',
 			},
 			{
+				// Cézanne’s “Young Italian Woman at a Table.”
+				object: '195de465-e47e-4034-8ff9-bbb94790d8aa',
+				image:  '9fc0ac2c-75d7-4d1f-81dd-686115033cdf',
+				report: '287a1ff4-9b52-322f-a75c-303cddbceeb1',
+			},
+			{
+				// Cézanne’s “Eternal Feminine”
+				object: 'f37d3b17-1527-4605-93d7-df4379f3e8b2',
+				image:  '39c49cc4-25ff-4ba4-bc02-6a0366931482',
+				report: '287a1ff4-9b52-322f-a75c-303cddbceeb1',
+			},
+			{
 				// Manet’s “Rue Mosnier with Flags.”
 				object: 'c0e83617-05f7-4e05-9d2d-7c235e678622',
 				image:  '8ea48dc4-ddd1-47ae-b9fb-21c3ea0337da',
+				report: '8daf18af-f59c-313c-ae9f-80d4e01fbc81',
+			},
+			{
+				// Manet’s “Portrait of Madame Brunet.”
+				object: '7b80ff8c-ba2f-4b40-a267-9408d9273f15',
+				image:  'dc8f5f83-f43c-463b-a93a-a5fa76d7de11',
 				report: '8daf18af-f59c-313c-ae9f-80d4e01fbc81',
 			},
 			{
@@ -131,6 +149,18 @@ export default {
 				// Degas’ “After the Bath.”
 				object: '52021978-3913-4af4-96b6-6ece69ed1d92',
 				image:  '01be71c3-28c4-4479-9137-aa31861fe917',
+				report: 'f0a82d9c-6338-34e3-a28e-603b7d6f1581',
+			},
+			{
+				// Degas’ “The Convalescent.”
+				object: '62e6f21a-7b0f-48a8-aff7-723321befc53',
+				image:  'd90f2fb3-f9b7-4050-93d2-fa33640bc705',
+				report: 'f0a82d9c-6338-34e3-a28e-603b7d6f1581',
+			},
+			{
+				// Degas’ “Self-Portrait.”
+				object: 'bdd1dc19-b059-4ff7-bcf1-a6e1b94352ae',
+				image:  '0820a161-1813-47e6-9300-7fcd870b1f78',
 				report: 'f0a82d9c-6338-34e3-a28e-603b7d6f1581',
 			},
 			{
@@ -161,6 +191,12 @@ export default {
 				// Turner’s “Modern Rome.”
 				object: '04dd6563-416d-4f17-ad35-4049dbf36563',
 				image:  'ab4b4415-7ea2-407f-9a44-31624bb467ac',
+				report: '52a1349e-3451-36fa-8bc7-b0b7db839973',
+			},
+			{
+				// Turner’s “Van Tromp, going about to please his Masters.”
+				object: '4f509170-650e-4ba8-8493-1a34cf06fdfc',
+				image:  '835c16ac-bb27-4201-ba02-3d95bfa2cc21',
 				report: '52a1349e-3451-36fa-8bc7-b0b7db839973',
 			},
 			{
@@ -300,6 +336,12 @@ export default {
 				object: '8019f0d7-4736-4189-ab41-bdc8ae0b462d',
 				image:  'f70a0611-cd18-467c-97ce-f5590a9aadab',
 				report: 'c97c40a1-2cc6-39d4-be5b-c34d2e2b738e',
+			},
+			{
+				// Potter’s “The Piebald Horse.”
+				object: 'efd3e697-3407-4cb5-9ab9-208d1c0a22d0',
+				image:  '410e5088-5a70-4b89-bf05-e7766cd6fa90',
+				report: '5dfb03ff-efdc-3232-a80a-54cabba27cf9',
 			},
 		],
 	},
