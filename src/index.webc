@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta content="initial-scale=1, width=device-width, viewport-fit=cover" name="viewport">
 		<meta :content="description" name="description">
-		<meta :content="exampleSrc(record.examples[0].image)" property="og:image">
+		<meta :content="exampleSrc(record.examples[0])" property="og:image">
 		<meta :content="stripTags(exampleCaption(record.examples[0]))" property="og:image:alt">
 		<link :href="gettyUrl('favicon.ico')" rel="icon">
 		<link webc:import="assets/styles.webc">
@@ -66,9 +66,9 @@
 				</button>
 			</form>
 			<ul id="examples">
-				<li webc:for="example of record.examples" :style="`--background-image: url('${exampleSrc(example.image)}')`">
+				<li webc:for="example of record.examples" :style="`--background-image: url('${exampleSrc(example)}')`">
 					<aside>
-						<a :href="reportUrl($data, example.report)">
+						<a :href="exampleReportUrl($data, example)">
 							<p>
 								<span @text="record.intro"></span>
 								<em @text="exampleName(example)"></em><svg webc:nokeep @html="inlineSvg('assets/icons/arrow.svg')"></svg>

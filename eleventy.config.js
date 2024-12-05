@@ -19,7 +19,7 @@ export default function(eleventyConfig) {
 	eleventyConfig.addFilter('stripTags', async (html) => (await html).toString().replace(/<.*?>/g, ''))
 
 	eleventyConfig.addFilter('gettyUrl', (path) => `https://www.getty.edu/${path ? path : ''}`)
-	eleventyConfig.addFilter('exampleSrc', (image) => `https://media.getty.edu/iiif/image/${image}/full/4500,/0/default.jpg`)
+	eleventyConfig.addFilter('exampleSrc', (example) => `https://media.getty.edu/iiif/image/${example.image}/full/4500,/0/default.jpg`)
 
 	// Use `eleventy-fetch` for per-build cached Collection API responses.
 	const getObjectData = async (object) =>
@@ -40,7 +40,7 @@ export default function(eleventyConfig) {
 	})
 
 	// Filters don’t have data context, so pass it from page: https://github.com/11ty/eleventy/issues/2844
-	eleventyConfig.addFilter('reportUrl', (data, report) => `${data.archesUrl}/report/${report}`)
+	eleventyConfig.addFilter('exampleReportUrl', (data, example) => `${data.archesUrl}/report/${example.report}`)
 
 	eleventyConfig.addFilter('inlineSvg', async (svg) => {
 		const image = await Image(`src/${svg}`, {
