@@ -264,8 +264,8 @@
 						background-repeat:   no-repeat;
 						background-size:     auto 140%;
 						content:             '';
-						grid-column:         1;
-						grid-row:            header-start / footer-end;
+						inset:               0;
+						position:            fixed;
 
 						@media (orientation: landscape) { background-size: 140% auto }
 					}
