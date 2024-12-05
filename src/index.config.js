@@ -1,8 +1,9 @@
 export default {
-	title:      'Getty Provenance Index',
-	archesUrl:  'https://provenance.dev.getty.fargeo.com',
-	apiUrl:     'https://data.getty.edu/provenance',
-	breadcrumb: {
+	title:       'Getty Provenance Index',
+	description: 'The Getty Provenance Index® (GPI) contains more than 2.5 million records taken from source material such as archival inventories, auction catalogs, and dealer stock books.',
+	archesUrl:   'https://provenance.dev.getty.fargeo.com',
+	apiUrl:      'https://data.getty.edu/provenance',
+	breadcrumb:  {
 		title: 'Getty Homepage',
 		crumbs: [
 			{
