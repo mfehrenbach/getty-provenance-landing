@@ -60,6 +60,16 @@
 			grid-row:         header;
 			z-index:          1;
 
+			/* Rubber-band scroll cover. */
+			&::before {
+				background-color: var(--color--background);
+				block-size:       100%;
+				content:          '';
+				inset-block-end:  calc(100% - 0.5px);
+				inset-inline:     0;
+				position:         absolute;
+			}
+
 			/* Breadcrumbs. */
 			nav:first-child {
 				background-color: var(--color--shade);
