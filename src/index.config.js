@@ -343,6 +343,36 @@ export default {
 				image:  '410e5088-5a70-4b89-bf05-e7766cd6fa90',
 				report: '5dfb03ff-efdc-3232-a80a-54cabba27cf9',
 			},
+			{
+				// Winterhalter’s “Portrait of Leonilla.”
+				object: '63a14b9c-27fd-4405-95ad-415916011db5',
+				image:  '74ed2d7b-4458-4881-8358-33da6ed69b90',
+				report: 'ff385c4e-eec2-35fc-b070-2c0a9603aa39',
+			},
+			{
+				// Mantegna’s “Adoration of the Magi.”
+				object: '450029c7-bd0c-4454-83c9-b297d350c744',
+				image:  '036e3014-e564-4533-8385-a7019c6a1b2c',
+				report: 'da993e37-2df1-3983-b228-747d837786a6',
+			},
+			{
+				// Lautrec’s “The Model Resting.”
+				object: '471ee7fe-24ce-4e5d-9987-63d2729c993d',
+				image:  '8f04a57e-cd4f-4d6a-be55-e72348b21a8e',
+				report: 'acb1769a-7081-3f72-ab2a-1903854697ec',
+			},
+			{
+				// Pissarro’s “Landscape at Louveciennes.”
+				object: 'd3cf849f-486d-455e-bb55-3e38f3f47865',
+				image:  '1bf25fe7-1abd-441c-9946-5881985ee75e',
+				report: 'c3256e25-4d3a-35db-8bb8-68b0f3ee77f4',
+			},
+			{
+				// De La Tour’s “Musicians' Brawl.”
+				object: '46cdc203-edf2-4330-9e3b-43f3ba058598',
+				image:  '997d642c-0594-44b9-b9d4-d0526749e5ee',
+				report: '9aa3fb9d-d670-3b9d-aff2-d72eb3f89b11',
+			},
 		],
 	},
 	footer: {
