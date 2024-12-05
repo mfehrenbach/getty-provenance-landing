@@ -404,6 +404,7 @@
 								background-color: var(--color--foreground);
 								color: var(--color--background);
 								display: flex;
+								filter: drop-shadow(0 0.5em 3em var(--color--tint));
 								font-size: var(--type--size--medium);
 								grid-column: 1;
 								/* Allow overlapping with background. */
@@ -505,6 +506,7 @@
 
 									/* Record link. */
 									aside {
+										filter: drop-shadow(0 0.05em 0.3em var(--color--tint));
 										font-size: var(--type--size--medium);
 										font-weight: var(--type--weight--medium);
 										grid-column: 1;
@@ -516,6 +518,7 @@
 										margin-block-start: 1em;
 										margin-inline: var(--layout--gutter);
 										max-inline-size: var(--layout--search);
+										z-index: 1;
 									}
 
 									a {
