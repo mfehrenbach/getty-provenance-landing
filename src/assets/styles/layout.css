@@ -321,8 +321,6 @@
 			padding-block:    var(--layout--alley);
 			padding-inline:   var(--layout--gutter);
 
-			/* TODO Fix Mobile Safari bottom inertia scroll! */
-
 			/* Notice text. */
 			> p {
 				align-self:        end;
@@ -346,6 +344,9 @@
 					row-gap:        1em;
 				}
 			}
+
+			/* Scroll cover for Safari. */
+			@supports (font: -apple-system-body) { filter: drop-shadow(0 25vh var(--color--background)) }
 		}
 	}
 }
