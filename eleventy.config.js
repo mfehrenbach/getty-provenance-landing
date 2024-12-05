@@ -16,6 +16,7 @@ export default function(eleventyConfig) {
 
 	// Helpers.
 	eleventyConfig.addFilter('base64', (file) => fs.readFileSync(`src/${file}`).toString('base64'))
+	eleventyConfig.addFilter('stripTags', async (html) => (await html).toString().replace(/<.*?>/g, ''))
 
 	eleventyConfig.addFilter('gettyUrl', (path) => `https://www.getty.edu/${path ? path : ''}`)
 	eleventyConfig.addFilter('exampleSrc', (image) => `https://media.getty.edu/iiif/image/${image}/full/4500,/0/default.jpg`)
