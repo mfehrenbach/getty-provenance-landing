@@ -19,7 +19,7 @@ export default function(eleventyConfig) {
 	eleventyConfig.addFilter('stripTags', async (html) => (await html).toString().replace(/<.*?>/g, ''))
 
 	eleventyConfig.addFilter('gettyUrl', (path) => `https://www.getty.edu/${path ? path : ''}`)
-	eleventyConfig.addFilter('exampleSrc', (example) => `https://media.getty.edu/iiif/image/${example.image}/full/4500,/0/default.jpg`)
+	eleventyConfig.addFilter('exampleSrc', (example, width = 4500) => `https://media.getty.edu/iiif/image/${example.image}/full/${width},/0/default.jpg`)
 
 	// Use `eleventy-fetch` for per-build cached Collection API responses.
 	const getObjectData = async (object) =>

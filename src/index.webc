@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta content="initial-scale=1, width=device-width, viewport-fit=cover" name="viewport">
 		<meta :content="description" name="description">
-		<meta :content="exampleSrc(record.examples[0])" property="og:image">
+		<meta :content="exampleSrc(record.examples[0], 1200)" property="og:image">
 		<meta :content="stripTags(exampleCaption(record.examples[0]))" property="og:image:alt">
 		<link :href="gettyUrl('favicon.ico')" rel="icon">
 		<link webc:import="assets/styles.webc">
