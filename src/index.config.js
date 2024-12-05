@@ -102,7 +102,6 @@ export default {
 	},
 	record: {
 		intro: 'See record for',
-		// TODO Data-URI for these, via 11ty-image?
 		examples: [
 			{
 				// Van Gogh’s “Irises.”
