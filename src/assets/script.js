@@ -48,9 +48,9 @@ const backgroundImageLoaded = (example) => {
 }
 
 const toggleRandomExample = () => {
-	const examples = document.querySelectorAll('#examples li')
+	const examples = document.querySelectorAll('#examples li:not(active)')
 
-	examples.forEach(example => example.classList.remove('active', 'hiding'))
+	document.querySelectorAll('#examples li').forEach(example => example.classList.remove('active', 'hiding'))
 
 	const randomExample = examples[Math.floor(Math.random() * examples.length)]
 
