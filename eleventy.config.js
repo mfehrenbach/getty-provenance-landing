@@ -36,7 +36,7 @@ export default function(eleventyConfig) {
 		const date = objectData.produced_by.timespan.identified_by[0].content
 		const name = await eleventyConfig.getFilter('exampleName')(example)
 
-		return `<em>${title}</em> (verso), ${date}, <nobr>${name}</nobr>. The J. Paul Getty Museum`
+		return `<em>${title}</em> (verso), <nobr>${date}</nobr>, <nobr>${name}</nobr>. <nobr>The J. Paul Getty Museum</nobr>`
 	})
 
 	// Filters don’t have data context, so pass it from page: https://github.com/11ty/eleventy/issues/2844

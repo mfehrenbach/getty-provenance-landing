@@ -278,12 +278,13 @@
 						grid-row:            footer;
 						margin-block-start:  var(--layout--alley);
 						margin-inline-start: var(--layout--gutter);
-						max-inline-size:     calc(100% - 15em);
+						max-inline-size:     min(calc(100% - 15em), var(--layout--search));
 						z-index:             1;
 
 						a {
 							max-inline-size: fit-content;
 							text-wrap:       balance;
+							text-wrap:       pretty;
 
 							/* Arrows. */
 							svg {
