@@ -299,6 +299,7 @@
 						background-size:     auto 200vh; /* Default/assume landscape image, portrait (mobile) viewport. */
 						content:             '';
 						inset:               0;
+						opacity:             0%;
 						position:            fixed;
 
 						@media (orientation: landscape) {
