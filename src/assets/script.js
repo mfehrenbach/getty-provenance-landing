@@ -49,6 +49,9 @@ const backgroundImageLoaded = (example) => {
 
 const toggleRandomExample = () => {
 	const examples = document.querySelectorAll('#examples li')
+
+	examples.forEach(example => example.classList.remove('active', 'hiding'))
+
 	const randomExample = examples[Math.floor(Math.random() * examples.length)]
 
 	randomExample.classList.add('active', 'loading')
@@ -57,3 +60,19 @@ const toggleRandomExample = () => {
 }
 
 toggleRandomExample()
+
+document.querySelectorAll('[data-load-example]').forEach((button) => {
+	button.onclick = () => {
+		const example = button.closest('li')
+		example.classList.add('hiding')
+
+		const onTransitionEnd = (event) => {
+			if (event.propertyName === 'opacity' && event.pseudoElement) {
+				example.removeEventListener('transitionend', onTransitionEnd)
+				toggleRandomExample()
+			}
+		}
+
+		example.addEventListener('transitionend', onTransitionEnd)
+	}
+})

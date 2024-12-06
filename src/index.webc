@@ -74,7 +74,7 @@
 								<em @text="exampleName(example)"></em>
 							</p>
 						</a>
-						<button data-next-example :aria-label="record.button">
+						<button data-load-example :aria-label="record.button">
 							<svg webc:nokeep @html="inlineSvg('assets/icons/refresh.svg')"></svg>
 						</button>
 					</aside>

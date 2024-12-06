@@ -307,6 +307,16 @@
 						}
 					}
 
+					/* Link, citation, image */
+					> *,
+					&::before {
+						opacity:                    var(--opacity, 0%);
+						transition-delay:           var(--delay, 0s);
+						transition-duration:        var(--duration, 1s);
+						transition-property:        opacity;
+						transition-timing-function: linear;
+					}
+
 					/* Set by JavaScript. */
 					&.portrait::before {
 						background-size: 200vw auto; /* Portrait image, portrait viewport */
@@ -315,18 +325,30 @@
 					}
 
 					&.active {
-						opacity:    100%;
+						--opacity:  100%;
+						--duration: 100ms;
+
 						visibility: visible;
 
 						/* Only loads `active` one. */
 						&::before {
+							--duration: initial;
+
 							background-image: var(--background-image);
-							opacity:          100%;
-							transition:       opacity 1s linear;
 						}
 					}
 
-					&.loading::before { opacity: 0% }
+					&.loading::before { --opacity: initial } /* Just the images. */
+
+					&.hiding {
+						--opacity: initial;
+						--duration: 100ms;
+
+						&::before {
+							--duration: 500ms;
+							--delay:    100ms;
+						}
+					}
 				}
 			}
 		}
