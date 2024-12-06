@@ -277,6 +277,29 @@
 				:is(button):where(:not([disabled]))::after {
 					--link--enlargement--element: 100%
 				}
+
+				/* Fix ridic longstanding SVG-in-link transitions bug: https://stackoverflow.com/q/22593883/ */
+				@supports (font: -apple-system-body) {
+					:where(a, button, fieldset) svg {
+						color: currentcolor;
+						/* Pass down to children. */
+						scale: 1;
+						/* Gets rid of the ol’ bobbles. */
+						transition-property: color;
+						will-change: color;
+
+						/* Then `currentColor` from this, on the contents inside. */
+						:where(circle, ellipse, line, path, polygon, polyline, rect) {
+							&:not([stroke='none']) {
+								stroke: currentcolor
+							}
+
+							&:not([fill='none']) {
+								fill: currentcolor
+							}
+						}
+					}
+				}
 			}
 
 			@layer layout {
@@ -503,6 +526,11 @@
 										stroke: currentcolor;
 										stroke-width: 0.02em;
 										transform: rotate(180deg);
+									}
+
+									/* Fix Safari wobble. */
+									@supports (font: -apple-system-body) {
+										scale: 1.0001
 									}
 								}
 
@@ -786,7 +814,7 @@
 					<li>
 						<a aria-label="Getty Homepage" href="https://www.getty.edu/">
 							<svg width="238" height="49" viewBox="0 25 238 49" xmlns="http://www.w3.org/2000/svg">
-								<path d="M59 44H69V70C69 70 58.2728 76.1719 41.2661 76.2223C13.6062 76.3041 0.343201 60.588 0.400207 38.2064C0.45343 17.3019 15.8732 0.335026 41.4591 0.40015C52.8947 0.429264 62.4351 4.66101 66.733 7.34742L64.5308 10.8956C60.5904 8.3263 52.6368 4.50306 41.4487 4.47455C21.6582 4.42414 11.0604 19.1203 11.0117 38.2335C10.9615 57.931 22.5143 72.1034 41.277 72.1512C47.5081 72.1671 54.3895 70.1375 59 67V44ZM117.453 29.9701C121.189 34.0397 123 40 123 47V50L86.116 49.8333C86.0975 57.0819 87.6165 62.61 90.674 66.4158C92.397 68.5607 94.6799 70.1644 97.2729 71.0798C100.187 72.1089 103.417 72.3529 106.478 72.0312C109.79 71.6832 113.026 70.6132 115.886 68.9059C116.772 68.3766 117.64 67.8071 118.446 67.1611L120.493 70.2751C117.7 72.2896 114.605 73.8824 111.588 74.8851C108.571 75.8882 105.407 76.3856 102.097 76.3771C94.6038 76.3581 88.5287 73.9298 83.8714 69.0908C79.2132 64.2523 76.8949 57.9647 76.9146 50.2281C76.9349 42.2477 79.1901 35.8499 83.6807 31.0342C88.1707 26.2189 94.1453 23.8204 101.603 23.8394C108.433 23.8568 113.717 25.9009 117.453 29.9701ZM114 46C114.019 38.5919 113.215 34.6116 110.853 31.6261C108.49 28.6402 105.358 27.1425 101.176 27.1318C96.9944 27.1212 93.5313 28.8295 90.7869 32.2543C88.0421 35.6806 86.2233 40.4252 86 46H114ZM140 63V29H154V25H140V11L132 13V25H126V29H132C132 29 132.023 62.3574 132.023 62.2482C132.003 69.8475 136.614 76.451 145.126 76.4867C148.227 76.4997 151.846 75.6412 155.946 73.6419L155.081 71.4432C155.081 71.4432 139.963 77.6273 140 63ZM173 63V29H187V25H173V11L165 13V25H158V29H165C165 29 165 62.1092 165 62C164.981 69.5994 169.215 76.5341 177.727 76.5697C180.828 76.5826 184.446 75.7242 188.547 73.7249L187.681 71.5261C187.681 71.5261 172.963 77.6273 173 63ZM201.429 96H207.431L238 25H232L215.506 63.2942L199.423 25H190L210.736 74.286L201.429 96Z" fill="currentColor"></path>
+								<path d="M59 44H69V70C69 70 58.2728 76.1719 41.2661 76.2223C13.6062 76.3041 0.343201 60.588 0.400207 38.2064C0.45343 17.3019 15.8732 0.335026 41.4591 0.40015C52.8947 0.429264 62.4351 4.66101 66.733 7.34742L64.5308 10.8956C60.5904 8.3263 52.6368 4.50306 41.4487 4.47455C21.6582 4.42414 11.0604 19.1203 11.0117 38.2335C10.9615 57.931 22.5143 72.1034 41.277 72.1512C47.5081 72.1671 54.3895 70.1375 59 67V44ZM117.453 29.9701C121.189 34.0397 123 40 123 47V50L86.116 49.8333C86.0975 57.0819 87.6165 62.61 90.674 66.4158C92.397 68.5607 94.6799 70.1644 97.2729 71.0798C100.187 72.1089 103.417 72.3529 106.478 72.0312C109.79 71.6832 113.026 70.6132 115.886 68.9059C116.772 68.3766 117.64 67.8071 118.446 67.1611L120.493 70.2751C117.7 72.2896 114.605 73.8824 111.588 74.8851C108.571 75.8882 105.407 76.3856 102.097 76.3771C94.6038 76.3581 88.5287 73.9298 83.8714 69.0908C79.2132 64.2523 76.8949 57.9647 76.9146 50.2281C76.9349 42.2477 79.1901 35.8499 83.6807 31.0342C88.1707 26.2189 94.1453 23.8204 101.603 23.8394C108.433 23.8568 113.717 25.9009 117.453 29.9701ZM114 46C114.019 38.5919 113.215 34.6116 110.853 31.6261C108.49 28.6402 105.358 27.1425 101.176 27.1318C96.9944 27.1212 93.5313 28.8295 90.7869 32.2543C88.0421 35.6806 86.2233 40.4252 86 46H114ZM140 63V29H154V25H140V11L132 13V25H126V29H132C132 29 132.023 62.3574 132.023 62.2482C132.003 69.8475 136.614 76.451 145.126 76.4867C148.227 76.4997 151.846 75.6412 155.946 73.6419L155.081 71.4432C155.081 71.4432 139.963 77.6273 140 63ZM173 63V29H187V25H173V11L165 13V25H158V29H165C165 29 165 62.1092 165 62C164.981 69.5994 169.215 76.5341 177.727 76.5697C180.828 76.5826 184.446 75.7242 188.547 73.7249L187.681 71.5261C187.681 71.5261 172.963 77.6273 173 63ZM201.429 96H207.431L238 25H232L215.506 63.2942L199.423 25H190L210.736 74.286L201.429 96Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</a>
 					</li>
@@ -853,12 +881,12 @@
 						<option value="933ee880-b4b5-11ea-84f7-3af9d3b32b71">Visual Work</option>
 					</select>
 					<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-						<path d="M4 10H12L8 6L4 10Z" fill="currentColor"></path>
+						<path d="M4 10H12L8 6L4 10Z" fill="currentColor" stroke="none"></path>
 					</svg>
 				</fieldset>
 				<button aria-label="Submit search" type="submit">
 					<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19">
-						<path d="M14.707 13.293L14.7071 13.2929L13.8535 13.1464L13.14 12.4329C14.2948 11.1137 15 9.39105 15 7.5C15 3.35785 11.6422 0 7.5 0C3.35785 0 0 3.35785 0 7.5C0 11.6422 3.35785 15 7.5 15C9.39105 15 11.1137 14.2948 12.4329 13.14L13.1464 13.8535L13.2929 14.7071L13.293 14.707L17.293 18.707L18.707 17.293L14.707 13.293ZM7.5 13C4.46729 13 2 10.5327 2 7.5C2 4.46729 4.46729 2 7.5 2C10.5327 2 13 4.46729 13 7.5C13 10.5327 10.5327 13 7.5 13Z" fill="currentColor"></path>
+						<path d="M14.707 13.293L14.7071 13.2929L13.8535 13.1464L13.14 12.4329C14.2948 11.1137 15 9.39105 15 7.5C15 3.35785 11.6422 0 7.5 0C3.35785 0 0 3.35785 0 7.5C0 11.6422 3.35785 15 7.5 15C9.39105 15 11.1137 14.2948 12.4329 13.14L13.1464 13.8535L13.2929 14.7071L13.293 14.707L17.293 18.707L18.707 17.293L14.707 13.293ZM7.5 13C4.46729 13 2 10.5327 2 7.5C2 4.46729 4.46729 2 7.5 2C10.5327 2 13 4.46729 13 7.5C13 10.5327 10.5327 13 7.5 13Z" fill="currentColor" stroke="none"></path>
 					</svg>
 				</button>
 			</form>
@@ -873,7 +901,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -881,7 +909,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103JNH?canvas=fbd08f99-6fd3-4671-80be-0d095cb30ad7">
 							<p>
 								<em>Irises</em>&nbsp;(verso), 1889, <nobr>Vincent van Gogh</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -898,7 +926,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -906,7 +934,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103QT5?canvas=a11666c0-a68e-4a10-942a-e938ee68bdf9">
 							<p>
 								<em>Still Life with Apples</em>&nbsp;(verso), 1893–1894, <nobr>Paul Cézanne</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -923,7 +951,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -931,7 +959,7 @@
 						<a href="https://www.getty.edu/art/collection/object/108FPZ?canvas=9fc0ac2c-75d7-4d1f-81dd-686115033cdf">
 							<p>
 								<em>Young Italian Woman at a Table</em>&nbsp;(verso), about 1895–1900, <nobr>Paul Cézanne</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -948,7 +976,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -956,7 +984,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RJ9?canvas=39c49cc4-25ff-4ba4-bc02-6a0366931482">
 							<p>
 								<em>The Eternal Feminine (L'Éternel Féminin)</em>&nbsp;(verso), about 1877, <nobr>Paul Cézanne</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -973,7 +1001,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -981,7 +1009,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RJM?canvas=8ea48dc4-ddd1-47ae-b9fb-21c3ea0337da">
 							<p>
 								<em>The Rue Mosnier with Flags</em>&nbsp;(verso), 1878, <nobr>Édouard Manet</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -998,7 +1026,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1006,7 +1034,7 @@
 						<a href="https://www.getty.edu/art/collection/object/109HJK?canvas=dc8f5f83-f43c-463b-a93a-a5fa76d7de11">
 							<p>
 								<em>Portrait of Madame Brunet</em>&nbsp;(verso), about 1861–1863, reworked by 1867, <nobr>Édouard Manet</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1023,7 +1051,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1031,7 +1059,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103QS8?canvas=13e02252-fb7f-4bd5-a8e8-ce4ca096beda">
 							<p>
 								<em>The Abduction of Europa</em>&nbsp;(verso), 1632, <nobr>Rembrandt Harmensz. van Rijn</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1048,7 +1076,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1056,7 +1084,7 @@
 						<a href="https://www.getty.edu/art/collection/object/108H4X?canvas=01be71c3-28c4-4479-9137-aa31861fe917">
 							<p>
 								<em>After the Bath</em>&nbsp;(verso), about 1895, <nobr>Edgar Degas</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1073,7 +1101,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1081,7 +1109,7 @@
 						<a href="https://www.getty.edu/art/collection/object/108XV3?canvas=d90f2fb3-f9b7-4050-93d2-fa33640bc705">
 							<p>
 								<em>The Convalescent</em>&nbsp;(verso), about 1872–January 1887, <nobr>Edgar Degas</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1098,7 +1126,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1106,7 +1134,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103R96?canvas=0820a161-1813-47e6-9300-7fcd870b1f78">
 							<p>
 								<em>Self-Portrait</em>&nbsp;(verso), about 1857–1858, <nobr>Edgar Degas</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1123,7 +1151,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1131,7 +1159,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RK8?canvas=ae926817-92dc-4108-b827-329be50bb758">
 							<p>
 								<em>Wheatstacks, Snow Effect, Morning (Meules, Effet de Neige, Le Matin)</em>&nbsp;(verso), 1891, <nobr>Claude Monet</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1148,7 +1176,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1156,7 +1184,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RK9?canvas=10be3af9-92f1-41a2-9cfb-6ccc30378119">
 							<p>
 								<em>Three Lovers</em>&nbsp;(verso), about 1817–1820, <nobr>Théodore Géricault</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1173,7 +1201,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1181,7 +1209,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RH8?canvas=8fe76ec0-34e8-436e-82b8-a831e7fbc7ac">
 							<p>
 								<em>The Race of the Riderless Horses</em>&nbsp;(verso), 1817, <nobr>Théodore Géricault</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1198,7 +1226,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1206,7 +1234,7 @@
 						<a href="https://www.getty.edu/art/collection/object/107VSC?canvas=769f2327-0618-4c6c-ad32-7035dd763f26">
 							<p>
 								<em>Landscape with a Calm (Un Tem[p]s calme et serein)</em>&nbsp;(verso), 1650–1651, <nobr>Nicolas Poussin</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1223,7 +1251,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1231,7 +1259,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103QTP?canvas=ab4b4415-7ea2-407f-9a44-31624bb467ac">
 							<p>
 								<em>Modern Rome - Campo Vaccino</em>&nbsp;(verso), 1839, <nobr>Joseph Mallord William Turner</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1248,7 +1276,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1256,7 +1284,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RK1?canvas=835c16ac-bb27-4201-ba02-3d95bfa2cc21">
 							<p>
 								<em>Van Tromp, going about to please his Masters, Ships a Sea, getting a Good Wetting</em>&nbsp;(verso), 1844, <nobr>Joseph Mallord William Turner</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1273,7 +1301,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1281,7 +1309,7 @@
 						<a href="https://www.getty.edu/art/collection/object/108J7V?canvas=93ea9e51-4b0a-42a2-b1f6-475a2e911b5d">
 							<p>
 								<em>A Calm at a Mediterranean Port</em>&nbsp;(verso), 1770, <nobr>Claude-Joseph Vernet</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1298,7 +1326,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1306,7 +1334,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RJT?canvas=73ba9096-47d8-4095-84d3-1b22e4b98270">
 							<p>
 								<em>The Entry of the Animals into Noah's Ark</em>&nbsp;(verso), 1613, <nobr>Jan Brueghel the Elder</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1323,7 +1351,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1331,7 +1359,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RGZ?canvas=d80d5a81-edda-4650-9c5b-c3449513552c">
 							<p>
 								<em>Man with a Hoe</em>&nbsp;(verso), 1860–1862, <nobr>Jean-François Millet</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1348,7 +1376,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1356,7 +1384,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103QS9?canvas=b02a1200-932c-4cc6-b29c-9daddf40e32c">
 							<p>
 								<em>The Annunciation</em>&nbsp;(verso), about 1450–1455, <nobr>Dieric Bouts</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1373,7 +1401,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1381,7 +1409,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RAB?canvas=4519972a-b71c-4445-9d19-feb9d186d32e">
 							<p>
 								<em>A Young Girl Defending Herself against Love</em>&nbsp;(verso), about 1880, <nobr>William-Adolphe Bouguereau</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1398,7 +1426,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1406,7 +1434,7 @@
 						<a href="https://www.getty.edu/art/collection/object/109AHV?canvas=7f951529-a966-453b-ab1f-2f960b7a565e">
 							<p>
 								<em>Portrait of the Marquise de Miramon, née Thérèse Feuillant</em>&nbsp;(verso), 1866, <nobr>Jacques Joseph Tissot</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1423,7 +1451,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1431,7 +1459,7 @@
 						<a href="https://www.getty.edu/art/collection/object/109B65?canvas=d18a18fd-5c58-4b19-a479-cf445606c1d7">
 							<p>
 								<em>Coast View with the Abduction of Europa</em>&nbsp;(verso), 1645 ?, <nobr>Claude Lorrain (Claude Gellée)</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1448,7 +1476,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1456,7 +1484,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RJJ?canvas=7361d7d9-3907-40f7-b487-d0378c107ef6">
 							<p>
 								<em>The Promenade</em>&nbsp;(verso), 1870, <nobr>Pierre-Auguste Renoir</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1473,7 +1501,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1481,7 +1509,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RB6?canvas=a21fe655-2d17-441c-b224-723041db18b9">
 							<p>
 								<em>Saint Bartholomew</em>&nbsp;(verso), 1661, <nobr>Rembrandt Harmensz. van Rijn</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1498,7 +1526,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1506,7 +1534,7 @@
 						<a href="https://www.getty.edu/art/collection/object/108HGY?canvas=286d361b-8da7-4a0a-925f-4ab350e605f5">
 							<p>
 								<em>The Portal of Rouen Cathedral in Morning Light</em>&nbsp;(verso), 1894, <nobr>Claude Monet</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1523,7 +1551,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1531,7 +1559,7 @@
 						<a href="https://www.getty.edu/art/collection/object/109NEP?canvas=c145ef8f-d59b-4422-b695-8c9388cbf848">
 							<p>
 								<em>La Surprise</em>&nbsp;(verso), about 1718–1719, <nobr>Jean-Antoine Watteau</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1548,7 +1576,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1556,7 +1584,7 @@
 						<a href="https://www.getty.edu/art/collection/object/109PHC?canvas=719850ea-ca08-4c7d-8d90-542075acd37d">
 							<p>
 								<em>Spring in the Alps</em>&nbsp;(verso), 1897, <nobr>Giovanni Segantini</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1573,7 +1601,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1581,7 +1609,7 @@
 						<a href="https://www.getty.edu/art/collection/object/10987T?canvas=ed31e38d-068f-41a7-923f-d6daaa174ce7">
 							<p>
 								<em>Demolition of the Château of Meudon</em>&nbsp;(verso), 1806, <nobr>Hubert Robert</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1598,7 +1626,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1606,7 +1634,7 @@
 						<a href="https://www.getty.edu/art/collection/object/10A1D3?canvas=968c1b0c-9b1d-4526-827e-588437a5ccde">
 							<p>
 								<em>The Miracle of the Quails</em>&nbsp;(verso), 1554, <nobr>Jacopo Bassano</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1623,7 +1651,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1631,7 +1659,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103QTZ?canvas=0bd92353-059c-466c-87ab-00086c02304e">
 							<p>
 								<em>Jeanne (Spring)</em>&nbsp;(verso), 1881, <nobr>Édouard Manet</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1648,7 +1676,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1656,7 +1684,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103QSE?canvas=972b5d89-aa07-4572-9075-c82f520fd1fb">
 							<p>
 								<em>Portrait of a Halberdier (Francesco Guardi?)</em>&nbsp;(verso), 1529–1530, <nobr>Pontormo (Jacopo Carucci)</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1673,7 +1701,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1681,7 +1709,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RES?canvas=798f6d57-f0a8-46be-84b3-2544caa56c44">
 							<p>
 								<em>Hall of the Ambassadors, Alhambra, Granada</em>&nbsp;(verso), 1909, <nobr>Joaquín Sorolla y Bastida</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1698,7 +1726,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1706,7 +1734,7 @@
 						<a href="https://www.getty.edu/art/collection/object/109Q7M?canvas=14ac4123-1aa6-4d2e-8301-f814d1d50ce8">
 							<p>
 								<em>Portrait of José Nicolás de Azara, Marquis of Nibbiano</em>&nbsp;(verso), after 1774, <nobr>Anton Raphael Mengs</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1723,7 +1751,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1731,7 +1759,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RCB?canvas=7388a215-a603-4e08-a34a-5cb51acc9fc9">
 							<p>
 								<em>Cupid and Pan</em>&nbsp;(verso), about 1600, <nobr>Federico Zuccaro</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1748,7 +1776,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1756,7 +1784,7 @@
 						<a href="https://www.getty.edu/art/collection/object/108G18?canvas=35b5a2e5-eaba-4b97-9a58-5c73cec3fa90">
 							<p>
 								<em>Alexander the Great and Campaspe in the Studio of Apelles</em>&nbsp;(verso), about 1740, <nobr>Giovanni Battista Tiepolo</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1773,7 +1801,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1781,7 +1809,7 @@
 						<a href="https://www.getty.edu/art/collection/object/1096PT?canvas=a8cc6391-5bd6-4b56-910f-7546010b3317">
 							<p>
 								<em>Portrait of Alfonso d'Avalos, Marchese del Vasto, in Armor with a Page</em>&nbsp;(verso), probably January–February 1533, <nobr>Titian (Tiziano Vecellio)</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1798,7 +1826,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1806,7 +1834,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103R9F?canvas=6a3de87b-d5b8-46f6-a8d8-cd70bb8efc39">
 							<p>
 								<em>The Penitent Magdalene</em>&nbsp;(verso), 1555–1565, <nobr>Titian (Tiziano Vecellio)</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1823,7 +1851,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1831,7 +1859,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RAX?canvas=f70a0611-cd18-467c-97ce-f5590a9aadab">
 							<p>
 								<em>View of the Arch of Constantine with the Colosseum</em>&nbsp;(verso), 1742–1745, <nobr>Canaletto (Giovanni Antonio Canal)</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1848,7 +1876,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1856,7 +1884,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RJC?canvas=410e5088-5a70-4b89-bf05-e7766cd6fa90">
 							<p>
 								<em>The "Piebald" Horse</em>&nbsp;(verso), about 1650–1654, <nobr>Paulus Potter</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1873,7 +1901,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1881,7 +1909,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RHJ?canvas=74ed2d7b-4458-4881-8358-33da6ed69b90">
 							<p>
 								<em>Portrait of Leonilla, Princess of Sayn-Wittgenstein-Sayn</em>&nbsp;(verso), 1843, <nobr>Franz Xaver Winterhalter</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1898,7 +1926,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1906,7 +1934,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RHD?canvas=036e3014-e564-4533-8385-a7019c6a1b2c">
 							<p>
 								<em>Adoration of the Magi</em>&nbsp;(verso), about 1495–1505, <nobr>Andrea Mantegna</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1923,7 +1951,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1931,7 +1959,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RFS?canvas=8f04a57e-cd4f-4d6a-be55-e72348b21a8e">
 							<p>
 								<em>The Model Resting</em>&nbsp;(verso), 1889, <nobr>Henri de Toulouse-Lautrec</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1948,7 +1976,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1956,7 +1984,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RF5?canvas=1bf25fe7-1abd-441c-9946-5881985ee75e">
 							<p>
 								<em>Landscape at Louveciennes (Autumn)</em>&nbsp;(verso), 1870, <nobr>Camille Pissarro</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
@@ -1973,7 +2001,7 @@
 						</a>
 						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z" fill="currentColor" stroke="none"></path>
 							</svg>
 						</button>
 					</aside>
@@ -1981,7 +2009,7 @@
 						<a href="https://www.getty.edu/art/collection/object/103RCX?canvas=997d642c-0594-44b9-b9d4-d0526749e5ee">
 							<p>
 								<em>The Musicians' Brawl</em>&nbsp;(verso), about 1625–1630, <nobr>Georges de La Tour</nobr>. The&nbsp;J.&nbsp;Paul Getty Museum<nobr><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
+										<path d="M0 9H16M8 1L16 9L8 17" fill="none" stroke="currentColor"></path>
 									</svg>
 								</nobr>
 							</p>
