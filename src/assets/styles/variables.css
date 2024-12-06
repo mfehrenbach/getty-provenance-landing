@@ -31,9 +31,9 @@
 
 	--color--foreground: white;
 	--color--highlight:  rgb(255 255 255 / 5%);
-	--color--secondary:  rgb(255 255 255 / 33%);
+	--color--secondary:  rgb(255 255 255 / 40%);
 	--color--tint:       rgb(17 17 17 / 85%);
-	--color--shade:      rgb(0 0 0 / 33%);
+	--color--shade:      rgb(0 0 0 / 40%);
 	--color--edge:       rgb(0 0 0 / 13.333%);
 	--color--background: black;
 
