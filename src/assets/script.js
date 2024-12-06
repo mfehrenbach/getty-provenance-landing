@@ -64,6 +64,9 @@ toggleRandomExample()
 document.querySelectorAll('[data-load-example]').forEach((button) => {
 	button.onclick = () => {
 		const example = button.closest('li')
+
+		if (example.classList.contains('loading')) return /* Bail out if it isn’t ready yet. */
+
 		example.classList.add('hiding')
 
 		const onTransitionEnd = (event) => {
