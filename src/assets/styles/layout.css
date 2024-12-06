@@ -132,24 +132,26 @@
 			display: contents;
 
 			form {
-				background-color: var(--color--foreground);
-				color:            var(--color--background);
-				display:          flex;
-				filter:           drop-shadow(0 0.5em 4em var(--color--tint));
-				font-size:        var(--type--size--medium);
-				grid-column:      1; /* Allow overlapping with background. */
-				grid-row:         search;
-				inline-size:      var(--layout--page);
-				justify-self:     center;
-				letter-spacing:   var(--type--letter-spacing--medium);
-				margin-inline:    var(--layout--gutter);
-				max-inline-size:  var(--layout--search);
-				outline-color:    var(--color--edge);
-				outline-offset:   -0.1rem;
-				outline-style:    solid;
-				outline-width:    0.1rem;
-				text-wrap:        nowrap;
-				z-index:          1;
+				background-color:        var(--color--foreground);
+				border-end-end-radius:   0.2rem; /* Safari outline fix. */
+				border-start-end-radius: 0.2rem;
+				color:                   var(--color--background);
+				display:                 flex;
+				filter:                  drop-shadow(0 0.5em 4em var(--color--tint));
+				font-size:               var(--type--size--medium);
+				grid-column:             1; /* Allow overlapping with background. */
+				grid-row:                search;
+				inline-size:             var(--layout--page);
+				justify-self:            center;
+				letter-spacing:          var(--type--letter-spacing--medium);
+				margin-inline:           var(--layout--gutter);
+				max-inline-size:         var(--layout--search);
+				outline-color:           var(--color--edge);
+				outline-offset:          -0.1rem;
+				outline-style:           solid;
+				outline-width:           0.1rem;
+				text-wrap:               nowrap;
+				z-index:                 1;
 
 				fieldset {
 					align-items: center;
