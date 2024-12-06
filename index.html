@@ -525,7 +525,7 @@
 									/* Record link. */
 									aside {
 										align-items: end;
-										column-gap: 1em;
+										column-gap: 1.333em;
 										display: flex;
 										filter: drop-shadow(0 0.05em 0.5em var(--color--tint));
 										font-size: var(--type--size--medium);
@@ -550,7 +550,7 @@
 											}
 										}
 
-										/* “Next” example. */
+										/* Load another example. */
 										button {
 											align-items: center;
 											display: flex;
@@ -598,13 +598,22 @@
 										/* Default/assume landscape image, portrait (mobile) viewport. */
 										content: '';
 										inset: 0;
-										opacity: 0%;
 										position: fixed;
 
 										@media (orientation: landscape) {
 											background-position: 20% 20%;
 											background-size: 200vw auto;
 										}
+									}
+
+									/* Link, citation, image */
+									> *,
+									&::before {
+										opacity: var(--opacity, 0%);
+										transition-delay: var(--delay, 0s);
+										transition-duration: var(--duration, 1s);
+										transition-property: opacity;
+										transition-timing-function: linear;
 									}
 
 									/* Set by JavaScript. */
@@ -618,19 +627,30 @@
 									}
 
 									&.active {
-										opacity: 100%;
+										--opacity: 100%;
+										--duration: 100ms;
 										visibility: visible;
 
 										/* Only loads `active` one. */
 										&::before {
+											--duration: initial;
 											background-image: var(--background-image);
-											opacity: 100%;
-											transition: opacity 1s linear;
 										}
 									}
 
 									&.loading::before {
-										opacity: 0%
+										--opacity: initial
+									}
+
+									/* Just the images. */
+									&.hiding {
+										--opacity: initial;
+										--duration: 100ms;
+
+										&::before {
+											--duration: 500ms;
+											--delay: 100ms;
+										}
 									}
 								}
 							}
@@ -732,11 +752,26 @@
 			}
 			const toggleRandomExample = () => {
 				const examples = document.querySelectorAll('#examples li')
+				examples.forEach(example => example.classList.remove('active', 'hiding'))
 				const randomExample = examples[Math.floor(Math.random() * examples.length)]
 				randomExample.classList.add('active', 'loading')
 				backgroundImageLoaded(randomExample)
 			}
 			toggleRandomExample()
+			document.querySelectorAll('[data-load-example]')
+				.forEach((button) => {
+					button.onclick = () => {
+						const example = button.closest('li')
+						example.classList.add('hiding')
+						const onTransitionEnd = (event) => {
+							if (event.propertyName === 'opacity' && event.pseudoElement) {
+								example.removeEventListener('transitionend', onTransitionEnd)
+								toggleRandomExample()
+							}
+						}
+						example.addEventListener('transitionend', onTransitionEnd)
+					}
+				})
 		</script>
 	</head>
 	<body>
@@ -832,7 +867,7 @@
 								<em>Vincent van Gogh</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -857,7 +892,7 @@
 								<em>Paul Cézanne</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -882,7 +917,7 @@
 								<em>Paul Cézanne</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -907,7 +942,7 @@
 								<em>Paul Cézanne</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -932,7 +967,7 @@
 								<em>Édouard Manet</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -957,7 +992,7 @@
 								<em>Édouard Manet</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -982,7 +1017,7 @@
 								<em>Rembrandt Harmensz. van Rijn</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1007,7 +1042,7 @@
 								<em>Edgar Degas</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1032,7 +1067,7 @@
 								<em>Edgar Degas</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1057,7 +1092,7 @@
 								<em>Edgar Degas</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1082,7 +1117,7 @@
 								<em>Claude Monet</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1107,7 +1142,7 @@
 								<em>Théodore Géricault</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1132,7 +1167,7 @@
 								<em>Théodore Géricault</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1157,7 +1192,7 @@
 								<em>Nicolas Poussin</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1182,7 +1217,7 @@
 								<em>Joseph Mallord William Turner</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1207,7 +1242,7 @@
 								<em>Joseph Mallord William Turner</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1232,7 +1267,7 @@
 								<em>Claude-Joseph Vernet</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1257,7 +1292,7 @@
 								<em>Jan Brueghel the Elder</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1282,7 +1317,7 @@
 								<em>Jean-François Millet</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1307,7 +1342,7 @@
 								<em>Dieric Bouts</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1332,7 +1367,7 @@
 								<em>William-Adolphe Bouguereau</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1357,7 +1392,7 @@
 								<em>Jacques Joseph Tissot</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1382,7 +1417,7 @@
 								<em>Claude Lorrain (Claude Gellée)</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1407,7 +1442,7 @@
 								<em>Pierre-Auguste Renoir</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1432,7 +1467,7 @@
 								<em>Rembrandt Harmensz. van Rijn</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1457,7 +1492,7 @@
 								<em>Claude Monet</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1482,7 +1517,7 @@
 								<em>Jean-Antoine Watteau</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1507,7 +1542,7 @@
 								<em>Giovanni Segantini</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1532,7 +1567,7 @@
 								<em>Hubert Robert</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1557,7 +1592,7 @@
 								<em>Jacopo Bassano</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1582,7 +1617,7 @@
 								<em>Édouard Manet</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1607,7 +1642,7 @@
 								<em>Pontormo (Jacopo Carucci)</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1632,7 +1667,7 @@
 								<em>Joaquín Sorolla y Bastida</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1657,7 +1692,7 @@
 								<em>Anton Raphael Mengs</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1682,7 +1717,7 @@
 								<em>Federico Zuccaro</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1707,7 +1742,7 @@
 								<em>Giovanni Battista Tiepolo</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1732,7 +1767,7 @@
 								<em>Titian (Tiziano Vecellio)</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1757,7 +1792,7 @@
 								<em>Titian (Tiziano Vecellio)</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1782,7 +1817,7 @@
 								<em>Canaletto (Giovanni Antonio Canal)</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1807,7 +1842,7 @@
 								<em>Paulus Potter</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1832,7 +1867,7 @@
 								<em>Franz Xaver Winterhalter</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1857,7 +1892,7 @@
 								<em>Andrea Mantegna</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1882,7 +1917,7 @@
 								<em>Henri de Toulouse-Lautrec</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1907,7 +1942,7 @@
 								<em>Camille Pissarro</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
@@ -1932,7 +1967,7 @@
 								<em>Georges de La Tour</em>
 							</p>
 						</a>
-						<button data-next-example aria-label="Get another record">
+						<button data-load-example aria-label="Get another record">
 							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
 							</svg>
