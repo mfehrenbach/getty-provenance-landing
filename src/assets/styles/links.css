@@ -35,7 +35,7 @@
 	display:  flow-root;
 	position: relative;
 
-	&:not(button)::after {
+	&::after {
 		/* Intrinsic size plus enlargement. */
 		--link--enlargement--element: calc(100% + var(--link--enlargement) * 2);
 
@@ -54,3 +54,5 @@
 
 	&:active::after { background-color: var(--color--highlight) }
 }
+
+:is(button):where(:not([disabled]))::after { --link--enlargement--element: 100% }
