@@ -35,7 +35,7 @@
 	display:  flow-root;
 	position: relative;
 
-	&::after {
+	&:not(button)::after {
 		/* Intrinsic size plus enlargement. */
 		--link--enlargement--element: calc(100% + var(--link--enlargement) * 2);
 
