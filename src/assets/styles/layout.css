@@ -229,7 +229,7 @@
 					/* Record link. */
 					aside {
 						align-items:        end;
-						column-gap:         1em;
+						column-gap:         1.333em;
 						display:            flex;
 						filter:             drop-shadow(0 0.05em 0.5em var(--color--tint));
 						font-size:          var(--type--size--medium);
@@ -253,7 +253,7 @@
 							}
 						}
 
-						/* “Next” example. */
+						/* Load another example. */
 						button {
 							align-items: center;
 							display:     flex;
