@@ -273,6 +273,10 @@
 						background-color: var(--color--highlight)
 					}
 				}
+
+				:is(button):where(:not([disabled]))::after {
+					--link--enlargement--element: 100%
+				}
 			}
 
 			@layer layout {
@@ -520,6 +524,9 @@
 
 									/* Record link. */
 									aside {
+										align-items: end;
+										column-gap: 1em;
+										display: flex;
 										filter: drop-shadow(0 0.05em 0.5em var(--color--tint));
 										font-size: var(--type--size--medium);
 										font-weight: var(--type--weight--medium);
@@ -530,22 +537,28 @@
 										justify-self: center;
 										letter-spacing: var(--type--letter-spacing--medium);
 										margin-block-start: 1em;
-										margin-inline: var(--layout--gutter);
 										max-inline-size: var(--layout--search);
 										z-index: 1;
-									}
 
-									a {
-										inline-size: fit-content;
-										text-wrap: balance;
+										a {
+											overflow: hidden;
 
-										/* Arrows. */
-										svg {
-											block-size: 0.75em;
-											inset-block-start: 0.1em;
-											margin-inline-start: 0.5em;
-											position: relative;
-											stroke-width: 0.1333em;
+											p {
+												overflow: hidden;
+												text-overflow: ellipsis;
+												white-space: nowrap;
+											}
+										}
+
+										/* “Next” example. */
+										button {
+											align-items: center;
+											display: flex;
+
+											svg {
+												block-size: 1em;
+												fill: currentcolor;
+											}
 										}
 									}
 
@@ -560,6 +573,20 @@
 										margin-inline-start: var(--layout--gutter);
 										max-inline-size: calc(100% - 15em);
 										z-index: 1;
+
+										a {
+											max-inline-size: fit-content;
+											text-wrap: balance;
+
+											/* Arrows. */
+											svg {
+												block-size: 0.75em;
+												inset-block-start: 0.1em;
+												margin-inline-start: 0.5em;
+												position: relative;
+												stroke-width: 0.1333em;
+											}
+										}
 									}
 
 									/* Image backgrounds. */
@@ -571,6 +598,7 @@
 										/* Default/assume landscape image, portrait (mobile) viewport. */
 										content: '';
 										inset: 0;
+										opacity: 0%;
 										position: fixed;
 
 										@media (orientation: landscape) {
@@ -692,20 +720,23 @@
 				.catch(error => {
 					throw new Error(error)
 				})
-			const examples = document.querySelectorAll('#examples li')
-			const randomExample = examples[Math.floor(Math.random() * examples.length)]
-			randomExample.classList.add('active', 'loading')
-			const backgroundImageLoaded = () => {
+			const backgroundImageLoaded = (example) => {
 				const img = new Image()
-				img.src = window.getComputedStyle(randomExample)
+				img.src = window.getComputedStyle(example)
 					.getPropertyValue('--background-image')
 					.slice(5, -2)
 				img.onload = () => {
-					if (img.height > img.width) randomExample.classList.add('portrait')
-					randomExample.classList.remove('loading')
+					if (img.height > img.width) example.classList.add('portrait')
+					example.classList.remove('loading')
 				}
 			}
-			backgroundImageLoaded()
+			const toggleRandomExample = () => {
+				const examples = document.querySelectorAll('#examples li')
+				const randomExample = examples[Math.floor(Math.random() * examples.length)]
+				randomExample.classList.add('active', 'loading')
+				backgroundImageLoaded(randomExample)
+			}
+			toggleRandomExample()
 		</script>
 	</head>
 	<body>
@@ -786,7 +817,7 @@
 						<path d="M4 10H12L8 6L4 10Z" fill="currentColor"></path>
 					</svg>
 				</fieldset>
-				<button aria-label="Search" type="submit">
+				<button aria-label="Submit search" type="submit">
 					<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19">
 						<path d="M14.707 13.293L14.7071 13.2929L13.8535 13.1464L13.14 12.4329C14.2948 11.1137 15 9.39105 15 7.5C15 3.35785 11.6422 0 7.5 0C3.35785 0 0 3.35785 0 7.5C0 11.6422 3.35785 15 7.5 15C9.39105 15 11.1137 14.2948 12.4329 13.14L13.1464 13.8535L13.2929 14.7071L13.293 14.707L17.293 18.707L18.707 17.293L14.707 13.293ZM7.5 13C4.46729 13 2 10.5327 2 7.5C2 4.46729 4.46729 2 7.5 2C10.5327 2 13 4.46729 13 7.5C13 10.5327 10.5327 13 7.5 13Z" fill="currentColor"></path>
 					</svg>
@@ -798,11 +829,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/8042aa22-d6ad-310f-9ec6-f1467b24d593">
 							<p>
 								<span>See record for</span>
-								<em>Vincent van Gogh</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Vincent van Gogh</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103JNH?canvas=fbd08f99-6fd3-4671-80be-0d095cb30ad7">
@@ -820,11 +854,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/287a1ff4-9b52-322f-a75c-303cddbceeb1">
 							<p>
 								<span>See record for</span>
-								<em>Paul Cézanne</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Paul Cézanne</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103QT5?canvas=a11666c0-a68e-4a10-942a-e938ee68bdf9">
@@ -842,11 +879,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/287a1ff4-9b52-322f-a75c-303cddbceeb1">
 							<p>
 								<span>See record for</span>
-								<em>Paul Cézanne</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Paul Cézanne</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/108FPZ?canvas=9fc0ac2c-75d7-4d1f-81dd-686115033cdf">
@@ -864,11 +904,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/287a1ff4-9b52-322f-a75c-303cddbceeb1">
 							<p>
 								<span>See record for</span>
-								<em>Paul Cézanne</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Paul Cézanne</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RJ9?canvas=39c49cc4-25ff-4ba4-bc02-6a0366931482">
@@ -886,11 +929,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/8daf18af-f59c-313c-ae9f-80d4e01fbc81">
 							<p>
 								<span>See record for</span>
-								<em>Édouard Manet</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Édouard Manet</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RJM?canvas=8ea48dc4-ddd1-47ae-b9fb-21c3ea0337da">
@@ -908,11 +954,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/8daf18af-f59c-313c-ae9f-80d4e01fbc81">
 							<p>
 								<span>See record for</span>
-								<em>Édouard Manet</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Édouard Manet</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/109HJK?canvas=dc8f5f83-f43c-463b-a93a-a5fa76d7de11">
@@ -930,11 +979,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/dde29a68-fea4-3f3d-89b2-dbc0688a48ae">
 							<p>
 								<span>See record for</span>
-								<em>Rembrandt Harmensz. van Rijn</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Rembrandt Harmensz. van Rijn</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103QS8?canvas=13e02252-fb7f-4bd5-a8e8-ce4ca096beda">
@@ -952,11 +1004,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/f0a82d9c-6338-34e3-a28e-603b7d6f1581">
 							<p>
 								<span>See record for</span>
-								<em>Edgar Degas</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Edgar Degas</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/108H4X?canvas=01be71c3-28c4-4479-9137-aa31861fe917">
@@ -974,11 +1029,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/f0a82d9c-6338-34e3-a28e-603b7d6f1581">
 							<p>
 								<span>See record for</span>
-								<em>Edgar Degas</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Edgar Degas</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/108XV3?canvas=d90f2fb3-f9b7-4050-93d2-fa33640bc705">
@@ -996,11 +1054,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/f0a82d9c-6338-34e3-a28e-603b7d6f1581">
 							<p>
 								<span>See record for</span>
-								<em>Edgar Degas</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Edgar Degas</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103R96?canvas=0820a161-1813-47e6-9300-7fcd870b1f78">
@@ -1018,11 +1079,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/1d44a590-d899-34fe-b866-b2b303d34706">
 							<p>
 								<span>See record for</span>
-								<em>Claude Monet</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Claude Monet</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RK8?canvas=ae926817-92dc-4108-b827-329be50bb758">
@@ -1040,11 +1104,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/0f97dcdc-020e-345d-9c14-4ec4d4ad913e">
 							<p>
 								<span>See record for</span>
-								<em>Théodore Géricault</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Théodore Géricault</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RK9?canvas=10be3af9-92f1-41a2-9cfb-6ccc30378119">
@@ -1062,11 +1129,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/0f97dcdc-020e-345d-9c14-4ec4d4ad913e">
 							<p>
 								<span>See record for</span>
-								<em>Théodore Géricault</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Théodore Géricault</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RH8?canvas=8fe76ec0-34e8-436e-82b8-a831e7fbc7ac">
@@ -1084,11 +1154,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/79a305f5-38b3-341b-8c7e-a12e5edcb437">
 							<p>
 								<span>See record for</span>
-								<em>Nicolas Poussin</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Nicolas Poussin</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/107VSC?canvas=769f2327-0618-4c6c-ad32-7035dd763f26">
@@ -1106,11 +1179,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/52a1349e-3451-36fa-8bc7-b0b7db839973">
 							<p>
 								<span>See record for</span>
-								<em>Joseph Mallord William Turner</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Joseph Mallord William Turner</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103QTP?canvas=ab4b4415-7ea2-407f-9a44-31624bb467ac">
@@ -1128,11 +1204,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/52a1349e-3451-36fa-8bc7-b0b7db839973">
 							<p>
 								<span>See record for</span>
-								<em>Joseph Mallord William Turner</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Joseph Mallord William Turner</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RK1?canvas=835c16ac-bb27-4201-ba02-3d95bfa2cc21">
@@ -1150,11 +1229,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/17f5e2b9-0cd8-39ee-b996-8f43f0317432">
 							<p>
 								<span>See record for</span>
-								<em>Claude-Joseph Vernet</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Claude-Joseph Vernet</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/108J7V?canvas=93ea9e51-4b0a-42a2-b1f6-475a2e911b5d">
@@ -1172,11 +1254,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/6c3aa6be-8515-3971-8fa5-b90c80751309">
 							<p>
 								<span>See record for</span>
-								<em>Jan Brueghel the Elder</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Jan Brueghel the Elder</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RJT?canvas=73ba9096-47d8-4095-84d3-1b22e4b98270">
@@ -1194,11 +1279,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/47a6a315-0cf1-35c1-97ee-e7081703eef9">
 							<p>
 								<span>See record for</span>
-								<em>Jean-François Millet</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Jean-François Millet</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RGZ?canvas=d80d5a81-edda-4650-9c5b-c3449513552c">
@@ -1216,11 +1304,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/f425e5e6-8805-32fa-9d2f-8602010dd524">
 							<p>
 								<span>See record for</span>
-								<em>Dieric Bouts</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Dieric Bouts</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103QS9?canvas=b02a1200-932c-4cc6-b29c-9daddf40e32c">
@@ -1238,11 +1329,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/ef03cc8f-1c6b-3848-8b63-e4c27ef22093">
 							<p>
 								<span>See record for</span>
-								<em>William-Adolphe Bouguereau</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>William-Adolphe Bouguereau</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RAB?canvas=4519972a-b71c-4445-9d19-feb9d186d32e">
@@ -1260,11 +1354,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/50dabfb7-ad46-3f51-bf36-91c08b320795">
 							<p>
 								<span>See record for</span>
-								<em>Jacques Joseph Tissot</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Jacques Joseph Tissot</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/109AHV?canvas=7f951529-a966-453b-ab1f-2f960b7a565e">
@@ -1282,11 +1379,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/e8afe6f1-94aa-3b9e-bdd6-0096ea21ae63">
 							<p>
 								<span>See record for</span>
-								<em>Claude Lorrain (Claude Gellée)</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Claude Lorrain (Claude Gellée)</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/109B65?canvas=d18a18fd-5c58-4b19-a479-cf445606c1d7">
@@ -1304,11 +1404,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/4cf790d0-1631-3178-a0c3-c414e07041b9">
 							<p>
 								<span>See record for</span>
-								<em>Pierre-Auguste Renoir</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Pierre-Auguste Renoir</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RJJ?canvas=7361d7d9-3907-40f7-b487-d0378c107ef6">
@@ -1326,11 +1429,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/dde29a68-fea4-3f3d-89b2-dbc0688a48ae">
 							<p>
 								<span>See record for</span>
-								<em>Rembrandt Harmensz. van Rijn</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Rembrandt Harmensz. van Rijn</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RB6?canvas=a21fe655-2d17-441c-b224-723041db18b9">
@@ -1348,11 +1454,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/1d44a590-d899-34fe-b866-b2b303d34706">
 							<p>
 								<span>See record for</span>
-								<em>Claude Monet</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Claude Monet</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/108HGY?canvas=286d361b-8da7-4a0a-925f-4ab350e605f5">
@@ -1370,11 +1479,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/72b3c586-3588-3799-be34-f6ad3c235dfd">
 							<p>
 								<span>See record for</span>
-								<em>Jean-Antoine Watteau</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Jean-Antoine Watteau</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/109NEP?canvas=c145ef8f-d59b-4422-b695-8c9388cbf848">
@@ -1392,11 +1504,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/dfbe6a15-9257-307b-b237-2e9906b3b077">
 							<p>
 								<span>See record for</span>
-								<em>Giovanni Segantini</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Giovanni Segantini</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/109PHC?canvas=719850ea-ca08-4c7d-8d90-542075acd37d">
@@ -1414,11 +1529,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/f9f357bf-c492-3612-b16c-a0ec2d89b4ef">
 							<p>
 								<span>See record for</span>
-								<em>Hubert Robert</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Hubert Robert</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/10987T?canvas=ed31e38d-068f-41a7-923f-d6daaa174ce7">
@@ -1436,11 +1554,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/5fb5c4fe-07df-327f-8ef7-75f6f61752bf">
 							<p>
 								<span>See record for</span>
-								<em>Jacopo Bassano</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Jacopo Bassano</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/10A1D3?canvas=968c1b0c-9b1d-4526-827e-588437a5ccde">
@@ -1458,11 +1579,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/8daf18af-f59c-313c-ae9f-80d4e01fbc81">
 							<p>
 								<span>See record for</span>
-								<em>Édouard Manet</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Édouard Manet</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103QTZ?canvas=0bd92353-059c-466c-87ab-00086c02304e">
@@ -1480,11 +1604,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/05a80c5b-5a5f-37a8-9456-bba39a54e28c">
 							<p>
 								<span>See record for</span>
-								<em>Pontormo (Jacopo Carucci)</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Pontormo (Jacopo Carucci)</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103QSE?canvas=972b5d89-aa07-4572-9075-c82f520fd1fb">
@@ -1502,11 +1629,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/c44c2286-ae0b-335d-90c7-09278e9985e1">
 							<p>
 								<span>See record for</span>
-								<em>Joaquín Sorolla y Bastida</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Joaquín Sorolla y Bastida</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RES?canvas=798f6d57-f0a8-46be-84b3-2544caa56c44">
@@ -1524,11 +1654,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/c5b51571-9175-3358-96a7-fa551f5516ca">
 							<p>
 								<span>See record for</span>
-								<em>Anton Raphael Mengs</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Anton Raphael Mengs</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/109Q7M?canvas=14ac4123-1aa6-4d2e-8301-f814d1d50ce8">
@@ -1546,11 +1679,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/76c4e2c0-f235-3f5b-a77e-cf936a90a67e">
 							<p>
 								<span>See record for</span>
-								<em>Federico Zuccaro</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Federico Zuccaro</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RCB?canvas=7388a215-a603-4e08-a34a-5cb51acc9fc9">
@@ -1568,11 +1704,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/2ac9e24e-de4c-39d4-94d7-7fc8e0b3520c">
 							<p>
 								<span>See record for</span>
-								<em>Giovanni Battista Tiepolo</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Giovanni Battista Tiepolo</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/108G18?canvas=35b5a2e5-eaba-4b97-9a58-5c73cec3fa90">
@@ -1590,11 +1729,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/e2c5bd6d-1129-397a-823d-eff0df08bd57">
 							<p>
 								<span>See record for</span>
-								<em>Titian (Tiziano Vecellio)</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Titian (Tiziano Vecellio)</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/1096PT?canvas=a8cc6391-5bd6-4b56-910f-7546010b3317">
@@ -1612,11 +1754,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/e2c5bd6d-1129-397a-823d-eff0df08bd57">
 							<p>
 								<span>See record for</span>
-								<em>Titian (Tiziano Vecellio)</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Titian (Tiziano Vecellio)</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103R9F?canvas=6a3de87b-d5b8-46f6-a8d8-cd70bb8efc39">
@@ -1634,11 +1779,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/c97c40a1-2cc6-39d4-be5b-c34d2e2b738e">
 							<p>
 								<span>See record for</span>
-								<em>Canaletto (Giovanni Antonio Canal)</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Canaletto (Giovanni Antonio Canal)</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RAX?canvas=f70a0611-cd18-467c-97ce-f5590a9aadab">
@@ -1656,11 +1804,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/5dfb03ff-efdc-3232-a80a-54cabba27cf9">
 							<p>
 								<span>See record for</span>
-								<em>Paulus Potter</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Paulus Potter</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RJC?canvas=410e5088-5a70-4b89-bf05-e7766cd6fa90">
@@ -1678,11 +1829,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/ff385c4e-eec2-35fc-b070-2c0a9603aa39">
 							<p>
 								<span>See record for</span>
-								<em>Franz Xaver Winterhalter</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Franz Xaver Winterhalter</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RHJ?canvas=74ed2d7b-4458-4881-8358-33da6ed69b90">
@@ -1700,11 +1854,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/da993e37-2df1-3983-b228-747d837786a6">
 							<p>
 								<span>See record for</span>
-								<em>Andrea Mantegna</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Andrea Mantegna</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RHD?canvas=036e3014-e564-4533-8385-a7019c6a1b2c">
@@ -1722,11 +1879,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/acb1769a-7081-3f72-ab2a-1903854697ec">
 							<p>
 								<span>See record for</span>
-								<em>Henri de Toulouse-Lautrec</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Henri de Toulouse-Lautrec</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RFS?canvas=8f04a57e-cd4f-4d6a-be55-e72348b21a8e">
@@ -1744,11 +1904,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/c3256e25-4d3a-35db-8bb8-68b0f3ee77f4">
 							<p>
 								<span>See record for</span>
-								<em>Camille Pissarro</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Camille Pissarro</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RF5?canvas=1bf25fe7-1abd-441c-9946-5881985ee75e">
@@ -1766,11 +1929,14 @@
 						<a href="https://provenance.dev.getty.fargeo.com/report/9aa3fb9d-d670-3b9d-aff2-d72eb3f89b11">
 							<p>
 								<span>See record for</span>
-								<em>Georges de La Tour</em><svg width="17" height="18" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9H16M8 1L16 9L8 17" stroke="currentColor" fill="none"></path>
-								</svg>
+								<em>Georges de La Tour</em>
 							</p>
 						</a>
+						<button data-next-example aria-label="Get another record">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<path d="M8 5.5L5 2.75L8 0V2C11.3086 2 14 4.69165 14 8C14 11.3086 11.3086 14 8 14C4.69141 14 2 11.3086 2 8H3.5C3.5 10.4814 5.51855 12.5 8 12.5C10.4814 12.5 12.5 10.4814 12.5 8C12.5 5.5188 10.4814 3.5 8 3.5V5.5Z"></path>
+							</svg>
+						</button>
 					</aside>
 					<cite>
 						<a href="https://www.getty.edu/art/collection/object/103RCX?canvas=997d642c-0594-44b9-b9d4-d0526749e5ee">
