@@ -228,6 +228,9 @@
 
 					/* Record link. */
 					aside {
+						align-items:        end;
+						column-gap:         1em;
+						display:            flex;
 						filter:             drop-shadow(0 0.05em 0.5em var(--color--tint));
 						font-size:          var(--type--size--medium);
 						font-weight:        var(--type--weight--medium);
@@ -237,22 +240,28 @@
 						justify-self:       center;
 						letter-spacing:     var(--type--letter-spacing--medium);
 						margin-block-start: 1em;
-						margin-inline:      var(--layout--gutter);
 						max-inline-size:    var(--layout--search);
 						z-index:            1;
-					}
 
-					a {
-						inline-size: fit-content;
-						text-wrap:   balance;
+						a {
+							overflow: hidden;
 
-						/* Arrows. */
-						svg {
-							block-size:          0.75em;
-							inset-block-start:   0.1em;
-							margin-inline-start: 0.5em;
-							position:            relative;
-							stroke-width:        0.1333em;
+							p {
+								overflow:      hidden;
+								text-overflow: ellipsis;
+								white-space:   nowrap;
+							}
+						}
+
+						/* “Next” example. */
+						button {
+							align-items: center;
+							display:     flex;
+
+							svg {
+								block-size: 1em;
+								fill:       currentcolor;
+							}
 						}
 					}
 
@@ -266,6 +275,20 @@
 						margin-inline-start: var(--layout--gutter);
 						max-inline-size:     calc(100% - 15em);
 						z-index:             1;
+
+						a {
+							max-inline-size: fit-content;
+							text-wrap:       balance;
+
+							/* Arrows. */
+							svg {
+								block-size:          0.75em;
+								inset-block-start:   0.1em;
+								margin-inline-start: 0.5em;
+								position:            relative;
+								stroke-width:        0.1333em;
+							}
+						}
 					}
 
 					/* Image backgrounds. */

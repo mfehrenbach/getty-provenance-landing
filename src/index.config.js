@@ -102,6 +102,7 @@ export default {
 	},
 	record: {
 		intro: 'See record for',
+		button: 'Get another record',
 		examples: [
 			{
 				// Van Gogh’s “Irises.”

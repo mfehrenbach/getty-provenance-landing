@@ -74,6 +74,9 @@
 								<em @text="exampleName(example)"></em>
 							</p>
 						</a>
+						<button data-next-example :aria-label="record.button">
+							<svg webc:nokeep @html="inlineSvg('assets/icons/refresh.svg')"></svg>
+						</button>
 					</aside>
 					<cite>
 						<a :href="exampleUrl(example)">
@@ -84,7 +87,6 @@
 					</cite>
 				</li>
 			</ul>
-			<!--- TODO Button for random example!--->
 		</main>
 		<footer>
 			<p @text="footer.notice"></p>
