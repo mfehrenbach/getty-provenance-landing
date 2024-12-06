@@ -72,8 +72,4 @@ export default function(eleventyConfig) {
 		}
 		return content
 	})
-
-	// TODO Remove CSS comments from compiled output!
-	// TODO local compile-to-public script
-	// TODO Object count query on build/deploy?
 }

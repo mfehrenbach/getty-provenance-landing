@@ -13,7 +13,6 @@
 		<script webc:keep @raw="getBundle('js')" type="module"></script>
 	</head>
 	<body>
-		<!-- TODO Skip link! -->
 		<header>
 			<nav aria-label="Breadcrumb">
 				<ol>

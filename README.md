@@ -15,3 +15,14 @@ The site is also [built and served](https://mfehrenbach.github.io/getty-provenan
 ## Questions
 
 This was designed and put together by [@mfehrenbach](https://github.com/mfehrenbach), if anything else comes up! ✊
+
+<!--
+## Leftover TODOs
+
+- Remove CSS comments on build
+- “Skip to content” link
+- Local update-`public`-branch build script
+- Initial object count query on build/deploy
+- Randomize `background-image` positions
+- Animate (“Ken Burns”) `background-image`
+-->
