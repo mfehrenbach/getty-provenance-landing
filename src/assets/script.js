@@ -38,18 +38,22 @@ fetch(`${apiUrl}/sparql?query=${encodeURIComponent(sparqlQuery)}&format=applicat
 	.catch(error => { throw new Error(error) })
 
 
-const examples = document.querySelectorAll('#examples li')
-const randomExample = examples[Math.floor(Math.random() * examples.length)]
-
-randomExample.classList.add('active', 'loading')
-
-const backgroundImageLoaded = () => {
+const backgroundImageLoaded = (example) => {
 	const img = new Image()
-	img.src = window.getComputedStyle(randomExample).getPropertyValue('--background-image').slice(5, -2)
+	img.src = window.getComputedStyle(example).getPropertyValue('--background-image').slice(5, -2)
 	img.onload = () => {
-		if (img.height > img.width) randomExample.classList.add('portrait')
-		randomExample.classList.remove('loading')
+		if (img.height > img.width) example.classList.add('portrait')
+		example.classList.remove('loading')
 	}
 }
 
-backgroundImageLoaded()
+const toggleRandomExample = () => {
+	const examples = document.querySelectorAll('#examples li')
+	const randomExample = examples[Math.floor(Math.random() * examples.length)]
+
+	randomExample.classList.add('active', 'loading')
+
+	backgroundImageLoaded(randomExample)
+}
+
+toggleRandomExample()
