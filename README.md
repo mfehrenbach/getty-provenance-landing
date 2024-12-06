@@ -23,6 +23,7 @@ This was designed and put together by [@mfehrenbach](https://github.com/mfehrenb
 - “Skip to content” link
 - Local update-`public`-branch build script
 - Initial object count query on build/deploy
+- Automatic “show another example” on a timer/sequence
 - Randomize `background-image` positions
 - Animate (“Ken Burns”) `background-image`
 -->
