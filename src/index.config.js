@@ -36,6 +36,7 @@ export default {
 	],
 	search:  {
 		label:  'Search <data></data> records…',
+		button: 'Submit search',
 		types: [
 			{
 				title: 'Any type',
@@ -98,7 +99,6 @@ export default {
 				value: '933ee880-b4b5-11ea-84f7-3af9d3b32b71',
 			},
 		],
-		button: 'Search',
 	},
 	record: {
 		intro: 'See record for',
