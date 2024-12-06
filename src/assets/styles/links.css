@@ -56,3 +56,19 @@
 }
 
 :is(button):where(:not([disabled]))::after { --link--enlargement--element: 100% }
+
+/* Fix ridic longstanding SVG-in-link transitions bug: https://stackoverflow.com/q/22593883/ */
+@supports (font: -apple-system-body) {
+	:where(a, button, fieldset) svg {
+		color:               currentcolor; /* Pass down to children. */
+		scale:               1; /* Gets rid of the ol’ bobbles. */
+		transition-property: color;
+		will-change:         color;
+
+		/* Then `currentColor` from this, on the contents inside. */
+		:where(circle, ellipse, line, path, polygon, polyline, rect) {
+			&:not([stroke='none']) { stroke: currentcolor }
+			&:not([fill='none'])   { fill:   currentcolor }
+		}
+	}
+}
